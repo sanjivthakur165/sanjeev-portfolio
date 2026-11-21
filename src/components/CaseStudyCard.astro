@@ -1,0 +1,99 @@
+---
+import type { CaseStudy } from '../data/case-studies';
+
+export interface Props {
+  caseStudy: CaseStudy;
+  featured?: boolean;
+}
+
+const { caseStudy, featured = false } = Astro.props;
+---
+
+<article class="bg-glass-card rounded-3xl p-6 sm:p-10 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden flex flex-col justify-between">
+  
+  <!-- Top ambient glow on hover -->
+  <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-rose-200/40 dark:bg-night-magenta/20 blur-2xl group-hover:bg-rose-300/60 dark:group-hover:bg-night-cyan/30 transition-colors pointer-events-none" aria-hidden="true"></div>
+
+  <div>
+    <!-- Badges Row -->
+    <div class="flex flex-wrap items-center gap-2 mb-6">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-semibold bg-rose-100 dark:bg-night-ocean text-rose-800 dark:text-night-cyan border border-rose-200/80 dark:border-night-cyan/30 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dark:bg-night-cyan mr-2"></span>
+        {caseStudy.statusBadge}
+      </span>
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-night-ocean/70 text-zinc-700 dark:text-night-muted transition-colors">
+        {caseStudy.industry}
+      </span>
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-50 dark:bg-night-ocean/80 text-orange-700 dark:text-night-coral border border-orange-200/60 dark:border-night-coral/30 transition-colors">
+        {caseStudy.location}
+      </span>
+    </div>
+
+    <!-- Big Headline Metric Highlight -->
+    <div class="flex items-baseline space-x-3 mb-4">
+      <span class="text-4xl sm:text-5xl lg:text-6xl font-serif font-extrabold text-gradient-vice tracking-tight">
+        {caseStudy.headlineMetric}
+      </span>
+      <span class="text-sm sm:text-base font-semibold text-zinc-700 dark:text-night-muted transition-colors">
+        {caseStudy.headlineMetricLabel}
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h3 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light group-hover:text-rose-600 dark:group-hover:text-night-cyan transition-colors leading-snug mb-3">
+      <a href={`/case-studies/${caseStudy.slug}`}>
+        {caseStudy.title}
+      </a>
+    </h3>
+
+    <!-- Summary -->
+    <p class="text-zinc-600 dark:text-night-muted text-sm sm:text-base leading-relaxed mb-6 transition-colors">
+      {caseStudy.heroSummary}
+    </p>
+
+    <!-- Key Metrics Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+      {caseStudy.metrics.map((m) => (
+        <div class="p-3.5 rounded-xl bg-white/80 dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20 shadow-sm transition-colors">
+          <div class="text-xl font-bold font-serif text-rose-600 dark:text-night-cyan">{m.value}</div>
+          <div class="text-xs font-semibold text-zinc-800 dark:text-night-light mt-0.5">{m.label}</div>
+          <div class="text-[11px] text-zinc-500 dark:text-night-muted mt-1 leading-tight">{m.context}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Core SEO Activities List / Pills -->
+    <div class="space-y-2 mb-8">
+      <div class="text-xs uppercase font-mono font-bold tracking-wider text-zinc-400 dark:text-night-muted">Key SEO Activities</div>
+      <div class="flex flex-wrap gap-1.5">
+        {caseStudy.activities.slice(0, 6).map((activity) => (
+          <span class="text-xs px-2.5 py-1 rounded-md bg-rose-50/80 dark:bg-night-ocean/60 text-zinc-700 dark:text-night-light border border-rose-100 dark:border-night-cyan/20 transition-colors">
+            {activity}
+          </span>
+        ))}
+        {caseStudy.activities.length > 6 && (
+          <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-50 dark:bg-night-ocean/40 text-zinc-500 dark:text-night-muted border border-zinc-200 dark:border-night-cyan/15 transition-colors">
+            +{caseStudy.activities.length - 6} more
+          </span>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA Link -->
+  <div class="pt-6 border-t border-rose-100 dark:border-night-cyan/20 flex items-center justify-between transition-colors">
+    <span class="text-xs font-mono text-zinc-400 dark:text-night-muted">
+      Verified Client Case Study
+    </span>
+    <a
+      href={`/case-studies/${caseStudy.slug}`}
+      class="inline-flex items-center text-sm font-semibold text-rose-600 dark:text-night-cyan group-hover:text-rose-700 dark:group-hover:text-night-pink group-hover:translate-x-1 transition-all"
+    >
+      View Detailed Breakdown
+      <svg class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+    </a>
+  </div>
+
+</article>

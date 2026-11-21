@@ -1,0 +1,178 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import NightPalmBackground from '../components/NightPalmBackground.astro';
+import { siteConfig } from '../data/seo-config';
+import { profileData } from '../data/profile';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string;
+  type?: 'website' | 'article' | 'profile';
+  breadcrumbs?: { name: string; url: string }[];
+}
+
+const {
+  title,
+  description = siteConfig.defaultDescription,
+  canonicalPath = '',
+  image = '/images/profile-placeholder.svg',
+  type = 'website',
+  breadcrumbs = []
+} = Astro.props;
+
+const pageTitle = title 
+  ? `${title} | ${siteConfig.siteName}` 
+  : siteConfig.defaultTitle;
+
+const canonicalUrl = `${siteConfig.siteUrl}${canonicalPath}`;
+const ogImageUrl = image.startsWith('http') ? image : `${siteConfig.siteUrl}${image}`;
+
+// Schema.org Person Schema
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": profileData.name,
+  "jobTitle": profileData.role,
+  "description": siteConfig.defaultDescription,
+  "url": siteConfig.siteUrl,
+  "email": `mailto:${profileData.email}`,
+  "telephone": profileData.phone,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bengaluru",
+    "addressCountry": "India"
+  },
+  "sameAs": [
+    profileData.linkedIn
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "vSplash Techlabs"
+  },
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "B.A. College of Engineering & Technology"
+  },
+  "knowsAbout": [
+    "Search Engine Optimization (SEO)",
+    "Technical SEO",
+    "On-Page SEO",
+    "Local SEO",
+    "Google Search Console",
+    "Google Analytics 4",
+    "Crawlability & Indexing",
+    "Answer Engine Optimization (AEO)",
+    "Generative Engine Optimization (GEO)"
+  ]
+};
+
+// Schema.org WebSite Schema
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteConfig.siteName,
+  "url": siteConfig.siteUrl,
+  "description": siteConfig.defaultDescription,
+  "publisher": {
+    "@type": "Person",
+    "name": profileData.name
+  }
+};
+
+// Schema.org BreadcrumbList Schema (if breadcrumbs provided)
+const breadcrumbSchema = breadcrumbs.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((crumb, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "name": crumb.name,
+    "item": `${siteConfig.siteUrl}${crumb.url}`
+  }))
+} : null;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Anti-FOUC Theme Script (Synchronous execution before DOM paint) -->
+    <script is:inline>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'night') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'night');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'day');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Primary Meta Tags -->
+    <title>{pageTitle}</title>
+    <meta name="title" content={pageTitle} />
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.author} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content={siteConfig.themeColor} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content={siteConfig.siteName} />
+    <meta property="og:locale" content={siteConfig.locale} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageUrl} />
+    {siteConfig.twitterHandle && <meta name="twitter:creator" content={siteConfig.twitterHandle} />}
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+  </head>
+  <body class="flex flex-col min-h-screen text-pastel-dark dark:text-night-light selection:bg-rose-200 dark:selection:bg-night-magenta dark:selection:text-white transition-colors duration-300">
+    <!-- Tropical Palm Tree Night Background (Visible only in Night Mode, inspired by reference image) -->
+    <NightPalmBackground />
+
+    <!-- Ambient Vice City Sunset Glow Backdrop (Day Mode only) -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden dark:hidden" aria-hidden="true">
+      <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-rose-200/40 blur-3xl transition-colors duration-500"></div>
+      <div class="absolute top-1/4 -right-32 w-96 h-96 rounded-full bg-orange-100/50 blur-3xl transition-colors duration-500"></div>
+      <div class="absolute top-2/3 left-1/3 w-[32rem] h-[32rem] rounded-full bg-purple-100/40 blur-3xl transition-colors duration-500"></div>
+    </div>
+
+    <!-- Navigation Header with GTA VI Squiggly Highway -->
+    <Header />
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow pt-28">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+  </body>
+</html>

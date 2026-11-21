@@ -1,0 +1,38 @@
+---
+export interface Props {
+  badge?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+  gradientTitle?: boolean;
+}
+
+const {
+  badge,
+  title,
+  subtitle,
+  align = 'center',
+  gradientTitle = false
+} = Astro.props;
+
+const alignmentClasses = align === 'center' ? 'text-center mx-auto items-center' : 'text-left items-start';
+---
+
+<div class={`flex flex-col max-w-3xl mb-12 sm:mb-16 ${alignmentClasses}`}>
+  {badge && (
+    <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-rose-100/80 dark:bg-night-ocean/90 text-rose-700 dark:text-night-cyan border border-rose-200/80 dark:border-night-cyan/30 mb-4 shadow-sm transition-colors duration-300">
+      <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dark:bg-night-cyan"></span>
+      <span>{badge}</span>
+    </div>
+  )}
+
+  <h2 class={`text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight ${gradientTitle ? 'text-gradient-vice' : 'text-zinc-900 dark:text-night-light'} leading-tight transition-colors duration-300`}>
+    {title}
+  </h2>
+
+  {subtitle && (
+    <p class="mt-4 text-base sm:text-lg text-zinc-600 dark:text-night-muted leading-relaxed max-w-2xl transition-colors duration-300">
+      {subtitle}
+    </p>
+  )}
+</div>

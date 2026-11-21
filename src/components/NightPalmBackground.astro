@@ -1,0 +1,33 @@
+---
+// Tropical Palm Tree Night Background
+// Inspired by Pinterest reference: https://i.pinimg.com/736x/a1/a3/b6/a1a3b60e3d1a7d684ca8521ad822e7a9.jpg
+// Features Vice City sunset twilight sky with prominent palm tree silhouettes framing the background.
+---
+
+<div
+  id="night-palm-backdrop"
+  class="fixed inset-0 pointer-events-none -z-20 overflow-hidden hidden dark:block transition-opacity duration-500 select-none"
+  aria-hidden="true"
+>
+  <!-- Desktop & Tablet Landscape: 2560x1440 master wallpaper with palm trees framing the screen margins -->
+  <img
+    src="/images/night-palm-widescreen-pure.jpg"
+    alt=""
+    class="hidden md:block w-full h-full object-cover object-center"
+    loading="eager"
+    decoding="async"
+  />
+
+  <!-- Mobile & Tablet Portrait: Vertical framing matching the reference image ratio -->
+  <img
+    src="/images/night-palm-mobile.jpg"
+    alt=""
+    class="block md:hidden w-full h-full object-cover object-center"
+    loading="eager"
+    decoding="async"
+  />
+
+  <!-- Ambient Twilight Shading: keeps background colors vibrant while providing soft central contrast for text -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#071026]/35 via-[#071026]/20 to-[#071026]/55 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(7,16,38,0.45)_0%,rgba(7,16,38,0.15)_65%,transparent_100%)] pointer-events-none"></div>
+</div>

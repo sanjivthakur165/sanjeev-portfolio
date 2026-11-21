@@ -1,0 +1,269 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import MetricCard from '../../components/MetricCard.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { caseStudies } from '../../data/case-studies';
+
+const caseStudy = caseStudies.find(c => c.slug === 'electrical')!;
+
+const crumbs = [
+  { name: 'Case Studies', url: '/case-studies' },
+  { name: 'Electrical Contracting (South Florida)', url: '/case-studies/electrical' }
+];
+---
+
+<BaseLayout
+  title={`${caseStudy.title} | Case Study`}
+  description="How a South Florida electrical contracting business generated ~3x growth in Google Search Console impressions in under 2 months during an ongoing SEO campaign."
+  canonicalPath="/case-studies/electrical"
+  breadcrumbs={crumbs}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- Project Header Hero -->
+    <div class="max-w-4xl mb-12 sm:mb-16">
+      
+      <!-- Meta Badges -->
+      <div class="flex flex-wrap items-center gap-2 mb-6">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 dark:bg-night-ocean text-amber-800 dark:text-night-coral border border-amber-200 dark:border-night-coral/30">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-500 dark:bg-night-coral mr-2 animate-pulse"></span>
+          {caseStudy.statusBadge}
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-night-ocean/70 text-zinc-700 dark:text-night-muted border border-transparent dark:border-night-cyan/20">
+          Industry: {caseStudy.industry}
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-50 dark:bg-night-ocean text-orange-700 dark:text-night-coral border border-orange-200/60 dark:border-night-coral/30">
+          Location: {caseStudy.location}
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-extrabold text-zinc-900 dark:text-night-light leading-[1.1] mb-6">
+        {caseStudy.title}
+      </h1>
+
+      <p class="text-xl sm:text-2xl text-zinc-700 dark:text-night-muted font-serif leading-relaxed font-normal">
+        {caseStudy.heroSummary}
+      </p>
+
+    </div>
+
+    <!-- Metric Callout Cards (Large Visual Display) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+      {caseStudy.metrics.map((m, idx) => (
+        <MetricCard
+          value={m.value}
+          label={m.label}
+          detail={m.detail}
+          context={m.context}
+          highlight={idx === 0}
+        />
+      ))}
+    </div>
+
+    <!-- Strict Metric Distinction Notice -->
+    <div class="p-5 rounded-2xl bg-orange-50/80 dark:bg-night-ocean/80 border border-orange-200 dark:border-night-coral/30 mb-16 flex items-start space-x-3.5 shadow-xs">
+      <div class="text-orange-600 dark:text-night-coral text-lg mt-0.5">⚠️</div>
+      <div class="text-xs sm:text-sm text-zinc-700 dark:text-night-muted leading-relaxed">
+        <strong class="text-zinc-900 dark:text-night-light">Important Metric Qualification:</strong> The documented <strong>~3x growth refers strictly to Google Search Console impressions</strong>. This represents early search indexing footprint and SERP visibility expansion. It is explicitly not presented as a 3x increase in organic clicks, site sessions, leads, or revenue. The campaign remains active with ongoing conversion optimization scheduled.
+      </div>
+    </div>
+
+    <!-- Main Content Layout (Grid) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24">
+      
+      <!-- Left Column: Detailed Case Study Narrative -->
+      <div class="lg:col-span-8 space-y-12">
+        
+        <!-- Section: Overview & Objective -->
+        <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
+            Project Overview &amp; Early Objectives
+          </h2>
+          <p class="text-zinc-700 dark:text-night-muted leading-relaxed text-base sm:text-lg">
+            {caseStudy.objective}
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-white dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
+              <span class="text-xs font-mono uppercase text-zinc-400 dark:text-night-muted/70 font-semibold block">Client Focus</span>
+              <span class="font-serif font-bold text-zinc-900 dark:text-night-light text-base">{caseStudy.clientType}</span>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
+              <span class="text-xs font-mono uppercase text-zinc-400 dark:text-night-muted/70 font-semibold block">Campaign Stage</span>
+              <span class="font-serif font-bold text-zinc-900 dark:text-night-light text-base">Under 2 Months (Active)</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Initial Challenges -->
+        <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
+            Initial Challenges &amp; Regional Landscape
+          </h2>
+          <p class="text-zinc-700 dark:text-night-muted leading-relaxed">
+            Prior to launching the ongoing campaign, the business was largely invisible for specialized electrical queries across South Florida:
+          </p>
+          <ul class="space-y-3 pt-1">
+            {caseStudy.challenges.map((challenge) => (
+              <li class="flex items-start text-sm sm:text-base text-zinc-700 dark:text-night-muted">
+                <span class="text-orange-500 dark:text-night-coral font-bold mr-3 mt-1 flex-shrink-0">✕</span>
+                <span>{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Section: SEO Strategy & Phased Implementation -->
+        <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-8">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
+              SEO Strategy &amp; Execution Framework
+            </h2>
+            <p class="text-zinc-700 dark:text-night-muted leading-relaxed mt-2">
+              {caseStudy.strategyOverview}
+            </p>
+          </div>
+
+          <!-- Structured Phases Timeline -->
+          <div class="space-y-6">
+            {caseStudy.implementationPhases.map((phase, idx) => (
+              <div class="p-6 rounded-2xl bg-white dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20 shadow-2xs space-y-3">
+                <div class="flex items-center space-x-2">
+                  <span class="w-6 h-6 rounded-full bg-orange-500 dark:bg-night-coral text-white font-mono text-xs flex items-center justify-center font-bold">
+                    {idx + 1}
+                  </span>
+                  <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">
+                    {phase.phaseTitle}
+                  </h3>
+                </div>
+                <ul class="space-y-2 text-sm text-zinc-600 dark:text-night-muted pl-8">
+                  {phase.items.map((item) => (
+                    <li class="list-disc">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Section: Visual Performance Evidence Mockup / Placeholder -->
+        <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <span class="text-xs font-mono font-bold text-orange-600 dark:text-night-coral uppercase tracking-wider">Search Console Evidence</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light mt-1">
+                GSC Search Impressions Trajectory
+              </h2>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-50 dark:bg-night-ocean text-amber-800 dark:text-night-coral border border-amber-200 dark:border-night-coral/30">
+              Under 2 Months • Ongoing
+            </span>
+          </div>
+
+          <p class="text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
+            Search impressions in Google Search Console scaled approximately threefold (~3x) as newly mapped electrical service queries indexed and began securing page-one positions.
+          </p>
+
+          <!-- Evidence Container with SVG Graph -->
+          <div class="rounded-2xl overflow-hidden border border-orange-200 dark:border-night-cyan/20 bg-white dark:bg-night-midnight shadow-md">
+            <img
+              src="/images/case-studies/electrical-evidence-placeholder.svg"
+              alt="Google Search Console performance chart showing ~3x impressions growth for South Florida electrical contractor"
+              class="w-full h-auto object-cover"
+              width="900"
+              height="500"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="p-4 rounded-xl bg-orange-50/60 dark:bg-night-ocean/60 border border-orange-100 dark:border-night-cyan/20 text-xs font-mono text-zinc-500 dark:text-night-muted flex items-center justify-between">
+            <span>Evidence File: Electrical GSC.png / Impressions Velocity</span>
+            <span class="text-orange-700 dark:text-night-coral font-semibold">Client Anonymized • Live Campaign</span>
+          </div>
+        </section>
+
+        <!-- Section: Documented Results & Ongoing Strategy -->
+        <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
+            Results to Date &amp; Active Next Steps
+          </h2>
+          <p class="text-zinc-700 dark:text-night-muted leading-relaxed text-base sm:text-lg">
+            {caseStudy.resultsSummary}
+          </p>
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-night-ocean dark:to-night-ocean/60 border border-orange-200 dark:border-night-coral/30">
+            <div class="text-3xl font-serif font-extrabold text-orange-600 dark:text-night-coral">~3x Increase</div>
+            <div class="font-bold text-sm text-zinc-900 dark:text-night-light mt-1">Google Search Console Impressions</div>
+            <div class="text-xs text-zinc-600 dark:text-night-muted mt-1 leading-relaxed">
+              Rapid early indicator confirming crawlability improvements and keyword footprint expansion. Subsequent campaign phases will focus on click-through rate optimization and localized map conversion.
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: Sidebar Quick Summary & Activities -->
+      <div class="lg:col-span-4 space-y-6 sticky top-28">
+        
+        <!-- Summary Box -->
+        <div class="bg-glass-card rounded-3xl p-6 sm:p-8 border border-rose-100 dark:border-night-cyan/20 space-y-6">
+          <h3 class="font-serif text-xl font-bold text-zinc-900 dark:text-night-light">Campaign Summary</h3>
+          
+          <div class="space-y-4 text-xs sm:text-sm text-zinc-700 dark:text-night-muted">
+            <div>
+              <span class="text-zinc-400 dark:text-night-muted/70 font-mono uppercase text-xs block">Measurement Window</span>
+              <span class="font-bold text-zinc-900 dark:text-night-light">{caseStudy.timeline}</span>
+            </div>
+            <div>
+              <span class="text-zinc-400 dark:text-night-muted/70 font-mono uppercase text-xs block">Primary Metric</span>
+              <span class="font-bold text-orange-600 dark:text-night-coral">~3x GSC Impressions</span>
+            </div>
+            <div>
+              <span class="text-zinc-400 dark:text-night-muted/70 font-mono uppercase text-xs block">Status</span>
+              <span class="font-bold text-emerald-600 dark:text-night-cyan">Active / Ongoing Execution</span>
+            </div>
+            <div>
+              <span class="text-zinc-400 dark:text-night-muted/70 font-mono uppercase text-xs block">Engagement</span>
+              <span class="font-bold text-zinc-900 dark:text-night-light">{caseStudy.engagementType}</span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-rose-100 dark:border-night-cyan/20">
+            <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400 dark:text-night-muted/70 mb-3">All Activities Conducted</h4>
+            <ul class="space-y-2 text-xs text-zinc-700 dark:text-night-muted">
+              {caseStudy.activities.map((act) => (
+                <li class="flex items-center">
+                  <span class="w-1.5 h-1.5 rounded-full bg-orange-500 dark:bg-night-coral mr-2 flex-shrink-0"></span>
+                  <span>{act}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Previous Case Study Link -->
+        <div class="bg-glass-card rounded-2xl p-6 border border-rose-100 dark:border-night-cyan/20">
+          <span class="text-xs font-mono uppercase text-zinc-400 dark:text-night-muted/70 block mb-1">Previous Case Study</span>
+          <a
+            href="/case-studies/construction"
+            class="group block"
+          >
+            <div class="font-serif font-bold text-zinc-900 dark:text-night-light text-lg group-hover:text-rose-600 dark:group-hover:text-night-cyan transition-colors">
+              Construction — South Florida
+            </div>
+            <div class="text-xs text-rose-600 dark:text-night-cyan font-semibold mt-1 flex items-center">
+              ← 200%+ GA4 Sessions &amp; Clicks in 3 Mo
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Contact CTA -->
+    <ContactCTA />
+
+  </div>
+</BaseLayout>

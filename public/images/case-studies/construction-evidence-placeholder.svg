@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" fill="none">
+  <defs>
+    <linearGradient id="cBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFF5F5"/>
+    </linearGradient>
+    <linearGradient id="cLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="50%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="cArea" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDA4AF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFF1F2" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Container -->
+  <rect width="900" height="500" rx="20" fill="url(#cBg)" stroke="#FECDD3" stroke-width="2"/>
+
+  <!-- Window Header / Browser Bar -->
+  <rect width="900" height="56" rx="20" fill="#FFF1F2"/>
+  <rect y="40" width="900" height="16" fill="#FFF1F2"/>
+  <circle cx="36" cy="28" r="6" fill="#FDA4AF"/>
+  <circle cx="56" cy="28" r="6" fill="#FCD34D"/>
+  <circle cx="76" cy="28" r="6" fill="#86EFAC"/>
+  <rect x="120" y="16" width="360" height="24" rx="12" fill="#FFFFFF" stroke="#FDE2E4"/>
+  <text x="140" y="32" font-family="'JetBrains Mono', monospace" font-size="11" fill="#9F1239">GSC &amp; GA4 Verified Performance • 3-Month Window</text>
+
+  <rect x="730" y="16" width="130" height="24" rx="12" fill="#FFE4E6"/>
+  <text x="795" y="32" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#9F1239" text-anchor="middle">CLIENT ANONYMIZED</text>
+
+  <!-- Graph Grid Lines -->
+  <line x1="80" y1="120" x2="820" y2="120" stroke="#FEE2E2" stroke-dasharray="4 4"/>
+  <line x1="80" y1="190" x2="820" y2="190" stroke="#FEE2E2" stroke-dasharray="4 4"/>
+  <line x1="80" y1="260" x2="820" y2="260" stroke="#FEE2E2" stroke-dasharray="4 4"/>
+  <line x1="80" y1="330" x2="820" y2="330" stroke="#FEE2E2" stroke-dasharray="4 4"/>
+  <line x1="80" y1="400" x2="820" y2="400" stroke="#E2E8F0"/>
+
+  <!-- Performance Area + Line (Representing 200%+ Surge) -->
+  <path d="M 80 380 Q 200 370 320 340 T 520 230 T 700 150 L 820 120 L 820 400 L 80 400 Z" fill="url(#cArea)"/>
+  <path d="M 80 380 Q 200 370 320 340 T 520 230 T 700 150 L 820 120" fill="none" stroke="url(#cLine)" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Highlight Data Points -->
+  <circle cx="80" cy="380" r="6" fill="#FFFFFF" stroke="#F43F5E" stroke-width="3"/>
+  <circle cx="320" cy="340" r="6" fill="#FFFFFF" stroke="#F43F5E" stroke-width="3"/>
+  <circle cx="520" cy="230" r="6" fill="#FFFFFF" stroke="#F43F5E" stroke-width="3"/>
+  <circle cx="820" cy="120" r="8" fill="#F43F5E" stroke="#FFFFFF" stroke-width="3"/>
+
+  <!-- Callout Badge on +200% Surge -->
+  <g transform="translate(640, 75)">
+    <rect width="180" height="58" rx="12" fill="#18181B" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.15))"/>
+    <text x="90" y="24" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#FDA4AF" text-anchor="middle">TOTAL SURGE</text>
+    <text x="90" y="46" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF" text-anchor="middle">+200% GA4 &amp; Clicks</text>
+  </g>
+
+  <!-- Metric Overview Cards below graph -->
+  <g transform="translate(80, 420)">
+    <text x="0" y="20" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#52525B">Month 1: Strategy &amp; Mapping</text>
+    <text x="280" y="20" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#52525B">Month 2: On-Page &amp; GBP Rollout</text>
+    <text x="560" y="20" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Month 3: +200% Verified Peak</text>
+  </g>
+</svg>

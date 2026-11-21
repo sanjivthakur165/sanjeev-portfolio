@@ -1,0 +1,133 @@
+---
+import { profileData } from '../data/profile';
+---
+
+<section class="relative pt-6 pb-16 sm:pb-24 lg:pb-32 overflow-hidden">
+  
+  <!-- Subtle Sunset Sunburst & Night Vice City Silhouettes in Background -->
+  <div class="absolute top-0 right-0 w-full sm:w-2/3 h-full pointer-events-none -z-10 opacity-30 sm:opacity-40 dark:opacity-25" aria-hidden="true">
+    <svg viewBox="0 0 800 800" fill="none" class="w-full h-full">
+      <circle cx="650" cy="200" r="280" fill="url(#heroSunGlow)" opacity="0.6"/>
+      <g opacity="0.18" class="fill-[#E11D48] dark:fill-night-cyan">
+        <path d="M 800 120 Q 660 160 560 260 Q 640 230 740 210 Z"/>
+        <path d="M 800 200 Q 620 220 500 340 Q 620 290 750 290 Z"/>
+        <path d="M 800 290 Q 610 320 480 480 Q 600 400 750 410 Z"/>
+      </g>
+      <defs>
+        <radialGradient id="heroSunGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FDA4AF" stop-opacity="0.8"/>
+          <stop offset="60%" stop-color="#FED7AA" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#FFF1F2" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Left Content (Editorial Headline & Intro) -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        
+        <!-- Role & Location Badge -->
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-rose-100/90 dark:bg-night-ocean/90 text-rose-800 dark:text-night-cyan border border-rose-200/80 dark:border-night-cyan/30 shadow-xs transition-colors duration-300">
+          <span class="w-2 h-2 rounded-full bg-rose-500 dark:bg-night-cyan animate-pulse"></span>
+          <span>{profileData.role}</span>
+          <span class="text-rose-300 dark:text-night-electric">•</span>
+          <span class="text-zinc-600 dark:text-night-muted">{profileData.location}</span>
+        </div>
+
+        <!-- Master Headline -->
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-zinc-900 dark:text-night-light leading-[1.08] transition-colors duration-300">
+          Turning Search Visibility Into <span class="text-gradient-vice underline decoration-rose-300/40 dark:decoration-night-cyan/40 decoration-wavy decoration-from-font">Sustainable Growth.</span>
+        </h1>
+
+        <!-- Supporting Text -->
+        <p class="text-lg sm:text-xl text-zinc-600 dark:text-night-muted leading-relaxed font-normal max-w-2xl transition-colors duration-300">
+          {profileData.subheadline}
+        </p>
+
+        <!-- CTAs -->
+        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <a
+            href={profileData.cta.primaryHref}
+            class="inline-flex items-center justify-center px-8 py-4 rounded-full text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-cyan dark:via-night-magenta dark:to-night-pink hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-cyan dark:hover:to-night-magenta shadow-lg shadow-rose-500/25 dark:shadow-night-magenta/30 hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            {profileData.cta.primaryText}
+            <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+
+          <a
+            href={profileData.cta.secondaryHref}
+            class="inline-flex items-center justify-center px-7 py-4 rounded-full text-base font-semibold text-zinc-800 dark:text-night-light bg-white/80 hover:bg-white dark:bg-night-ocean/80 dark:hover:bg-night-ocean border border-rose-200/80 dark:border-night-cyan/30 shadow-sm hover:shadow-md hover:border-rose-300 dark:hover:border-night-cyan transition-all"
+          >
+            {profileData.cta.secondaryText}
+          </a>
+        </div>
+
+        <!-- Proof Pillars Bar -->
+        <div class="pt-8 border-t border-rose-100/80 dark:border-night-cyan/20 grid grid-cols-3 gap-4 max-w-lg transition-colors duration-300">
+          <div>
+            <div class="text-2xl sm:text-3xl font-serif font-extrabold text-zinc-900 dark:text-night-light">4+</div>
+            <div class="text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-0.5">Years SEO Exp.</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-serif font-extrabold text-rose-600 dark:text-night-cyan">+200%</div>
+            <div class="text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-0.5">Organic Surge</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-serif font-extrabold text-orange-600 dark:text-night-magenta">4 Team</div>
+            <div class="text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-0.5">Associates Led</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Editorial Profile Placeholder Portrait -->
+      <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
+        
+        <!-- Framing Container -->
+        <div class="relative w-full max-w-md">
+          
+          <!-- Decorative Sunset / Night Aura Behind Card -->
+          <div class="absolute -inset-4 bg-gradient-to-tr from-rose-400 via-pink-300 to-orange-300 dark:from-night-cyan/30 dark:via-night-magenta/20 dark:to-night-amber/20 rounded-[2.5rem] opacity-30 dark:opacity-40 blur-2xl -z-10 transition-all duration-500"></div>
+          
+          <!-- Editorial Portrait Card -->
+          <div class="relative rounded-3xl overflow-hidden bg-white/60 dark:bg-night-ocean/70 border-2 border-rose-200/70 dark:border-night-cyan/30 shadow-2xl shadow-rose-950/10 dark:shadow-night-midnight/80 p-2 sm:p-3 transition-colors duration-300">
+            <img
+              src="/images/profile-placeholder.svg"
+              alt="Sanjeev Thakur - SEO Specialist placeholder portrait"
+              class="w-full h-auto rounded-2xl object-cover transform hover:scale-[1.01] transition-transform duration-500"
+              width="600"
+              height="700"
+              loading="eager"
+            />
+          </div>
+
+          <!-- Floating Highlight Pill (Lower Left) -->
+          <div class="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-white/95 dark:bg-night-ocean/95 backdrop-blur-md rounded-2xl p-4 border border-rose-200 dark:border-night-cyan/30 shadow-xl shadow-rose-950/5 dark:shadow-night-midnight/50 flex items-center space-x-3.5 max-w-xs transition-colors duration-300">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center flex-shrink-0 font-bold">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400 dark:text-night-muted">Current Position</div>
+              <div class="text-sm font-serif font-bold text-zinc-900 dark:text-night-light leading-tight">SEO Specialist @ vSplash</div>
+            </div>
+          </div>
+
+          <!-- Floating Highlight Pill (Upper Right) -->
+          <div class="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 bg-white/95 dark:bg-night-ocean/95 backdrop-blur-md rounded-2xl px-4 py-2.5 border border-rose-200 dark:border-night-cyan/30 shadow-xl shadow-rose-950/5 dark:shadow-night-midnight/50 hidden sm:flex items-center space-x-2 transition-colors duration-300">
+            <span class="w-2 h-2 rounded-full bg-rose-500 dark:bg-night-cyan animate-ping"></span>
+            <span class="text-xs font-mono font-bold text-rose-700 dark:text-night-cyan">GTA Vice City Aesthetic</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</section>

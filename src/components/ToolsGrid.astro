@@ -1,0 +1,33 @@
+---
+import { toolsData } from '../data/tools';
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+  {toolsData.map((tool) => (
+    <div class="bg-glass-card rounded-2xl p-5 transition-all duration-200 hover:-translate-y-1 hover:border-rose-300 dark:hover:border-night-cyan/60 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-rose-50 dark:bg-night-ocean text-rose-600 dark:text-night-cyan border border-rose-200/60 dark:border-night-cyan/30 font-semibold transition-colors">
+            {tool.category}
+          </span>
+          <div class="w-2 h-2 rounded-full bg-rose-300 dark:bg-night-cyan transition-colors"></div>
+        </div>
+
+        <h3 class="text-base font-serif font-bold text-zinc-900 dark:text-night-light mb-2 transition-colors">
+          {tool.name}
+        </h3>
+
+        <p class="text-xs text-zinc-600 dark:text-night-muted leading-relaxed transition-colors">
+          {tool.description}
+        </p>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-rose-100/60 dark:border-night-cyan/20 flex items-center justify-between transition-colors">
+        <span class="text-[11px] font-mono text-zinc-400 dark:text-night-muted">Production Verified</span>
+        <svg class="w-3.5 h-3.5 text-rose-400 dark:text-night-cyan transition-colors" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+    </div>
+  ))}
+</div>

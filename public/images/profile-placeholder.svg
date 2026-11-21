@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF1F2"/>
+      <stop offset="45%" stop-color="#FFE4E6"/>
+      <stop offset="80%" stop-color="#FFEDD5"/>
+      <stop offset="100%" stop-color="#F3E8FF"/>
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FDA4AF" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#FED7AA" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFF1F2" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="silhouetteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E11D48" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#18181B" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="700" rx="32" fill="url(#bgGrad)"/>
+  <rect x="12" y="12" width="576" height="676" rx="24" stroke="rgba(244, 63, 94, 0.2)" stroke-width="2"/>
+
+  <!-- Soft Sunset Disc -->
+  <circle cx="300" cy="300" r="190" fill="url(#sunGrad)"/>
+
+  <!-- Subtle Vice Palm Silhouette Accents in Background -->
+  <g opacity="0.12" fill="#E11D48">
+    <!-- Left Palm Leaves -->
+    <path d="M 0 350 Q 80 320 160 300 Q 120 340 80 400 Z"/>
+    <path d="M 0 380 Q 110 370 190 340 Q 140 400 90 460 Z"/>
+    <path d="M 0 420 Q 90 420 150 440 Q 100 470 50 510 Z"/>
+    <!-- Right Palm Leaves -->
+    <path d="M 600 320 Q 520 290 440 280 Q 480 320 520 370 Z"/>
+    <path d="M 600 360 Q 490 350 410 320 Q 460 380 510 440 Z"/>
+    <path d="M 600 400 Q 510 400 450 420 Q 500 450 550 490 Z"/>
+  </g>
+
+  <!-- Stylized Editorial Silhouette -->
+  <g fill="url(#silhouetteGrad)" opacity="0.92">
+    <!-- Head -->
+    <ellipse cx="300" cy="270" rx="65" ry="85"/>
+    <!-- Neck -->
+    <path d="M 280 345 L 320 345 L 328 395 L 272 395 Z"/>
+    <!-- Shoulders / Torso -->
+    <path d="M 180 580 C 180 440 220 400 270 395 L 330 395 C 380 400 420 440 420 580 Z"/>
+  </g>
+
+  <!-- Editorial Card Floating Overlay at Bottom -->
+  <g transform="translate(100, 540)">
+    <rect width="400" height="110" rx="16" fill="rgba(255, 255, 255, 0.9)" stroke="rgba(253, 164, 175, 0.8)" stroke-width="1.5" filter="drop-shadow(0 10px 20px rgba(244, 63, 94, 0.08))"/>
+    
+    <!-- Camera/Edit Icon -->
+    <circle cx="45" cy="55" r="22" fill="#FFF1F2"/>
+    <path d="M 37 49 L 41 45 L 49 45 L 53 49 L 57 49 C 58.5 49 59 49.5 59 51 L 59 63 C 59 64.5 58.5 65 57 65 L 33 65 C 31.5 65 31 64.5 31 63 L 31 51 C 31 49.5 31.5 49 33 49 Z" fill="none" stroke="#E11D48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="45" cy="57" r="5" stroke="#E11D48" stroke-width="2"/>
+    
+    <text x="80" y="48" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="700" fill="#18181B">Profile Photo Placeholder</text>
+    <text x="80" y="70" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" fill="#71717A">Ready to replace with Sanjeev Thakur's portrait</text>
+    <text x="80" y="88" font-family="'JetBrains Mono', monospace" font-size="10" fill="#E11D48" font-weight="600">Editable Asset • public/images/profile.jpg</text>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(40, 40)">
+    <rect width="145" height="32" rx="16" fill="url(#badgeGrad)"/>
+    <text x="72.5" y="21" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">SEO SPECIALIST</text>
+  </g>
+</svg>

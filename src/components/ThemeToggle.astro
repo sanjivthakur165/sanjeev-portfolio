@@ -1,0 +1,112 @@
+---
+// Compact, elegant Vice City Theme Switcher: ☀ DAY | ☾ NIGHT
+---
+
+<div
+  class="theme-switcher-wrapper inline-flex items-center p-0.5 rounded-full bg-rose-100/70 dark:bg-night-ocean/90 border border-rose-200/80 dark:border-night-cyan/30 shadow-xs transition-colors duration-300"
+  role="group"
+  aria-label="Color theme selection"
+>
+  <!-- DAY Button -->
+  <button
+    type="button"
+    id="theme-btn-day"
+    class="theme-btn flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-semibold transition-all duration-200 text-rose-700 bg-white shadow-xs border border-rose-200/70 dark:bg-transparent dark:text-night-muted dark:border-transparent dark:hover:text-night-light focus:outline-none focus:ring-1 focus:ring-rose-400 dark:focus:ring-night-cyan"
+    aria-pressed="true"
+    aria-label="Switch to Day Mode"
+  >
+    <span class="text-amber-500 font-bold">☀</span>
+    <span class="tracking-wider">DAY</span>
+  </button>
+
+  <!-- Divider -->
+  <span class="px-1 text-xs text-rose-300 dark:text-night-electric select-none" aria-hidden="true">|</span>
+
+  <!-- NIGHT Button -->
+  <button
+    type="button"
+    id="theme-btn-night"
+    class="theme-btn flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-medium transition-all duration-200 text-zinc-500 hover:text-rose-600 dark:bg-gradient-to-r dark:from-night-ocean dark:to-night-electric/80 dark:text-night-cyan dark:border dark:border-night-cyan/50 dark:shadow-xs dark:shadow-night-cyan/20 dark:font-semibold focus:outline-none focus:ring-1 focus:ring-rose-400 dark:focus:ring-night-cyan"
+    aria-pressed="false"
+    aria-label="Switch to Night Mode"
+  >
+    <span class="text-indigo-400 dark:text-night-cyan">☾</span>
+    <span class="tracking-wider">NIGHT</span>
+  </button>
+</div>
+
+<script>
+  function setupThemeSwitcher() {
+    const dayBtns = document.querySelectorAll('#theme-btn-day');
+    const nightBtns = document.querySelectorAll('#theme-btn-night');
+
+    function applyTheme(theme: 'day' | 'night', save = true) {
+      const isNight = theme === 'night';
+      if (isNight) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'night');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', 'day');
+      }
+
+      if (save) {
+        try {
+          localStorage.setItem('theme', theme);
+        } catch (e) {}
+      }
+
+      // Update UI on all toggle instances (both desktop and mobile)
+      dayBtns.forEach(btn => {
+        btn.setAttribute('aria-pressed', String(!isNight));
+        if (!isNight) {
+          btn.className = "theme-btn flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-semibold transition-all duration-200 text-rose-700 bg-white shadow-xs border border-rose-200/70 focus:outline-none focus:ring-1 focus:ring-rose-400";
+        } else {
+          btn.className = "theme-btn flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-medium transition-all duration-200 bg-transparent text-night-muted hover:text-night-light border-transparent focus:outline-none focus:ring-1 focus:ring-night-cyan";
+        }
+      });
+
+      nightBtns.forEach(btn => {
+        btn.setAttribute('aria-pressed', String(isNight));
+        if (isNight) {
+          btn.className = "theme-btn flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-semibold transition-all duration-200 bg-gradient-to-r from-night-ocean to-night-electric/80 text-night-cyan border border-night-cyan/50 shadow-xs shadow-night-cyan/20 focus:outline-none focus:ring-1 focus:ring-night-cyan";
+        } else {
+          btn.className = "theme-btn flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-medium transition-all duration-200 text-zinc-500 hover:text-rose-600 bg-transparent border-transparent focus:outline-none focus:ring-1 focus:ring-rose-400";
+        }
+      });
+
+      // Dispatch custom event for reactive graphics (like SVG squiggly road)
+      window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme } }));
+    }
+
+    // Attach click listeners to all buttons
+    dayBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyTheme('day');
+      });
+    });
+
+    nightBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyTheme('night');
+      });
+    });
+
+    // Sync button state on initial load with current active theme
+    const currentTheme = document.documentElement.classList.contains('dark') || 
+      document.documentElement.getAttribute('data-theme') === 'night' 
+        ? 'night' 
+        : 'day';
+    applyTheme(currentTheme, false);
+  }
+
+  // Run on first load and view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupThemeSwitcher);
+  } else {
+    setupThemeSwitcher();
+  }
+  document.addEventListener('astro:page-load', setupThemeSwitcher);
+</script>

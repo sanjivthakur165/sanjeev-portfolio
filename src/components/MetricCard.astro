@@ -1,0 +1,52 @@
+---
+export interface Props {
+  value: string;
+  label: string;
+  detail: string;
+  context?: string;
+  highlight?: boolean;
+}
+
+const { value, label, detail, context, highlight = false } = Astro.props;
+---
+
+<div class={`relative p-6 sm:p-8 rounded-2xl transition-all duration-300 group ${
+  highlight
+    ? 'bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-ocean dark:via-night-electric dark:to-night-cyan text-white shadow-xl shadow-rose-500/20 dark:shadow-night-cyan/20 border border-transparent dark:border-night-cyan/40'
+    : 'bg-glass-card hover:-translate-y-1'
+}`}>
+  {context && (
+    <div class="mb-3">
+      <span class={`inline-block text-xs font-mono font-medium px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
+        highlight
+          ? 'bg-white/20 text-white border border-white/30'
+          : 'bg-rose-50 dark:bg-night-ocean text-rose-600 dark:text-night-cyan border border-rose-200 dark:border-night-cyan/30'
+      }`}>
+        {context}
+      </span>
+    </div>
+  )}
+
+  <div class={`text-4xl sm:text-5xl font-serif font-extrabold tracking-tight ${
+    highlight ? 'text-white' : 'text-gradient-vice'
+  }`}>
+    {value}
+  </div>
+
+  <h3 class={`mt-2 text-lg sm:text-xl font-bold font-serif ${
+    highlight ? 'text-white' : 'text-zinc-900 dark:text-night-light'
+  }`}>
+    {label}
+  </h3>
+
+  <p class={`mt-2 text-sm leading-relaxed ${
+    highlight ? 'text-rose-100 dark:text-night-light/90' : 'text-zinc-600 dark:text-night-muted'
+  }`}>
+    {detail}
+  </p>
+
+  <!-- Ambient Accent Dot -->
+  <div class={`absolute top-4 right-4 w-2 h-2 rounded-full ${
+    highlight ? 'bg-white/40' : 'bg-rose-300 dark:bg-night-cyan/60 group-hover:bg-rose-500 dark:group-hover:bg-night-cyan'
+  } transition-colors`}></div>
+</div>
