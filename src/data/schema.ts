@@ -11,6 +11,7 @@
  *  - Case-study metrics are described exactly as measured (GA4 / GSC), never as revenue/leads.
  */
 import { siteConfig } from './seo-config';
+import { pageUrl } from './urls';
 import { profileData } from './profile';
 import { workExperience, educationHistory } from './experience';
 import { skillCategories } from './skills';
@@ -26,7 +27,7 @@ export interface ArticleInput { headline: string; description: string; keywords:
 export interface Crumb { name: string; url: string }
 
 export interface SchemaInput {
-  path: string;               // canonical path, e.g. "/about"
+  path: string;               // canonical path, e.g. "/about/"
   title: string;              // full <title>
   description: string;
   pageType: PageType;
@@ -37,7 +38,7 @@ export interface SchemaInput {
 }
 
 const SITE = siteConfig.siteUrl;
-const abs = (path: string) => (path === '/' || path === '' ? `${SITE}/` : `${SITE}${path}`);
+const abs = (path: string) => pageUrl(path || '/');
 
 /** Stable entity identifiers */
 export const ids = {
@@ -52,8 +53,8 @@ export const ids = {
   contactPoint: `${SITE}/#contact-point`,
   page: (path: string) => `${abs(path)}#webpage`,
   breadcrumb: (path: string) => `${abs(path)}#breadcrumb`,
-  caseStudy: (slug: string) => `${abs(`/case-studies/${slug}`)}#article`,
-  caseStudyList: `${abs('/case-studies')}#itemlist`,
+  caseStudy: (slug: string) => `${abs(`/case-studies/${slug}/`)}#article`,
+  caseStudyList: `${abs('/case-studies/')}#itemlist`,
 };
 
 /** Wikipedia references for well-known concepts (entity disambiguation). */
@@ -111,9 +112,9 @@ const postalAddress = {
 const allSkills = skillCategories.flatMap((c) => c.skills);
 
 /** Cross-page references carry type + url + name so each page is self-describing. */
-const aboutPageRef = () => ({ '@type': 'ProfilePage', '@id': ids.page('/about'), url: abs('/about'), name: `About ${profileData.name}` });
-const caseStudyRef = (cs: CaseStudy) => ({ '@type': 'Article', '@id': ids.caseStudy(cs.slug), url: abs(`/case-studies/${cs.slug}`), headline: cs.title });
-const caseStudyPageRef = (cs: CaseStudy) => ({ '@type': 'WebPage', '@id': ids.page(`/case-studies/${cs.slug}`), url: abs(`/case-studies/${cs.slug}`), name: cs.title });
+const aboutPageRef = () => ({ '@type': 'ProfilePage', '@id': ids.page('/about/'), url: abs('/about/'), name: `About ${profileData.name}` });
+const caseStudyRef = (cs: CaseStudy) => ({ '@type': 'Article', '@id': ids.caseStudy(cs.slug), url: abs(`/case-studies/${cs.slug}/`), headline: cs.title });
+const caseStudyPageRef = (cs: CaseStudy) => ({ '@type': 'WebPage', '@id': ids.page(`/case-studies/${cs.slug}/`), url: abs(`/case-studies/${cs.slug}/`), name: cs.title });
 
 function topic(name: string): Node {
   return WIKI[name] ? { '@type': 'Thing', name, sameAs: WIKI[name] } : { '@type': 'Thing', name };
@@ -255,7 +256,7 @@ function contactPointNode(): Node {
     contactType: 'professional enquiries',
     email: profileData.email,
     telephone: profileData.phone.replace(/\s+/g, '-'),
-    url: abs('/contact'),
+    url: abs('/contact/'),
     areaServed: 'Worldwide',
     availableLanguage: ['English'],
   };
@@ -322,7 +323,7 @@ function breadcrumbNode(path: string, crumbs: Crumb[]): Node | null {
 }
 
 function caseStudyNode(cs: CaseStudy, imageUrl: string): Node {
-  const url = abs(`/case-studies/${cs.slug}`);
+  const url = abs(`/case-studies/${cs.slug}/`);
   return {
     '@type': 'Article',
     '@id': ids.caseStudy(cs.slug),
@@ -363,7 +364,7 @@ function caseStudyListNode(): Node {
     itemListElement: caseStudies.map((cs, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: abs(`/case-studies/${cs.slug}`),
+      url: abs(`/case-studies/${cs.slug}/`),
       item: { '@id': ids.caseStudy(cs.slug) },
     })),
   };
@@ -389,7 +390,7 @@ function webPageNode(input: SchemaInput, hasBreadcrumb: boolean): Node {
 
   if (pageType === 'home' || pageType === 'profile') {
     node.mainEntity = { '@id': ids.person };
-    node.significantLink = [abs('/about'), abs('/case-studies'), abs('/contact')];
+    node.significantLink = [abs('/about/'), abs('/case-studies/'), abs('/contact/')];
   }
   if (pageType === 'contact') node.mainEntity = { '@id': ids.contactPoint };
   if (pageType === 'collection') node.mainEntity = { '@id': ids.caseStudyList };

@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
 import { siteConfig } from '../data/seo-config';
+import { pageUrl } from '../data/urls';
 import { sitePages } from '../data/site-pages';
 
 export const GET: APIRoute = async () => {
   const currentDate = new Date().toISOString().split('T')[0];
-  const loc = (url: string) => `${siteConfig.siteUrl}${url === '/' ? '/' : url}`;
+  const loc = (url: string) => pageUrl(url);
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

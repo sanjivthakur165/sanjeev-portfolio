@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import NightPalmBackground from '../components/NightPalmBackground.astro';
 import { siteConfig } from '../data/seo-config';
+import { pagePath, pageUrl } from '../data/urls';
 import { profileData } from '../data/profile';
 import { buildSchemaGraph, type PageType, type ArticleInput } from '../data/schema';
 import '../styles/global.css';
@@ -37,8 +38,8 @@ const pageTitle = title
   ? `${title} | ${siteConfig.siteName}`
   : siteConfig.defaultTitle;
 
-const path = canonicalPath === '' ? '/' : canonicalPath;
-const canonicalUrl = path === '/' ? `${siteConfig.siteUrl}/` : `${siteConfig.siteUrl}${path}`;
+const path = pagePath(canonicalPath || '/');
+const canonicalUrl = pageUrl(path);
 const ogImageUrl = image.startsWith('http') ? image : `${siteConfig.siteUrl}${image}`;
 
 // One connected Schema.org @graph for this page (see src/data/schema.ts)

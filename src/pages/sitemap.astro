@@ -5,16 +5,16 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { sitePages } from '../data/site-pages';
 
-const crumbs = [{ name: 'Sitemap', url: '/sitemap' }];
+const crumbs = [{ name: 'Sitemap', url: '/sitemap/' }];
 
 const iconFor: Record<string, any> = {
   '/': House,
-  '/about': User,
-  '/case-studies': FolderOpen,
-  '/contact': Mail,
-  '/sitemap': Map,
-  '/projects': Hammer,
-  '/projects/this-website': Hammer,
+  '/about/': User,
+  '/case-studies/': FolderOpen,
+  '/contact/': Mail,
+  '/sitemap/': Map,
+  '/projects/': Hammer,
+  '/projects/this-website/': Hammer,
 };
 
 const groups = [
@@ -33,7 +33,7 @@ const machineFiles = [
 <BaseLayout
   title="HTML Sitemap"
   description="A complete, human-readable index of every page on Sanjeev Thakur's SEO portfolio website."
-  canonicalPath="/sitemap"
+  canonicalPath="/sitemap/"
   pageType="sitemap"
   breadcrumbs={[{ name: 'Home', url: '/' }, ...crumbs]}
 >

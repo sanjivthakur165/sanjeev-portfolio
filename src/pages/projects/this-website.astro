@@ -16,19 +16,19 @@ import { caseStudies } from '../../data/case-studies';
 import { siteConfig } from '../../data/seo-config';
 
 const crumbs = [
-  { name: 'Projects', url: '/projects' },
-  { name: 'This website', url: '/projects/this-website' },
+  { name: 'Projects', url: '/projects/' },
+  { name: 'This website', url: '/projects/this-website/' },
 ];
 
 /* ---------- Live facts computed from the codebase (never hard-coded) ---------- */
 const pageConfigs: { path: string; pageType: PageType; caseStudySlug?: string }[] = [
   { path: '/', pageType: 'home' },
-  { path: '/about', pageType: 'profile' },
-  { path: '/contact', pageType: 'contact' },
-  { path: '/case-studies', pageType: 'collection' },
-  ...caseStudies.map((cs) => ({ path: `/case-studies/${cs.slug}`, pageType: 'case-study' as PageType, caseStudySlug: cs.slug })),
-  { path: '/sitemap', pageType: 'sitemap' },
-  { path: '/projects/this-website', pageType: 'project' },
+  { path: '/about/', pageType: 'profile' },
+  { path: '/contact/', pageType: 'contact' },
+  { path: '/case-studies/', pageType: 'collection' },
+  ...caseStudies.map((cs) => ({ path: `/case-studies/${cs.slug}/`, pageType: 'case-study' as PageType, caseStudySlug: cs.slug })),
+  { path: '/sitemap/', pageType: 'sitemap' },
+  { path: '/projects/this-website/', pageType: 'project' },
 ];
 const schemaTypes = new Set<string>();
 const collectTypes = (v: unknown) => {
@@ -87,7 +87,7 @@ const underTheHood = [
 <BaseLayout
   title="This Website | Project Case Study"
   description="How I built this portfolio for search engines and AI assistants: Astro, linked Schema.org data, XML and HTML sitemaps, llms.txt and an AI-friendly robots.txt."
-  canonicalPath="/projects/this-website"
+  canonicalPath="/projects/this-website/"
   pageType="project"
   type="article"
   breadcrumbs={crumbs}

@@ -34,8 +34,8 @@ export const profileData: ProfileData = {
   ],
   cta: {
     primaryText: "Explore My Work",
-    primaryHref: "/case-studies",
+    primaryHref: "/case-studies/",
     secondaryText: "Let's Connect",
-    secondaryHref: "/contact"
+    secondaryHref: "/contact/"
   }
 };

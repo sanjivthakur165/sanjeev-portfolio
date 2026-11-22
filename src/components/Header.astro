@@ -7,10 +7,10 @@ const currentPath = Astro.url.pathname;
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/case-studies', label: 'Case Studies' },
-  { href: '/projects/this-website', label: 'How I Built This Site' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/about/', label: 'About' },
+  { href: '/case-studies/', label: 'Case Studies' },
+  { href: '/projects/this-website/', label: 'How I Built This Site' },
+  { href: '/contact/', label: 'Contact' },
 ];
 
 const isActive = (path: string) => {
@@ -65,7 +65,7 @@ const isActive = (path: string) => {
         <ThemeToggle />
 
         <a
-          href="/contact"
+          href="/contact/"
           class="hidden xl:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold text-white whitespace-nowrap bg-gradient-to-r from-rose-500 to-orange-400 dark:from-night-magenta dark:to-night-pink hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-magenta dark:hover:to-night-cyan shadow-sm shadow-rose-500/25 dark:shadow-night-magenta/30 hover:shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0"
         >
           Let's Connect
@@ -118,7 +118,7 @@ const isActive = (path: string) => {
     })}
     <div class="pt-4 border-t border-rose-100/60 dark:border-night-ocean">
       <a
-        href="/contact"
+        href="/contact/"
         class="w-full flex items-center justify-center px-5 py-3 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-rose-500 to-orange-400 dark:from-night-magenta dark:to-night-pink shadow-md shadow-rose-500/20 dark:shadow-night-magenta/30"
       >
         Let's Connect

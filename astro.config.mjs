@@ -3,7 +3,10 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://sanjeevthakur.dev',
+  site: 'https://sanjeev.site',
+  // Every page URL ends with "/" (pages build to /path/index.html). Canonicals, sitemap,
+  // schema and llms.txt use the same form via src/data/urls.ts.
+  trailingSlash: 'always',
   server: {
     port: 4322,
   },

@@ -27,7 +27,7 @@ export const GET: APIRoute = async () => {
 # "${siteConfig.author}" and link to ${site}/
 #
 # AI-readable summary: ${site}/llms.txt
-# Human-readable sitemap: ${site}/sitemap
+# Human-readable sitemap: ${site}/sitemap/
 
 # Content usage preferences (contentsignals.org): allow search, AI answers and training.
 Content-Signal: search=yes, ai-input=yes, ai-train=yes

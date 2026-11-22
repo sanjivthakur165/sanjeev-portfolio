@@ -27,7 +27,7 @@ export interface GeoCheck {
   checkedOn?: string;            // e.g. "21 Nov 2026"
   setting?: string;              // e.g. "Web search on"
   summary?: string;              // paraphrase of what the assistant said
-  sources: string[];             // sources it cited, e.g. ["LinkedIn", "sanjeevthakur.dev"]
+  sources: string[];             // sources it cited, e.g. ["LinkedIn", "sanjeev.site"]
   mentionsMe: boolean | null;    // did it talk about me at all?
   clearIdentity: boolean | null; // one person, not mixed up with another Sanjeev Thakur?
   citesLinkedIn: boolean | null; // did it cite / link my LinkedIn profile?

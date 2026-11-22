@@ -5,11 +5,11 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { thisWebsite } from '../../data/this-website';
 
-const crumbs = [{ name: 'Projects', url: '/projects' }];
+const crumbs = [{ name: 'Projects', url: '/projects/' }];
 
 const projects = [
   {
-    href: '/projects/this-website',
+    href: '/projects/this-website/',
     eyebrow: 'Case study · This website',
     title: thisWebsite.title,
     summary: thisWebsite.summary,
@@ -22,7 +22,7 @@ const projects = [
 <BaseLayout
   title="Projects | Personal SEO Builds"
   description="Personal projects by Sanjeev Thakur, starting with this website: a portfolio engineered for search engines and AI assistants."
-  canonicalPath="/projects"
+  canonicalPath="/projects/"
   pageType="sitemap"
   breadcrumbs={crumbs}
 >
