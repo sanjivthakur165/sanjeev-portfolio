@@ -1,0 +1,51 @@
+---
+// Builds to dist/404.html. Cloudflare Pages serves this file with a real 404 status
+// for any URL that does not exist (instead of falling back to the home page with 200).
+import { House, FolderOpen, Mail, Map, ArrowRight, SearchX } from 'lucide-astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const links = [
+  { href: '/', label: 'Home', icon: House },
+  { href: '/case-studies/', label: 'Case Studies', icon: FolderOpen },
+  { href: '/contact/', label: 'Contact', icon: Mail },
+  { href: '/sitemap/', label: 'Sitemap', icon: Map },
+];
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="This page does not exist on Sanjeev Thakur's SEO portfolio."
+  canonicalPath="/404/"
+  noindex
+>
+  <section class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+    <div class="absolute inset-x-0 top-10 mx-auto w-72 h-72 rounded-full bg-rose-200/50 dark:bg-night-magenta/20 blur-3xl -z-10" aria-hidden="true"></div>
+
+    <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center shadow-lg shadow-rose-500/20">
+      <SearchX class="w-8 h-8" aria-hidden="true" />
+    </div>
+
+    <p class="mt-8 font-serif font-extrabold text-7xl sm:text-8xl text-gradient-vice leading-none">404</p>
+    <h1 class="mt-4 text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">
+      This page isn't indexed. Or anywhere.
+    </h1>
+    <p class="mt-4 text-base sm:text-lg text-zinc-600 dark:text-night-muted leading-relaxed">
+      The page you're looking for doesn't exist or has moved. Try one of these instead.
+    </p>
+
+    <ul class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="vibe-card bg-glass-card group flex flex-col items-center gap-2 p-4 rounded-2xl transition-transform duration-300">
+            <l.icon class="w-5 h-5 text-rose-500 dark:text-night-cyan" aria-hidden="true" />
+            <span class="text-sm font-semibold text-zinc-800 dark:text-night-light group-hover:text-rose-600 dark:group-hover:text-night-cyan">{l.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="/" class="mt-10 inline-flex items-center justify-center px-7 py-3.5 rounded-full text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-cyan dark:via-night-magenta dark:to-night-pink shadow-lg shadow-rose-500/25 hover:-translate-y-0.5 transition-all">
+      Back to the home page <ArrowRight class="ml-2 w-4 h-4" aria-hidden="true" />
+    </a>
+  </section>
+</BaseLayout>
