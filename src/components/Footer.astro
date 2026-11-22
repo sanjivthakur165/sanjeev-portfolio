@@ -1,4 +1,5 @@
 ---
+import { CornerDownRight, Map } from 'lucide-astro';
 import { profileData } from '../data/profile';
 
 const currentYear = new Date().getFullYear();
@@ -32,12 +33,12 @@ const currentYear = new Date().getFullYear();
           </div>
         </div>
         <p class="text-zinc-600 dark:text-night-muted text-sm leading-relaxed max-w-md pt-2">
-          Specializing in Technical SEO, On-Page Architecture, and Local Search Optimization. Dedicated to driving sustainable, indexable organic growth through ethical, data-backed methodologies.
+          I work on technical SEO, on-page SEO and local search. No shortcuts, just steady organic growth backed by data.
         </p>
         <div class="flex items-center space-x-3 pt-2">
           <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-rose-100 dark:bg-night-ocean text-rose-800 dark:text-night-cyan border border-rose-200 dark:border-night-cyan/30">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-night-cyan mr-2 animate-pulse"></span>
-            Available for Select Enquiries
+            Open to New Opportunities
           </span>
         </div>
       </div>
@@ -58,10 +59,13 @@ const currentYear = new Date().getFullYear();
             <a href="/case-studies" class="text-zinc-600 dark:text-night-muted hover:text-rose-600 dark:hover:text-night-cyan transition-colors">Case Studies</a>
           </li>
           <li>
-            <a href="/case-studies/construction" class="text-zinc-500 dark:text-night-muted/80 hover:text-rose-600 dark:hover:text-night-cyan transition-colors pl-2">↳ Construction (+200%)</a>
+            <a href="/case-studies/construction" class="text-zinc-500 dark:text-night-muted/80 hover:text-rose-600 dark:hover:text-night-cyan transition-colors pl-2 inline-flex items-center gap-1.5"><CornerDownRight class="w-3.5 h-3.5" /> Construction (+200%)</a>
           </li>
           <li>
-            <a href="/case-studies/electrical" class="text-zinc-500 dark:text-night-muted/80 hover:text-rose-600 dark:hover:text-night-cyan transition-colors pl-2">↳ Electrical Contracting (~3x)</a>
+            <a href="/case-studies/electrical" class="text-zinc-500 dark:text-night-muted/80 hover:text-rose-600 dark:hover:text-night-cyan transition-colors pl-2 inline-flex items-center gap-1.5"><CornerDownRight class="w-3.5 h-3.5" /> Electrical Contracting (~3x)</a>
+          </li>
+          <li>
+            <a href="/projects/this-website" class="text-zinc-600 dark:text-night-muted hover:text-rose-600 dark:hover:text-night-cyan transition-colors">How I Built This Site</a>
           </li>
           <li>
             <a href="/contact" class="text-zinc-600 dark:text-night-muted hover:text-rose-600 dark:hover:text-night-cyan transition-colors">Contact</a>
@@ -72,7 +76,7 @@ const currentYear = new Date().getFullYear();
       <!-- Direct Contact Column -->
       <div class="space-y-4">
         <h3 class="font-serif text-base font-bold text-zinc-900 dark:text-night-light uppercase tracking-wider">
-          Direct Connect
+          Contact
         </h3>
         <ul class="space-y-3 text-sm text-zinc-600 dark:text-night-muted">
           <li class="flex items-start space-x-2">
@@ -122,8 +126,13 @@ const currentYear = new Date().getFullYear();
         © {currentYear} {profileData.name}. All rights reserved. Built with Astro &amp; Tailwind CSS.
       </p>
       <p class="text-zinc-400 dark:text-night-muted/50 text-center sm:text-right">
-        Client case studies are anonymized in adherence to confidentiality commitments.
+        Client case studies are anonymized to protect client confidentiality.
       </p>
+      <nav aria-label="Site index" class="flex items-center gap-4 font-mono">
+        <a href="/sitemap" class="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-night-cyan transition-colors"><Map class="w-3.5 h-3.5" aria-hidden="true" /> Sitemap</a>
+        <a href="/sitemap.xml" class="hover:text-rose-600 dark:hover:text-night-cyan transition-colors">XML</a>
+        <a href="/llms.txt" class="hover:text-rose-600 dark:hover:text-night-cyan transition-colors">llms.txt</a>
+      </nav>
     </div>
   </div>
 </footer>

@@ -1,4 +1,5 @@
 ---
+import { BadgeCheck, ShieldCheck, Target } from 'lucide-astro';
 import { profileData } from '../data/profile';
 ---
 
@@ -13,15 +14,15 @@ import { profileData } from '../data/profile';
 
   <div class="relative z-10 max-w-3xl mx-auto text-center space-y-6">
     <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider font-semibold bg-white/20 text-white border border-white/30 backdrop-blur-xs">
-      Direct Hiring &amp; Consulting Enquiries
+      Hiring or Need SEO Help?
     </span>
 
     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-white leading-tight">
-      Ready to Scale Your Organic Search Footprint?
+      Want More People to Find Your Website?
     </h2>
 
     <p class="text-base sm:text-lg text-rose-50 dark:text-night-light/90 leading-relaxed max-w-xl mx-auto">
-      Whether you are recruiting for an in-house SEO Specialist role or seeking strategic organic growth for high-value services, let's explore how we can collaborate.
+      Whether you're hiring an in-house SEO Specialist or need help growing organic traffic, I'd like to hear from you.
     </p>
 
     <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -29,7 +30,7 @@ import { profileData } from '../data/profile';
         href="/contact"
         class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full text-base font-bold text-rose-600 bg-white hover:bg-rose-50 dark:bg-night-cyan dark:hover:bg-white dark:text-night-midnight shadow-lg shadow-black/10 hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0"
       >
-        Start the Conversation
+        Get in Touch
         <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
         </svg>
@@ -42,14 +43,14 @@ import { profileData } from '../data/profile';
         <svg class="mr-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
         </svg>
-        Direct Email
+        Email Me
       </a>
     </div>
 
     <div class="pt-4 text-xs font-mono text-rose-100 dark:text-night-light/80 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-      <span>✓ Verified 4+ Years Experience</span>
-      <span>✓ Strict Client Confidentiality</span>
-      <span>✓ Technical &amp; Local Focus</span>
+      <span class="inline-flex items-center gap-1.5"><BadgeCheck class="w-4 h-4 flex-shrink-0" /> 4+ years in SEO</span>
+      <span class="inline-flex items-center gap-1.5"><ShieldCheck class="w-4 h-4 flex-shrink-0" /> Client work kept confidential</span>
+      <span class="inline-flex items-center gap-1.5"><Target class="w-4 h-4 flex-shrink-0" /> Technical &amp; local SEO</span>
     </div>
   </div>
 

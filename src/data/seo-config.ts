@@ -12,9 +12,9 @@ export interface SEOConfig {
 
 export const siteConfig: SEOConfig = {
   siteName: "Sanjeev Thakur",
-  defaultTitle: "Sanjeev Thakur | SEO Specialist",
+  defaultTitle: "Sanjeev Thakur | SEO Specialist in Bengaluru",
   titleTemplate: "%s | Sanjeev Thakur",
-  defaultDescription: "SEO Specialist with 4+ years of experience driving sustainable organic search growth through Technical SEO, On-Page Optimization, and Local SEO.",
+  defaultDescription: "SEO Specialist in Bengaluru with 4+ years of experience in technical SEO, on-page optimization and local SEO.",
   siteUrl: "https://sanjeevthakur.dev",
   author: "Sanjeev Thakur",
   locale: "en_US",

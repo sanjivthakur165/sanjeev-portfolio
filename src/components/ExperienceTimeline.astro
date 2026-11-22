@@ -1,110 +1,182 @@
 ---
+import {
+  Briefcase, Sprout, Building2, MapPin, CalendarDays, Clock,
+  CircleCheck, Award, GraduationCap, BookOpen,
+} from 'lucide-astro';
 import { workExperience, educationHistory } from '../data/experience';
+
+const MONTHS = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+
+function parseMonth(text: string): Date | null {
+  const m = text.trim().toLowerCase().match(/([a-z]+)\s+(\d{4})/);
+  if (!m) return null;
+  const idx = MONTHS.findIndex((name) => name.startsWith(m[1].slice(0, 3)));
+  return idx === -1 ? null : new Date(Number(m[2]), idx, 1);
+}
+
+function duration(period: string): string | null {
+  const [startText, endText = ''] = period.split(/\s*[–-]\s*/);
+  const start = parseMonth(startText);
+  const end = /present/i.test(endText) ? new Date() : parseMonth(endText);
+  if (!start || !end) return null;
+  const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
+  const y = Math.floor(months / 12);
+  const mo = months % 12;
+  return [y && `${y} yr${y > 1 ? 's' : ''}`, mo && `${mo} mo${mo > 1 ? 's' : ''}`].filter(Boolean).join(' ');
+}
 ---
 
-<div class="max-w-4xl mx-auto space-y-12">
-  
-  <!-- Experience List -->
-  <div class="relative border-l-2 border-rose-200/80 dark:border-night-cyan/30 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12 transition-colors duration-300">
-    {workExperience.map((job) => (
-      <div class="relative group">
-        
-        <!-- Timeline Marker Node -->
-        <div class={`absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full border-4 border-white dark:border-night-midnight ${
-          job.isCurrent
-            ? 'bg-rose-500 dark:bg-night-cyan shadow-md shadow-rose-500/40 dark:shadow-night-cyan/50 ring-4 ring-rose-100 dark:ring-night-cyan/20'
-            : 'bg-zinc-300 dark:bg-night-electric'
-        } transition-all`}></div>
+<div class="max-w-5xl mx-auto">
 
-        <!-- Job Card -->
-        <div class="bg-glass-card rounded-2xl p-6 sm:p-8 transition-all hover:border-rose-300 dark:hover:border-night-cyan/50">
-          
-          <!-- Header -->
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-            <div>
-              <div class="flex items-center space-x-2">
-                <span class="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-rose-100 dark:bg-night-ocean text-rose-700 dark:text-night-cyan transition-colors">
-                  {job.type}
+  <!-- Timeline -->
+  <ol class="relative space-y-10 sm:space-y-14">
+    <!-- Gradient spine -->
+    <span class="absolute left-6 sm:left-8 top-2 bottom-2 w-[3px] rounded-full bg-gradient-to-b from-rose-500 via-orange-400 to-purple-400/30 dark:from-night-cyan dark:via-night-magenta dark:to-night-lavender/20" aria-hidden="true"></span>
+
+    {workExperience.map((job) => {
+      const span = duration(job.period);
+      const Icon = job.isCurrent ? Briefcase : Sprout;
+      return (
+        <li class="relative pl-16 sm:pl-24 group">
+
+          <!-- Node -->
+          <div class="absolute left-0 top-0 sm:top-2">
+            {job.isCurrent && (
+              <span class="absolute inset-0 rounded-2xl bg-rose-400/40 dark:bg-night-cyan/40 animate-ping" aria-hidden="true"></span>
+            )}
+            <div class={`relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 ${
+              job.isCurrent
+                ? 'bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta shadow-rose-500/30 dark:shadow-night-cyan/30'
+                : 'bg-gradient-to-br from-purple-500 to-pink-400 dark:from-night-lavender dark:to-night-electric shadow-purple-500/25'
+            }`}>
+              <Icon class="w-6 h-6 sm:w-7 sm:h-7" aria-hidden="true" />
+            </div>
+          </div>
+
+          <!-- Card -->
+          <article class="vibe-card bg-glass-card rounded-3xl overflow-hidden transition-transform duration-300">
+            <!-- Accent bar -->
+            <div class={`h-1.5 ${job.isCurrent ? 'bg-gradient-to-r from-rose-500 via-orange-400 to-purple-400 dark:from-night-cyan dark:via-night-magenta dark:to-night-amber' : 'bg-gradient-to-r from-purple-400 to-pink-300 dark:from-night-lavender dark:to-night-electric'}`}></div>
+
+            <div class="p-6 sm:p-8">
+              <!-- Header -->
+              <header class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-5">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-rose-100 dark:bg-night-ocean text-rose-700 dark:text-night-cyan border border-rose-200/70 dark:border-night-cyan/30">
+                      {job.type}
+                    </span>
+                    {job.isCurrent && (
+                      <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                        <span class="relative flex w-1.5 h-1.5">
+                          <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                          <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        </span>
+                        Current Role
+                      </span>
+                    )}
+                  </div>
+                  <h3 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light leading-tight">
+                    {job.role}
+                  </h3>
+                  <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                    <span class="inline-flex items-center gap-1.5 font-semibold text-rose-600 dark:text-night-cyan">
+                      <Building2 class="w-4 h-4" aria-hidden="true" /> {job.company}
+                    </span>
+                    {job.location && (
+                      <span class="inline-flex items-center gap-1.5 text-zinc-500 dark:text-night-muted">
+                        <MapPin class="w-4 h-4" aria-hidden="true" /> {job.location}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div class="flex lg:flex-col items-start lg:items-end gap-2 flex-shrink-0">
+                  <span class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono text-zinc-700 dark:text-night-light bg-white/80 dark:bg-night-ocean/80 px-3 py-1.5 rounded-xl border border-rose-100 dark:border-night-cyan/20">
+                    <CalendarDays class="w-4 h-4 text-rose-500 dark:text-night-cyan" aria-hidden="true" /> {job.period}
+                  </span>
+                  {span && (
+                    <span class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-zinc-500 dark:text-night-muted px-1">
+                      <Clock class="w-3.5 h-3.5" aria-hidden="true" /> {span}
+                    </span>
+                  )}
+                </div>
+              </header>
+
+              <!-- Summary -->
+              <p class="text-sm sm:text-base text-zinc-700 dark:text-night-muted leading-relaxed mb-7 pl-4 border-l-2 border-rose-200 dark:border-night-cyan/30">
+                {job.summary}
+              </p>
+
+              <!-- Responsibilities -->
+              <h4 class="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400 dark:text-night-muted font-bold mb-3">
+                Core Responsibilities &amp; Impact
+              </h4>
+              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-7">
+                {job.responsibilities.map((resp) => (
+                  <li class="flex items-start gap-3 p-3.5 rounded-2xl bg-white/60 dark:bg-night-ocean/50 border border-rose-100/80 dark:border-night-cyan/15 text-sm text-zinc-600 dark:text-night-muted leading-relaxed hover:border-rose-200 dark:hover:border-night-cyan/35 transition-colors">
+                    <CircleCheck class="w-5 h-5 mt-0.5 flex-shrink-0 text-rose-500 dark:text-night-cyan" aria-hidden="true" />
+                    <span>{resp}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <!-- Highlights -->
+              <div class="rounded-2xl p-4 sm:p-5 bg-gradient-to-br from-rose-50 via-orange-50/70 to-purple-50 dark:from-night-ocean/80 dark:via-night-electric/20 dark:to-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
+                <h4 class="text-[11px] font-mono uppercase tracking-[0.15em] text-rose-700 dark:text-night-cyan font-bold mb-3">
+                  Key Highlights
+                </h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {job.keyHighlights.map((hl) => (
+                    <li class="flex items-start gap-2.5 text-sm font-medium text-zinc-800 dark:text-night-light leading-snug">
+                      <span class="w-7 h-7 rounded-lg bg-white dark:bg-night-ocean text-orange-500 dark:text-night-amber flex items-center justify-center flex-shrink-0 shadow-sm border border-orange-100 dark:border-night-amber/30">
+                        <Award class="w-4 h-4" aria-hidden="true" />
+                      </span>
+                      <span>{hl}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        </li>
+      );
+    })}
+  </ol>
+
+  <!-- Education -->
+  <div class="mt-16 sm:mt-20">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-500 to-rose-500 dark:from-night-lavender dark:to-night-magenta text-white flex items-center justify-center shadow-lg shadow-purple-500/25">
+        <GraduationCap class="w-6 h-6" aria-hidden="true" />
+      </div>
+      <h3 class="font-serif text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-night-light">Education</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {educationHistory.map((edu) => (
+        <div class="vibe-card bg-glass-card rounded-3xl p-6 transition-transform duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-night-ocean text-rose-600 dark:text-night-cyan border border-rose-100 dark:border-night-cyan/30 flex items-center justify-center flex-shrink-0 transition-transform group-hover:-rotate-6">
+              <BookOpen class="w-6 h-6" aria-hidden="true" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light leading-snug">{edu.degree}</h4>
+              <p class="text-sm text-zinc-600 dark:text-night-muted mt-1 inline-flex items-center gap-1.5">
+                <Building2 class="w-4 h-4 flex-shrink-0" aria-hidden="true" /> {edu.institution}
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 text-xs font-mono text-rose-700 dark:text-night-cyan bg-rose-50 dark:bg-night-ocean px-2.5 py-1 rounded-lg border border-rose-200 dark:border-night-cyan/30">
+                  <CalendarDays class="w-3.5 h-3.5" aria-hidden="true" /> {edu.period}
                 </span>
-                {job.isCurrent && (
-                  <span class="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 transition-colors">
-                    Current Role
+                {edu.grade && (
+                  <span class="inline-flex items-center gap-1.5 text-xs font-mono text-orange-700 dark:text-night-amber bg-orange-50 dark:bg-night-ocean px-2.5 py-1 rounded-lg border border-orange-200 dark:border-night-amber/30">
+                    <Award class="w-3.5 h-3.5" aria-hidden="true" /> {edu.grade}
                   </span>
                 )}
               </div>
-              <h3 class="text-2xl font-serif font-bold text-zinc-900 dark:text-night-light mt-2 transition-colors">
-                {job.role}
-              </h3>
-              <div class="text-base font-semibold text-rose-600 dark:text-night-cyan transition-colors">
-                {job.company} {job.location && <span class="text-zinc-500 dark:text-night-muted font-normal">• {job.location}</span>}
-              </div>
-            </div>
-
-            <div class="text-sm font-mono text-zinc-500 dark:text-night-muted bg-white/70 dark:bg-night-ocean/80 px-3 py-1.5 rounded-lg border border-rose-100 dark:border-night-cyan/20 self-start sm:self-auto transition-colors">
-              {job.period}
             </div>
           </div>
-
-          <!-- Summary -->
-          <p class="text-sm sm:text-base text-zinc-700 dark:text-night-muted leading-relaxed mb-6 transition-colors">
-            {job.summary}
-          </p>
-
-          <!-- Key Responsibilities -->
-          <div class="space-y-2 mb-6">
-            <h4 class="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-night-muted font-bold">
-              Core Responsibilities &amp; Impact
-            </h4>
-            <ul class="space-y-2 text-sm text-zinc-600 dark:text-night-muted">
-              {job.responsibilities.map((resp) => (
-                <li class="flex items-start">
-                  <span class="text-rose-500 dark:text-night-cyan font-bold mr-2.5 mt-0.5 flex-shrink-0">›</span>
-                  <span>{resp}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Highlights Pills -->
-          <div class="pt-4 border-t border-rose-100 dark:border-night-cyan/20 flex flex-wrap gap-2 transition-colors">
-            {job.keyHighlights.map((hl) => (
-              <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-white dark:bg-night-ocean/80 border border-rose-200/60 dark:border-night-cyan/30 text-zinc-800 dark:text-night-light shadow-2xs transition-colors">
-                ★ {hl}
-              </span>
-            ))}
-          </div>
-
-        </div>
-      </div>
-    ))}
-  </div>
-
-  <!-- Education Section -->
-  <div class="mt-16 pt-10 border-t border-rose-200/60 dark:border-night-cyan/20 transition-colors">
-    <div class="flex items-center space-x-3 mb-6">
-      <div class="w-8 h-8 rounded-lg bg-rose-100 dark:bg-night-ocean text-rose-600 dark:text-night-cyan flex items-center justify-center font-bold transition-colors">
-        🎓
-      </div>
-      <h3 class="font-serif text-2xl font-bold text-zinc-900 dark:text-night-light transition-colors">Education</h3>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {educationHistory.map((edu) => (
-        <div class="bg-glass-card rounded-xl p-5 border border-rose-100 dark:border-night-cyan/20">
-          <div class="flex justify-between items-start">
-            <div>
-              <h4 class="font-serif font-bold text-base text-zinc-900 dark:text-night-light transition-colors">{edu.degree}</h4>
-              <p class="text-sm text-zinc-600 dark:text-night-muted mt-1 transition-colors">{edu.institution}</p>
-            </div>
-            <span class="text-xs font-mono font-medium text-rose-600 dark:text-night-cyan bg-rose-50 dark:bg-night-ocean px-2 py-1 rounded border border-rose-200 dark:border-night-cyan/30 transition-colors">
-              {edu.period}
-            </span>
-          </div>
-          {edu.grade && (
-            <div class="mt-3 text-xs font-mono text-zinc-500 dark:text-night-muted transition-colors">
-              Academic Record: <strong class="text-zinc-800 dark:text-night-light">{edu.grade}</strong>
-            </div>
-          )}
         </div>
       ))}
     </div>

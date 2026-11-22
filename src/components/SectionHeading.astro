@@ -5,6 +5,7 @@ export interface Props {
   subtitle?: string;
   align?: 'left' | 'center';
   gradientTitle?: boolean;
+  as?: 'h1' | 'h2';
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   title,
   subtitle,
   align = 'center',
-  gradientTitle = false
+  gradientTitle = false,
+  as: Tag = 'h2'
 } = Astro.props;
 
 const alignmentClasses = align === 'center' ? 'text-center mx-auto items-center' : 'text-left items-start';
@@ -26,9 +28,9 @@ const alignmentClasses = align === 'center' ? 'text-center mx-auto items-center'
     </div>
   )}
 
-  <h2 class={`text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight ${gradientTitle ? 'text-gradient-vice' : 'text-zinc-900 dark:text-night-light'} leading-tight transition-colors duration-300`}>
+  <Tag class={`text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight ${gradientTitle ? 'text-gradient-vice' : 'text-zinc-900 dark:text-night-light'} leading-tight transition-colors duration-300`}>
     {title}
-  </h2>
+  </Tag>
 
   {subtitle && (
     <p class="mt-4 text-base sm:text-lg text-zinc-600 dark:text-night-muted leading-relaxed max-w-2xl transition-colors duration-300">

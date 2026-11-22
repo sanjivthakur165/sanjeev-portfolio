@@ -1,5 +1,6 @@
 ---
-// Compact, elegant Vice City Theme Switcher: ☀ DAY | ☾ NIGHT
+// Compact, elegant Vice City Theme Switcher: DAY | NIGHT
+import { Sun, Moon } from 'lucide-astro';
 ---
 
 <div
@@ -15,7 +16,7 @@
     aria-pressed="true"
     aria-label="Switch to Day Mode"
   >
-    <span class="text-amber-500 font-bold">☀</span>
+    <Sun class="w-3.5 h-3.5 text-amber-500" aria-hidden="true" />
     <span class="tracking-wider">DAY</span>
   </button>
 
@@ -30,7 +31,7 @@
     aria-pressed="false"
     aria-label="Switch to Night Mode"
   >
-    <span class="text-indigo-400 dark:text-night-cyan">☾</span>
+    <Moon class="w-3.5 h-3.5 text-indigo-400 dark:text-night-cyan" aria-hidden="true" />
     <span class="tracking-wider">NIGHT</span>
   </button>
 </div>

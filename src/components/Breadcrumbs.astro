@@ -1,4 +1,6 @@
 ---
+import { House, ChevronRight } from 'lucide-astro';
+
 export interface Crumb {
   name: string;
   url: string;
@@ -12,12 +14,15 @@ const { crumbs } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb" class="py-4 mb-6">
-  <ol class="flex flex-wrap items-center space-x-2 text-xs sm:text-sm text-zinc-500 dark:text-night-muted font-mono">
-    <li>
-      <a href="/" class="hover:text-rose-600 dark:hover:text-night-cyan transition-colors flex items-center">
-        <svg class="w-3.5 h-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-        </svg>
+  <ol class="inline-flex flex-wrap items-center gap-1 sm:gap-1.5 p-1.5 pr-2 rounded-full bg-white/75 dark:bg-night-ocean/75 backdrop-blur-md border border-rose-200/70 dark:border-night-cyan/25 shadow-sm shadow-rose-950/5 dark:shadow-night-midnight/40 text-xs sm:text-sm font-medium max-w-full">
+    <li class="flex items-center">
+      <a
+        href="/"
+        class="group flex items-center gap-2 pl-1 pr-3 py-1 rounded-full text-zinc-600 dark:text-night-muted hover:text-rose-600 dark:hover:text-night-cyan hover:bg-rose-50 dark:hover:bg-night-electric/30 transition-colors"
+      >
+        <span class="w-7 h-7 rounded-full bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center shadow-sm transition-transform group-hover:scale-110">
+          <House class="w-3.5 h-3.5" aria-hidden="true" />
+        </span>
         Home
       </a>
     </li>
@@ -25,14 +30,20 @@ const { crumbs } = Astro.props;
     {crumbs.map((crumb, idx) => {
       const isLast = idx === crumbs.length - 1;
       return (
-        <li class="flex items-center space-x-2">
-          <span class="text-zinc-300 dark:text-night-ocean">/</span>
+        <li class="flex items-center gap-1 sm:gap-1.5 min-w-0">
+          <ChevronRight class="w-4 h-4 flex-shrink-0 text-rose-300 dark:text-night-cyan/50" aria-hidden="true" />
           {isLast ? (
-            <span class="text-rose-600 dark:text-night-cyan font-semibold truncate max-w-[200px] sm:max-w-none" aria-current="page">
+            <span
+              class="px-3 py-1 rounded-full font-semibold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-cyan dark:via-night-magenta dark:to-night-pink shadow-sm shadow-rose-500/25 dark:shadow-night-magenta/25 truncate max-w-[180px] sm:max-w-none"
+              aria-current="page"
+            >
               {crumb.name}
             </span>
           ) : (
-            <a href={crumb.url} class="hover:text-rose-600 dark:hover:text-night-cyan transition-colors">
+            <a
+              href={crumb.url}
+              class="px-3 py-1 rounded-full text-zinc-600 dark:text-night-muted hover:text-rose-600 dark:hover:text-night-cyan hover:bg-rose-50 dark:hover:bg-night-electric/30 transition-colors truncate"
+            >
               {crumb.name}
             </a>
           )}

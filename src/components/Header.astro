@@ -9,6 +9,7 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/case-studies', label: 'Case Studies' },
+  { href: '/projects/this-website', label: 'How I Built This Site' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -39,13 +40,13 @@ const isActive = (path: string) => {
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center space-x-1" aria-label="Main Navigation">
+      <nav class="hidden lg:flex items-center space-x-0.5 xl:space-x-1" aria-label="Main Navigation">
         {navLinks.map((link) => {
           const active = isActive(link.href);
           return (
             <a
               href={link.href}
-              class={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              class={`px-3 xl:px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 active
                   ? 'bg-rose-50 text-rose-600 font-semibold shadow-sm border border-rose-200/60 dark:bg-night-ocean dark:text-night-cyan dark:border-night-cyan/40 dark:shadow-night-cyan/15'
                   : 'text-zinc-600 dark:text-night-muted hover:text-rose-600 dark:hover:text-night-cyan hover:bg-rose-50/50 dark:hover:bg-night-ocean/50'
@@ -59,13 +60,13 @@ const isActive = (path: string) => {
       </nav>
 
       <!-- Desktop Right Controls: Theme Switcher & Contact CTA -->
-      <div class="hidden md:flex items-center space-x-3.5">
-        <!-- ☀ DAY | ☾ NIGHT Theme Switcher -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <!-- DAY | NIGHT Theme Switcher -->
         <ThemeToggle />
 
         <a
           href="/contact"
-          class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-rose-500 to-orange-400 dark:from-night-magenta dark:to-night-pink hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-magenta dark:hover:to-night-cyan shadow-sm shadow-rose-500/25 dark:shadow-night-magenta/30 hover:shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+          class="hidden xl:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold text-white whitespace-nowrap bg-gradient-to-r from-rose-500 to-orange-400 dark:from-night-magenta dark:to-night-pink hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-magenta dark:hover:to-night-cyan shadow-sm shadow-rose-500/25 dark:shadow-night-magenta/30 hover:shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0"
         >
           Let's Connect
           <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,7 +76,7 @@ const isActive = (path: string) => {
       </div>
 
       <!-- Mobile Menu Toggle Button & Theme Switcher (Mobile) -->
-      <div class="flex items-center space-x-2 md:hidden">
+      <div class="flex items-center space-x-2 lg:hidden">
         <ThemeToggle />
         <button
           type="button"
@@ -98,7 +99,7 @@ const isActive = (path: string) => {
   </div>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-b border-rose-100 dark:border-night-cyan/20 bg-white/95 dark:bg-night-midnight/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-2">
+  <div id="mobile-menu" class="hidden lg:hidden border-b border-rose-100 dark:border-night-cyan/20 bg-white/95 dark:bg-night-midnight/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-2">
     {navLinks.map((link) => {
       const active = isActive(link.href);
       return (

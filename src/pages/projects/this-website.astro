@@ -1,0 +1,339 @@
+---
+import {
+  Gauge, Accessibility, ShieldCheck, Search, Layers, Bot, CircleCheck,
+  CircleDashed, Monitor, CalendarDays, Radio, Sparkles, Network, Eye,
+  Lightbulb, ChartColumn, Globe, Hammer, Target, Check, X, Minus, Quote,
+} from 'lucide-astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import AiVisibility from '../../components/AiVisibility.astro';
+import { thisWebsite as tw } from '../../data/this-website';
+import { sitePages } from '../../data/site-pages';
+import { aiAgentCount } from '../../data/crawlers';
+import { buildSchemaGraph, type PageType } from '../../data/schema';
+import { caseStudies } from '../../data/case-studies';
+import { siteConfig } from '../../data/seo-config';
+
+const crumbs = [
+  { name: 'Projects', url: '/projects' },
+  { name: 'This website', url: '/projects/this-website' },
+];
+
+/* ---------- Live facts computed from the codebase (never hard-coded) ---------- */
+const pageConfigs: { path: string; pageType: PageType; caseStudySlug?: string }[] = [
+  { path: '/', pageType: 'home' },
+  { path: '/about', pageType: 'profile' },
+  { path: '/contact', pageType: 'contact' },
+  { path: '/case-studies', pageType: 'collection' },
+  ...caseStudies.map((cs) => ({ path: `/case-studies/${cs.slug}`, pageType: 'case-study' as PageType, caseStudySlug: cs.slug })),
+  { path: '/sitemap', pageType: 'sitemap' },
+  { path: '/projects/this-website', pageType: 'project' },
+];
+const schemaTypes = new Set<string>();
+const collectTypes = (v: unknown) => {
+  if (Array.isArray(v)) v.forEach(collectTypes);
+  else if (v && typeof v === 'object') {
+    const t = (v as Record<string, unknown>)['@type'];
+    if (t) ([] as string[]).concat(t as string | string[]).forEach((x) => schemaTypes.add(x));
+    Object.values(v).forEach(collectTypes);
+  }
+};
+for (const c of pageConfigs) {
+  collectTypes(buildSchemaGraph({ ...c, title: '', description: '', breadcrumbs: [], imageUrl: '', article: c.pageType === 'project' ? { headline: '', description: '', keywords: [] } : undefined }));
+}
+const pageCount = sitePages.length;
+
+const stats = [
+  { value: String(pageCount), label: 'Indexable pages', icon: Layers },
+  { value: String(caseStudies.length), label: 'Client case studies', icon: ChartColumn },
+  { value: String(schemaTypes.size), label: 'Schema.org types', icon: Network },
+  { value: `${aiAgentCount}`, label: 'AI crawlers welcomed', icon: Bot },
+];
+
+const lhEntries = Object.entries(tw.lighthouse.scores) as [string, number | null][];
+const lhIcons: Record<string, any> = { Performance: Gauge, Accessibility, 'Best practices': ShieldCheck, SEO: Search };
+const scoreColor = (n: number) => (n >= 90 ? 'text-emerald-600 dark:text-emerald-400' : n >= 50 ? 'text-amber-600 dark:text-night-amber' : 'text-rose-600 dark:text-night-pink');
+
+const comparison: { feature: string; typical: 'yes' | 'no' | 'partial'; typicalNote: string; mine: string }[] = [
+  { feature: 'Structured data', typical: 'partial', typicalNote: 'One Person snippet, if any', mine: `${schemaTypes.size} linked types in one @graph per page` },
+  { feature: 'Sitemaps', typical: 'partial', typicalNote: 'Plugin-generated XML only', mine: 'XML + HTML sitemap from one page list' },
+  { feature: 'AI-readable summary', typical: 'no', typicalNote: 'None', mine: 'Generated /llms.txt' },
+  { feature: 'AI crawler policy', typical: 'no', typicalNote: 'Default robots.txt', mine: `${aiAgentCount} AI agents explicitly allowed` },
+  { feature: 'Case studies', typical: 'partial', typicalNote: 'Logos and vague claims', mine: 'Anonymized, metric-qualified write-ups' },
+  { feature: 'Share image & icons', typical: 'partial', typicalNote: 'Default favicon', mine: '1200×630 OG image, full icon set, manifest' },
+  { feature: 'Themes & motion', typical: 'partial', typicalNote: 'Single theme', mine: 'Day / night themes, reduced-motion aware' },
+];
+
+const implementation = [
+  { title: 'Static-first with Astro', text: 'Pages render to plain HTML with almost no client JavaScript, so crawlers and AI fetchers see the full content on the first request.' },
+  { title: 'One source of truth', text: 'Profile, experience, skills, case studies and the page list live in typed data files. Pages, schema, sitemaps and llms.txt are all generated from them, so they never drift apart.' },
+  { title: 'Connected knowledge graph', text: 'Every page ships a single JSON-LD @graph with stable @ids: the Person node links to roles, employer, degree, occupation code, case-study articles and Wikipedia-backed topics.' },
+  { title: 'Per-page metadata', text: 'Unique titles, descriptions, canonical URLs, Open Graph and Twitter cards with a dedicated share image on every route.' },
+  { title: 'Dual sitemaps', text: 'An XML sitemap for search engines and an HTML sitemap for people, both linked from the footer and robots.txt.' },
+  { title: 'AI-readable files', text: 'A generated llms.txt summarizing who I am, what I do and how my metrics should be quoted, plus a robots.txt that welcomes AI crawlers by name.' },
+  { title: 'Clean URL structure', text: 'Short, descriptive, lowercase paths with a breadcrumb trail that matches the BreadcrumbList schema on every inner page.' },
+];
+
+const underTheHood = [
+  { title: 'Crawl and index', icon: Search, items: ['Canonical URL on every page', 'XML sitemap with lastmod', 'HTML sitemap for users', 'robots.txt generated from config', 'Semantic, server-rendered HTML'] },
+  { title: 'Understanding', icon: Network, items: ['Single linked JSON-LD @graph', 'Person with roles, credential & O*NET occupation', 'Topics linked to Wikipedia', 'BreadcrumbList on inner pages', 'Article schema for case studies'] },
+  { title: 'Experience', icon: Eye, items: ['Responsive from phone to widescreen', 'Day and night themes', 'Respects reduced-motion settings', 'Keyboard focus outlines', 'Icons, never emojis'] },
+  { title: 'AI visibility', icon: Sparkles, items: ['Generated /llms.txt', `${aiAgentCount} AI crawlers allowed by name`, 'Content-Signal: search, AI input, training', 'Disambiguating description in schema', 'Metric qualifiers for accurate quoting'] },
+];
+
+---
+
+<BaseLayout
+  title="This Website | Project Case Study"
+  description="How I built this portfolio for search engines and AI assistants: Astro, linked Schema.org data, XML and HTML sitemaps, llms.txt and an AI-friendly robots.txt."
+  canonicalPath="/projects/this-website"
+  pageType="project"
+  type="article"
+  breadcrumbs={crumbs}
+  article={{
+    headline: tw.title,
+    description: tw.summary,
+    keywords: ['personal SEO', 'Astro', 'structured data', 'llms.txt', 'AI visibility', 'GEO', 'technical SEO'],
+    images: [
+      `${siteConfig.siteUrl}/images/projects/this-website-desktop.png`,
+      `${siteConfig.siteUrl}/images/projects/this-website-mobile.png`,
+    ],
+  }}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- ============ HERO ============ -->
+    <header class="relative">
+      <div class="absolute -top-20 right-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-rose-200/50 dark:bg-night-magenta/20 blur-3xl -z-10" aria-hidden="true"></div>
+      <p class="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider px-3.5 py-1 rounded-full bg-rose-100 dark:bg-night-ocean text-rose-700 dark:text-night-cyan border border-rose-200 dark:border-night-cyan/30">
+        <Hammer class="w-3.5 h-3.5" aria-hidden="true" /> Case study · This website
+      </p>
+      <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-serif font-extrabold tracking-tight text-zinc-900 dark:text-night-light leading-[1.08] max-w-4xl">
+        This website: built to be <span class="text-gradient-vice">found for my own name.</span>
+      </h1>
+      <p class="mt-5 text-lg text-zinc-600 dark:text-night-muted leading-relaxed max-w-3xl">{tw.summary}</p>
+
+      <div class="mt-6 flex flex-wrap items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full bg-white/80 dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20 text-zinc-700 dark:text-night-light">
+          <CalendarDays class="w-3.5 h-3.5 text-rose-500 dark:text-night-cyan" aria-hidden="true" /> Built {tw.builtOn}
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full bg-amber-50 dark:bg-night-ocean/80 border border-amber-200 dark:border-night-amber/30 text-amber-800 dark:text-night-amber">
+          <Radio class="w-3.5 h-3.5" aria-hidden="true" /> {tw.liveUrl ? 'Live' : tw.status}
+        </span>
+        {tw.stack.map((t) => (
+          <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-gradient-to-r from-rose-50 to-orange-50 dark:from-night-ocean dark:to-night-electric/30 border border-rose-100 dark:border-night-cyan/20 text-zinc-800 dark:text-night-light">{t}</span>
+        ))}
+      </div>
+
+      <dl class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((s) => (
+          <div class="vibe-card bg-glass-card rounded-2xl p-5 transition-transform duration-300">
+            <s.icon class="w-5 h-5 text-rose-500 dark:text-night-cyan" aria-hidden="true" />
+            <dd class="mt-3 text-4xl font-serif font-extrabold text-gradient-vice">{s.value}</dd>
+            <dt class="mt-1 text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-night-muted">{s.label}</dt>
+          </div>
+        ))}
+      </dl>
+
+      <!-- Screenshots -->
+      <div class="mt-12 relative grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+        <figure class="md:col-span-9 rounded-2xl overflow-hidden border border-rose-200/70 dark:border-night-cyan/25 shadow-2xl shadow-rose-950/10 dark:shadow-night-midnight/70 bg-white dark:bg-night-ocean">
+          <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-rose-100 dark:border-night-cyan/15 bg-rose-50/60 dark:bg-night-midnight/60">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <span class="ml-3 inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 dark:text-night-muted"><Monitor class="w-3.5 h-3.5" aria-hidden="true" /> Desktop homepage</span>
+          </div>
+          <img src="/images/projects/this-website-desktop.png" alt="Desktop screenshot of the Sanjeev Thakur SEO portfolio homepage" width="1440" height="900" loading="lazy" decoding="async" class="w-full h-auto" />
+        </figure>
+        <figure class="md:col-span-3 max-w-[240px] mx-auto md:mx-0 w-full rounded-[2rem] overflow-hidden border-[6px] border-zinc-900 dark:border-night-midnight shadow-2xl shadow-rose-950/20 bg-white">
+          <img src="/images/projects/this-website-mobile.png" alt="Mobile screenshot of the Sanjeev Thakur SEO portfolio homepage" width="500" height="1000" loading="lazy" decoding="async" class="w-full h-auto" />
+          <figcaption class="sr-only">Mobile homepage</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <!-- ============ MEASURED, NOT PROMISED ============ -->
+    <section class="mt-24" aria-labelledby="measured">
+      <h2 id="measured" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">Measured, not promised</h2>
+      <p class="mt-3 text-zinc-600 dark:text-night-muted max-w-2xl">
+        {tw.lighthouse.measuredOn
+          ? `Mobile Lighthouse run on ${tw.lighthouse.measuredOn}, against the live site.`
+          : 'Mobile Lighthouse scores will be published here after the first run against the live site. Local development builds are not representative, so no numbers until then.'}
+      </p>
+      <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {lhEntries.map(([name, score]) => {
+          const Icon = lhIcons[name];
+          return (
+            <div class="bg-glass-card rounded-2xl p-6 text-center">
+              <div class="relative mx-auto w-24 h-24">
+                <svg viewBox="0 0 36 36" class="w-24 h-24 -rotate-90" aria-hidden="true">
+                  <circle cx="18" cy="18" r="15.5" fill="none" stroke-width="3" class="stroke-rose-100 dark:stroke-night-ocean" />
+                  {score !== null && (
+                    <circle cx="18" cy="18" r="15.5" fill="none" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray={`${score} 100`} class={score >= 90 ? 'stroke-emerald-500' : score >= 50 ? 'stroke-amber-500' : 'stroke-rose-500'} />
+                  )}
+                </svg>
+                <span class={`absolute inset-0 flex items-center justify-center font-serif text-2xl font-extrabold ${score !== null ? scoreColor(score) : 'text-zinc-400 dark:text-night-muted'}`}>
+                  {score ?? '—'}
+                </span>
+              </div>
+              <div class="mt-3 inline-flex items-center gap-1.5 font-semibold text-zinc-900 dark:text-night-light"><Icon class="w-4 h-4 text-rose-500 dark:text-night-cyan" aria-hidden="true" />{name}</div>
+              {score === null && <div class="mt-1 text-[11px] font-mono uppercase tracking-wider text-zinc-400 dark:text-night-muted">Pending</div>}
+            </div>
+          );
+        })}
+      </div>
+      <p class="mt-4 text-sm text-zinc-500 dark:text-night-muted inline-flex items-center gap-2">
+        <ShieldCheck class="w-4 h-4 text-emerald-500" aria-hidden="true" /> Structured data on every page was validated with a custom script: valid JSON, one @graph, no dangling references.
+      </p>
+    </section>
+
+    <!-- ============ COMPARISON ============ -->
+    <section class="mt-24" aria-labelledby="compare">
+      <h2 id="compare" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">More than a typical portfolio</h2>
+      <p class="mt-3 text-zinc-600 dark:text-night-muted max-w-2xl">What most personal portfolio sites ship with, compared with what this one does.</p>
+      <div class="mt-8 overflow-x-auto rounded-2xl border border-rose-100 dark:border-night-cyan/20 bg-glass-card">
+        <table class="w-full min-w-[640px] text-sm">
+          <thead>
+            <tr class="text-left text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-night-muted border-b border-rose-100 dark:border-night-cyan/20">
+              <th scope="col" class="px-5 py-4">Feature</th>
+              <th scope="col" class="px-5 py-4">Typical portfolio</th>
+              <th scope="col" class="px-5 py-4 text-rose-600 dark:text-night-cyan">This website</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparison.map((row) => (
+              <tr class="border-b last:border-0 border-rose-50 dark:border-night-cyan/10">
+                <th scope="row" class="px-5 py-4 text-left font-semibold text-zinc-900 dark:text-night-light">{row.feature}</th>
+                <td class="px-5 py-4 text-zinc-500 dark:text-night-muted">
+                  <span class="inline-flex items-center gap-2">
+                    {row.typical === 'no' ? <X class="w-4 h-4 text-rose-400" aria-label="No" /> : <Minus class="w-4 h-4 text-amber-500" aria-label="Partly" />}
+                    {row.typicalNote}
+                  </span>
+                </td>
+                <td class="px-5 py-4 text-zinc-800 dark:text-night-light">
+                  <span class="inline-flex items-center gap-2"><Check class="w-4 h-4 text-emerald-500 flex-shrink-0" aria-label="Yes" />{row.mine}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ CHALLENGE & STRATEGY ============ -->
+    <section class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-glass-card rounded-3xl p-7 sm:p-8">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-500 text-white flex items-center justify-center shadow-md"><Target class="w-5 h-5" aria-hidden="true" /></div>
+        <h2 class="mt-5 text-2xl font-serif font-bold text-zinc-900 dark:text-night-light">The challenge</h2>
+        <p class="mt-3 text-zinc-600 dark:text-night-muted leading-relaxed">
+          "Sanjeev Thakur" is a common name. When a recruiter or client searches for me, or asks an AI assistant about me, there is no guarantee they land on the right person. A portfolio that only looks good does not solve that. It has to be unambiguous to machines as well as people.
+        </p>
+      </div>
+      <div class="bg-glass-card rounded-3xl p-7 sm:p-8">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-orange-400 to-amber-500 text-white flex items-center justify-center shadow-md"><Lightbulb class="w-5 h-5" aria-hidden="true" /></div>
+        <h2 class="mt-5 text-2xl font-serif font-bold text-zinc-900 dark:text-night-light">SEO strategy</h2>
+        <p class="mt-3 text-zinc-600 dark:text-night-muted leading-relaxed">
+          Treat my own name as the primary keyword and build technical SEO before design: a crawlable static site, one consistent entity for "Sanjeev Thakur, SEO Specialist, Bengaluru", and every discovery file (sitemaps, llms.txt, robots.txt) pointing search engines and AI to the same facts.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ IMPLEMENTATION ============ -->
+    <section class="mt-24" aria-labelledby="impl">
+      <h2 id="impl" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">Implementation</h2>
+      <ol class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {implementation.map((item, i) => (
+          <li class="flex gap-4 p-5 rounded-2xl bg-white/60 dark:bg-night-ocean/50 border border-rose-100 dark:border-night-cyan/15">
+            <span class="font-mono text-sm font-bold text-rose-500 dark:text-night-cyan pt-0.5">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">{item.title}</h3>
+              <p class="mt-1 text-sm text-zinc-600 dark:text-night-muted leading-relaxed">{item.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- ============ UNDER THE HOOD ============ -->
+    <section class="mt-24" aria-labelledby="hood">
+      <h2 id="hood" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">What's under the hood</h2>
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {underTheHood.map((g) => (
+          <div class="vibe-card bg-glass-card rounded-2xl p-6 transition-transform duration-300">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center"><g.icon class="w-5 h-5" aria-hidden="true" /></div>
+            <h3 class="mt-4 font-serif font-bold text-lg text-zinc-900 dark:text-night-light">{g.title}</h3>
+            <ul class="mt-3 space-y-2">
+              {g.items.map((it) => (
+                <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-night-muted"><CircleCheck class="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-500" aria-hidden="true" />{it}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ AI VISIBILITY ============ -->
+    <div class="mt-24"><AiVisibility showBuildLink={false} /></div>
+
+    <!-- ============ RANKINGS ============ -->
+    <section class="mt-24" aria-labelledby="rank">
+      <h2 id="rank" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">Where it ranks for my name</h2>
+      {tw.rankings.length === 0 ? (
+        <div class="mt-6 rounded-2xl border-2 border-dashed border-rose-200 dark:border-night-cyan/25 p-8 text-center">
+          <Globe class="w-8 h-8 mx-auto text-rose-400 dark:text-night-cyan" aria-hidden="true" />
+          <p class="mt-3 font-semibold text-zinc-800 dark:text-night-light">Ranking log starts at launch</p>
+          <p class="mt-1 text-sm text-zinc-500 dark:text-night-muted max-w-md mx-auto">Positions for branded queries will be logged here from Google Search Console once the site is live and indexed.</p>
+        </div>
+      ) : (
+        <div class="mt-8 overflow-x-auto rounded-2xl border border-rose-100 dark:border-night-cyan/20 bg-glass-card">
+          <table class="w-full min-w-[560px] text-sm">
+            <thead><tr class="text-left text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-night-muted border-b border-rose-100 dark:border-night-cyan/20"><th class="px-5 py-3">Date</th><th class="px-5 py-3">Query</th><th class="px-5 py-3">Country</th><th class="px-5 py-3">Position</th><th class="px-5 py-3">Source</th></tr></thead>
+            <tbody>
+              {tw.rankings.map((r) => (
+                <tr class="border-b last:border-0 border-rose-50 dark:border-night-cyan/10"><td class="px-5 py-3 font-mono">{r.date}</td><td class="px-5 py-3">{r.query}</td><td class="px-5 py-3">{r.country}</td><td class="px-5 py-3 font-bold text-rose-600 dark:text-night-cyan">{r.position ?? '—'}</td><td class="px-5 py-3 text-zinc-500">{r.source}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+
+    <!-- ============ TIMELINE ============ -->
+    <section class="mt-24" aria-labelledby="when">
+      <h2 id="when" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">When it was made</h2>
+      <ol class="mt-8 relative border-l-[3px] border-rose-200 dark:border-night-cyan/25 ml-4 space-y-6">
+        {tw.timeline.map((t, i) => (
+          <li class="relative pl-8">
+            <span class={`absolute -left-[17px] top-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono font-bold ${t.done ? 'bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white shadow-md' : 'bg-white dark:bg-night-ocean border-2 border-dashed border-rose-300 dark:border-night-cyan/40 text-rose-500 dark:text-night-cyan'}`}>
+              {t.done ? i + 1 : <CircleDashed class="w-4 h-4" aria-hidden="true" />}
+            </span>
+            <div class="flex flex-wrap items-baseline gap-x-3">
+              <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">{t.title}</h3>
+              <span class={`text-[11px] font-mono uppercase tracking-wider ${t.done ? 'text-rose-500 dark:text-night-cyan' : 'text-zinc-400 dark:text-night-muted'}`}>{t.date}</span>
+            </div>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-night-muted">{t.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- ============ TAKEAWAYS ============ -->
+    <section class="mt-24" aria-labelledby="take">
+      <h2 id="take" class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light">Key takeaways</h2>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        {tw.takeaways.map((t, i) => (
+          <div class="vibe-card bg-glass-card rounded-2xl p-6 transition-transform duration-300">
+            <span class="font-serif text-4xl font-extrabold text-gradient-vice">{i + 1}</span>
+            <h3 class="mt-2 font-serif font-bold text-lg text-zinc-900 dark:text-night-light">{t.title}</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-night-muted leading-relaxed">{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-24">
+      <ContactCTA />
+    </section>
+  </div>
+</BaseLayout>

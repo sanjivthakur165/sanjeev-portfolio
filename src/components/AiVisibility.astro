@@ -1,0 +1,365 @@
+---
+/**
+ * "Do AI assistants know who I am?" — GEO visibility tracker.
+ * Data: src/data/geo-log.ts. Each assistant tab is deep-linkable via #geo-<id>.
+ */
+import {
+  Check, X, Minus, Quote, Copy, CalendarDays, Globe, Link2, Lightbulb, FileText, Bot, Network,
+  Fingerprint, BookOpenText, ArrowRight, Info, Linkedin,
+} from 'lucide-astro';
+import { geoChecks, geoTrendNote, trackSiteCitations, type GeoCheck } from '../data/geo-log';
+import { siteConfig } from '../data/seo-config';
+import { aiAgentCount } from '../data/crawlers';
+
+export interface Props {
+  /** Show the "See it alongside the rest of the build" link (hide on the build page itself). */
+  showBuildLink?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+const { showBuildLink = true } = Astro.props;
+
+const siteHost = new URL(siteConfig.siteUrl).host;
+const total = geoChecks.length;
+const checked = geoChecks.filter((c) => c.status !== 'Not checked yet');
+const found = checked.filter((c) => c.mentionsMe).length;
+// Pre-launch: score LinkedIn citations; after launch: score citations of this website.
+const citeKey: keyof GeoCheck = trackSiteCitations ? 'citesSite' : 'citesLinkedIn';
+const citeLabel = trackSiteCitations ? 'Cites this site' : 'Cites my LinkedIn';
+const cited = checked.filter((c) => c[citeKey]).length;
+const signals = (c: GeoCheck) => [c.mentionsMe, c.clearIdentity, c[citeKey]].filter(Boolean).length;
+
+// Aggregate cited sources across checked assistants; this site always listed last for focus.
+const sourceCounts = new Map<string, number>();
+checked.forEach((c) => new Set(c.sources).forEach((s) => sourceCounts.set(s, (sourceCounts.get(s) ?? 0) + 1)));
+const focusMatch = trackSiteCitations ? siteHost.replace(/^www\./, '') : 'linkedin';
+const siteSourceKey = [...sourceCounts.keys()].find((k) => k.toLowerCase().includes(focusMatch)) ?? (trackSiteCitations ? siteHost : 'LinkedIn');
+const otherSources = [...sourceCounts.entries()].filter(([k]) => k !== siteSourceKey).sort((a, b) => b[1] - a[1]);
+const sourceRows = [...otherSources, [siteSourceKey, sourceCounts.get(siteSourceKey) ?? 0] as [string, number]];
+
+const statusStyle: Record<string, string> = {
+  'Shows up': 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800',
+  Partly: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800',
+  'Not found': 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800',
+  'Not checked yet': 'bg-zinc-100 text-zinc-600 border-zinc-200 dark:bg-night-ocean dark:text-night-muted dark:border-night-cyan/20',
+};
+
+const signalCols: { key: keyof GeoCheck; label: string }[] = [
+  { key: 'mentionsMe', label: 'Mentions me' },
+  { key: 'clearIdentity', label: 'One clear identity' },
+  { key: citeKey, label: citeLabel },
+];
+
+const alreadyDoes = [
+  { icon: FileText, title: 'llms.txt', text: 'A generated plain-text summary of who I am and how my metrics should be quoted.' },
+  { icon: Bot, title: 'AI crawlers allowed', text: `robots.txt names ${aiAgentCount} AI agents, including GPTBot, ClaudeBot, PerplexityBot and Google-Extended.` },
+  { icon: Network, title: 'Entity schema', text: 'One Person node with a stable @id, referenced from every page, linked to roles, degree and topics.' },
+  { icon: BookOpenText, title: 'Answer-shaped content', text: 'Case studies state results plainly, with exactly what each metric does and does not mean.' },
+  { icon: Fingerprint, title: 'Consistent identity', text: 'One name, title and location used everywhere on this site and linked to my LinkedIn profile, so assistants can tell me apart.' },
+];
+---
+
+<section id="geo" class="scroll-mt-28" aria-labelledby="geo-heading" data-geo>
+  <div class="max-w-3xl">
+    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-rose-100/80 dark:bg-night-ocean/90 text-rose-700 dark:text-night-cyan border border-rose-200/80 dark:border-night-cyan/30">
+      <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dark:bg-night-cyan"></span> GEO · AI visibility
+    </span>
+    <h2 id="geo-heading" class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-zinc-900 dark:text-night-light">
+      Do AI assistants know who I am?
+    </h2>
+    <p class="mt-4 text-base sm:text-lg text-zinc-600 dark:text-night-muted leading-relaxed">
+      People now ask AI assistants, not just Google. So I ask the major AI assistants the same question about me and log what they say, whether they get my identity right, and which sources they cite.
+    </p>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="mt-10 grid grid-cols-3 gap-3 sm:gap-4">
+    {[
+      { v: checked.length, label: 'assistants checked' },
+      { v: found, label: 'found me' },
+      { v: cited, label: trackSiteCitations ? 'cited this website' : 'cited my LinkedIn' },
+    ].map((s) => (
+      <div class="bg-glass-card rounded-2xl p-4 sm:p-6 text-center">
+        <div class="font-serif font-extrabold text-3xl sm:text-5xl text-gradient-vice">{s.v}<span class="text-lg sm:text-2xl text-zinc-400 dark:text-night-muted">/{total}</span></div>
+        <div class="mt-1 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-night-muted">{s.label}</div>
+      </div>
+    ))}
+  </div>
+
+  {checked.length === 0 && (
+    <p class="mt-4 flex items-start gap-2 text-sm text-zinc-500 dark:text-night-muted">
+      <Info class="w-4 h-4 mt-0.5 flex-shrink-0 text-rose-500 dark:text-night-cyan" aria-hidden="true" />
+      Baseline in progress: the first round of checks is logged after launch. Every result here comes from a real check, never an estimate.
+    </p>
+  )}
+
+  <div class="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
+    <!-- Comparison table -->
+    <div class="lg:col-span-3 overflow-x-auto rounded-2xl border border-rose-100 dark:border-night-cyan/20 bg-glass-card">
+      <table class="w-full min-w-[520px] text-sm">
+        <caption class="sr-only">AI assistant visibility comparison</caption>
+        <thead>
+          <tr class="text-left text-[11px] font-mono uppercase tracking-wider text-zinc-500 dark:text-night-muted border-b border-rose-100 dark:border-night-cyan/20">
+            <th scope="col" class="px-4 py-3.5">Assistant</th>
+            {signalCols.map((c) => <th scope="col" class="px-3 py-3.5 text-center">{c.label}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {geoChecks.map((c) => (
+            <tr class="border-b last:border-0 border-rose-50 dark:border-night-cyan/10">
+              <th scope="row" class="px-4 py-3 text-left">
+                <a href={`#geo-${c.id}`} data-geo-link={c.id} class="inline-flex items-center gap-2.5 font-semibold text-zinc-900 dark:text-night-light hover:text-rose-600 dark:hover:text-night-cyan">
+                  <span class="w-7 h-7 rounded-lg bg-white border border-zinc-200 dark:border-white/20 flex items-center justify-center flex-shrink-0 shadow-sm"><img src={c.logo} alt="" width="16" height="16" class="w-4 h-4" loading="lazy" /></span>
+                  {c.assistant}
+                </a>
+              </th>
+              {signalCols.map((col) => {
+                const v = c[col.key] as boolean | null;
+                return (
+                  <td class="px-3 py-3 text-center">
+                    {v === true && <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold"><Check class="w-4 h-4" aria-hidden="true" />Yes</span>}
+                    {v === false && <span class="inline-flex items-center gap-1 text-rose-500 dark:text-night-pink font-semibold"><X class="w-4 h-4" aria-hidden="true" />No</span>}
+                    {v === null && <span class="inline-flex items-center gap-1 text-zinc-400 dark:text-night-muted"><Minus class="w-4 h-4" aria-hidden="true" /><span class="sr-only">Not checked</span></span>}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Sources bar list -->
+    <div class="lg:col-span-2 bg-glass-card rounded-2xl p-5 sm:p-6">
+      <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">Where the assistants learned about me</h3>
+      <p class="text-xs text-zinc-500 dark:text-night-muted mt-1">Sources cited, out of {total} assistants checked.</p>
+      <ul class="mt-5 space-y-3.5">
+        {sourceRows.map(([name, count]) => {
+          const isSite = name === siteSourceKey;
+          return (
+            <li>
+              <div class="flex items-center justify-between text-sm">
+                <span class={`inline-flex items-center gap-1.5 ${isSite ? 'font-bold text-rose-600 dark:text-night-cyan' : 'text-zinc-700 dark:text-night-light'}`}>
+                  {isSite ? (trackSiteCitations ? <Globe class="w-3.5 h-3.5" aria-hidden="true" /> : <Linkedin class="w-3.5 h-3.5" aria-hidden="true" />) : <Link2 class="w-3.5 h-3.5 text-zinc-400" aria-hidden="true" />}{name}
+                </span>
+                <span class="font-mono text-xs text-zinc-500 dark:text-night-muted">{count}/{total}</span>
+              </div>
+              <div class="mt-1.5 h-2 rounded-full bg-rose-100/70 dark:bg-night-ocean overflow-hidden">
+                <div class={`h-full rounded-full ${isSite ? 'bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta' : 'bg-zinc-300 dark:bg-night-electric'}`} style={`width:${Math.max((count / total) * 100, count ? 4 : 0)}%`}></div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="mt-5 text-xs text-zinc-500 dark:text-night-muted leading-relaxed">
+        {geoTrendNote ?? (trackSiteCitations
+          ? `${siteHost} is the row to watch: it shows how often assistants cite this website directly.`
+          : 'Pre-launch baseline: LinkedIn is the row to watch until this website is live and can be cited.')}
+      </p>
+    </div>
+  </div>
+
+  <!-- Assistant tabs -->
+  <div class="mt-10">
+    <div role="tablist" aria-label="AI assistants" class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+      {geoChecks.map((c, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`geo-tab-${c.id}`}
+          aria-controls={`geo-${c.id}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          data-geo-tab={c.id}
+          class="geo-tab flex-shrink-0 inline-flex items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full text-sm font-semibold border transition-all border-rose-100 dark:border-night-cyan/20 bg-white/70 dark:bg-night-ocean/60 text-zinc-600 dark:text-night-muted hover:border-rose-300 dark:hover:border-night-cyan/50"
+        >
+          <span class="w-7 h-7 rounded-full bg-white border border-zinc-200 dark:border-white/20 flex items-center justify-center flex-shrink-0"><img src={c.logo} alt="" width="16" height="16" class="w-4 h-4" loading="lazy" /></span>
+          {c.assistant}
+        </button>
+      ))}
+    </div>
+
+    {geoChecks.map((c, i) => (
+      <article
+        id={`geo-${c.id}`}
+        role="tabpanel"
+        aria-labelledby={`geo-tab-${c.id}`}
+        data-geo-panel={c.id}
+        class={`mt-4 bg-glass-card rounded-3xl p-6 sm:p-8 scroll-mt-28 ${i === 0 ? '' : 'hidden'}`}
+      >
+        <header class="flex flex-wrap items-start justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="w-12 h-12 rounded-2xl bg-white border border-zinc-200 dark:border-white/20 flex items-center justify-center shadow-md flex-shrink-0"><img src={c.logo} alt={`${c.assistant} logo`} width="28" height="28" class="w-7 h-7" loading="lazy" /></span>
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-zinc-900 dark:text-night-light">{c.assistant}</h3>
+              <p class="text-xs font-mono text-zinc-500 dark:text-night-muted inline-flex items-center gap-1.5 mt-0.5">
+                <CalendarDays class="w-3.5 h-3.5" aria-hidden="true" />
+                {c.checkedOn ? `Checked ${c.checkedOn}${c.setting ? ` · ${c.setting}` : ''}` : 'Awaiting first check'}
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class={`text-xs font-mono font-semibold px-3 py-1 rounded-full border ${statusStyle[c.status]}`}>{c.status}</span>
+            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-white/80 dark:bg-night-ocean border border-rose-100 dark:border-night-cyan/20 text-zinc-700 dark:text-night-light">
+              {c.status === 'Not checked yet' ? '–' : signals(c)}/3 signals
+            </span>
+          </div>
+        </header>
+
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-5">
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-[0.15em] font-bold text-zinc-400 dark:text-night-muted">Question asked</div>
+              <div class="mt-2 flex items-start gap-3 p-4 rounded-2xl bg-rose-50/70 dark:bg-night-ocean/70 border border-rose-100 dark:border-night-cyan/20">
+                <Quote class="w-5 h-5 flex-shrink-0 text-rose-400 dark:text-night-cyan" aria-hidden="true" />
+                <p class="text-sm sm:text-base italic text-zinc-800 dark:text-night-light" data-geo-query>{c.query}</p>
+              </div>
+              <button type="button" data-geo-copy class="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-night-cyan hover:underline">
+                <Copy class="w-3.5 h-3.5" aria-hidden="true" /><span data-geo-copy-label>Copy the question</span>
+              </button>
+            </div>
+
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-[0.15em] font-bold text-zinc-400 dark:text-night-muted">What it said</div>
+              <p class="mt-2 text-sm sm:text-base text-zinc-700 dark:text-night-muted leading-relaxed">
+                {c.summary ?? 'Not checked yet. The answer summary will appear here after the first check.'}
+              </p>
+            </div>
+
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-[0.15em] font-bold text-zinc-400 dark:text-night-muted">Sources</div>
+              {c.sources.length ? (
+                <ul class="mt-2 flex flex-wrap gap-2">
+                  {c.sources.map((s) => <li class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-white/80 dark:bg-night-ocean/70 border border-rose-100 dark:border-night-cyan/20 text-zinc-700 dark:text-night-light"><Link2 class="w-3 h-3" aria-hidden="true" />{s}</li>)}
+                </ul>
+              ) : (
+                <p class="mt-2 text-sm text-zinc-400 dark:text-night-muted">{c.status === 'Not checked yet' ? 'None logged yet.' : 'No sources cited.'}</p>
+              )}
+            </div>
+          </div>
+
+          <div class="space-y-5">
+            <ul class="grid grid-cols-3 gap-2">
+              {signalCols.map((col) => {
+                const v = c[col.key] as boolean | null;
+                return (
+                  <li class={`rounded-2xl p-3 text-center border ${v === true ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-950/40 dark:border-emerald-800' : v === false ? 'bg-rose-50 border-rose-200 dark:bg-rose-950/40 dark:border-rose-900' : 'bg-white/60 border-rose-100 dark:bg-night-ocean/50 dark:border-night-cyan/15'}`}>
+                    <span class="flex justify-center">
+                      {v === true ? <Check class="w-5 h-5 text-emerald-600 dark:text-emerald-400" aria-hidden="true" /> : v === false ? <X class="w-5 h-5 text-rose-500" aria-hidden="true" /> : <Minus class="w-5 h-5 text-zinc-400" aria-hidden="true" />}
+                    </span>
+                    <span class="block mt-1 text-[11px] font-semibold text-zinc-700 dark:text-night-light leading-tight">{col.label}</span>
+                    <span class="sr-only">{v === true ? 'Yes' : v === false ? 'No' : 'Not checked'}</span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div class="rounded-2xl p-5 bg-gradient-to-br from-rose-50 via-orange-50/70 to-purple-50 dark:from-night-ocean/80 dark:via-night-electric/20 dark:to-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
+              <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.15em] font-bold text-rose-700 dark:text-night-cyan">
+                <Lightbulb class="w-4 h-4" aria-hidden="true" /> What I take from it
+              </div>
+              <p class="mt-2 text-sm text-zinc-700 dark:text-night-light leading-relaxed">
+                {c.takeaway ?? 'Pending the first check.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- What the site already does -->
+  <div class="mt-12">
+    <h3 class="font-serif font-bold text-2xl text-zinc-900 dark:text-night-light">What this site already does for AI visibility</h3>
+    <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      {alreadyDoes.map((d) => (
+        <li class="vibe-card bg-glass-card rounded-2xl p-5 transition-transform duration-300">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center"><d.icon class="w-4 h-4" aria-hidden="true" /></span>
+          <h4 class="mt-3 font-semibold text-zinc-900 dark:text-night-light">{d.title}</h4>
+          <p class="mt-1 text-xs text-zinc-600 dark:text-night-muted leading-relaxed">{d.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Methodology -->
+  <div class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-zinc-500 dark:text-night-muted">
+    <p class="max-w-3xl leading-relaxed">
+      Re-checked monthly with the same question and logged in <code class="font-mono text-rose-600 dark:text-night-cyan">src/data/geo-log.ts</code>. Answers vary by session and by whether web search is on, so read this as a trend, not a score. Assistant names and logos are used only to identify each product and belong to their owners. Logos via Lobe Icons (MIT).
+    </p>
+    {showBuildLink && (
+      <a href="/projects/this-website" class="inline-flex items-center gap-1.5 font-semibold text-sm text-rose-600 dark:text-night-cyan hover:underline flex-shrink-0">
+        See it alongside the rest of the build <ArrowRight class="w-4 h-4" aria-hidden="true" />
+      </a>
+    )}
+  </div>
+</section>
+
+<script>
+  function initGeo(root: HTMLElement) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-geo-tab]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-geo-panel]')];
+    const activeCls = ['bg-gradient-to-r', 'from-rose-500', 'to-orange-400', 'dark:from-night-cyan', 'dark:to-night-magenta', 'text-white', 'border-transparent', 'shadow-md'];
+
+    const select = (id: string, focus = false) => {
+      tabs.forEach((t) => {
+        const on = t.dataset.geoTab === id;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        activeCls.forEach((c) => t.classList.toggle(c, on));
+        ['text-zinc-600', 'dark:text-night-muted', 'bg-white/70', 'dark:bg-night-ocean/60', 'border-rose-100', 'dark:border-night-cyan/20'].forEach((c) => t.classList.toggle(c, !on));
+        t.classList.toggle('dark:text-white', on);
+        if (on && focus) t.focus({ preventScroll: true });
+        // Only scroll the tab strip sideways, never the page.
+        const strip = t.parentElement;
+        if (on && strip && strip.scrollWidth > strip.clientWidth) {
+          strip.scrollTo({ left: t.offsetLeft - strip.offsetLeft - 8, behavior: 'smooth' });
+        }
+      });
+      panels.forEach((p) => p.classList.toggle('hidden', p.dataset.geoPanel !== id));
+    };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => {
+        select(t.dataset.geoTab!);
+        history.replaceState(null, '', `#geo-${t.dataset.geoTab}`);
+      });
+      t.addEventListener('keydown', (e) => {
+        const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!dir) return;
+        e.preventDefault();
+        select(tabs[(i + dir + tabs.length) % tabs.length].dataset.geoTab!, true);
+      });
+    });
+
+    root.querySelectorAll<HTMLAnchorElement>('[data-geo-link]').forEach((a) =>
+      a.addEventListener('click', () => select(a.dataset.geoLink!))
+    );
+
+    root.querySelectorAll<HTMLButtonElement>('[data-geo-copy]').forEach((btn) =>
+      btn.addEventListener('click', async () => {
+        const q = btn.closest('[data-geo-panel]')?.querySelector('[data-geo-query]')?.textContent ?? '';
+        const label = btn.querySelector('[data-geo-copy-label]');
+        try {
+          await navigator.clipboard.writeText(q.trim());
+          if (label) { label.textContent = 'Copied'; setTimeout(() => (label.textContent = 'Copy the question'), 1800); }
+        } catch {
+          if (label) label.textContent = 'Copy failed';
+        }
+      })
+    );
+
+    // Deep links: #geo-chatgpt opens that assistant's tab
+    const fromHash = () => {
+      const m = location.hash.match(/^#geo-(.+)$/);
+      if (m && tabs.some((t) => t.dataset.geoTab === m[1])) {
+        select(m[1]);
+        document.getElementById(`geo-${m[1]}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+    select(tabs[0]?.dataset.geoTab ?? '');
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-geo]').forEach(initGeo);
+</script>

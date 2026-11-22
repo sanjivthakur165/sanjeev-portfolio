@@ -10,7 +10,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Core SEO",
     id: "core-seo",
-    description: "Foundational search strategies designed to understand audience intent, outperform competitors, and build authoritative organic visibility.",
+    description: "Understanding what people search for and what competitors are doing, then building pages that earn their rankings.",
     icon: "search",
     skills: [
       "Search Engine Optimization",
@@ -25,7 +25,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Technical SEO",
     id: "technical-seo",
-    description: "Eliminating technical debt to ensure search engines crawl, render, and index critical website assets seamlessly.",
+    description: "Making sure search engines can crawl, render and index the pages that matter.",
     icon: "code",
     skills: [
       "Technical SEO Audits",
@@ -41,7 +41,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Local SEO",
     id: "local-seo",
-    description: "Driving qualified regional search traffic and boosting local map-pack dominance for service-area and physical businesses.",
+    description: "Helping local and service-area businesses get found in their region and in the map pack.",
     icon: "map-pin",
     skills: [
       "Local Keyword Research",
@@ -54,7 +54,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Analytics & Reporting",
     id: "analytics",
-    description: "Translating search data into actionable insights through rigorous tracking and attribution across industry-standard platforms.",
+    description: "Turning Search Console and GA4 data into clear next steps.",
     icon: "bar-chart-2",
     skills: [
       "Google Analytics 4",
@@ -67,7 +67,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Emerging Search",
     id: "emerging-search",
-    description: "Staying ahead of search transformations with proactive research into conversational AI discovery and generative search engines.",
+    description: "Keeping up with how AI assistants and generative search find and cite sources.",
     icon: "sparkles",
     skills: [
       "Answer Engine Optimization (AEO)",

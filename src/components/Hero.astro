@@ -1,133 +1,210 @@
 ---
+import { Handshake, TrendingUp, Briefcase, Search, MapPin, Sparkles } from 'lucide-astro';
 import { profileData } from '../data/profile';
+
+const rotatingPhrases = [
+  'Sustainable Growth.',
+  'Qualified Leads.',
+  'Local Visibility.',
+  'Lasting Rankings.',
+];
+
+const floatingChips = [
+  { label: 'Crawl & index', icon: Search, color: 'text-rose-500 dark:text-night-cyan', pos: '-top-5 -left-6 sm:-left-12', delay: '0s' },
+  { label: 'Map pack', icon: MapPin, color: 'text-orange-500 dark:text-night-amber', pos: 'top-[44%] -right-4 sm:-right-10', delay: '1.2s' },
+  { label: 'AI answers', icon: Sparkles, color: 'text-purple-500 dark:text-night-lavender', pos: '-bottom-5 -left-4 sm:-left-10', delay: '2.1s' },
+];
 ---
 
-<section class="relative pt-6 pb-16 sm:pb-24 lg:pb-32 overflow-hidden">
-  
-  <!-- Subtle Sunset Sunburst & Night Vice City Silhouettes in Background -->
-  <div class="absolute top-0 right-0 w-full sm:w-2/3 h-full pointer-events-none -z-10 opacity-30 sm:opacity-40 dark:opacity-25" aria-hidden="true">
-    <svg viewBox="0 0 800 800" fill="none" class="w-full h-full">
-      <circle cx="650" cy="200" r="280" fill="url(#heroSunGlow)" opacity="0.6"/>
-      <g opacity="0.18" class="fill-[#E11D48] dark:fill-night-cyan">
-        <path d="M 800 120 Q 660 160 560 260 Q 640 230 740 210 Z"/>
-        <path d="M 800 200 Q 620 220 500 340 Q 620 290 750 290 Z"/>
-        <path d="M 800 290 Q 610 320 480 480 Q 600 400 750 410 Z"/>
-      </g>
-      <defs>
-        <radialGradient id="heroSunGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#FDA4AF" stop-opacity="0.8"/>
-          <stop offset="60%" stop-color="#FED7AA" stop-opacity="0.4"/>
-          <stop offset="100%" stop-color="#FFF1F2" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-    </svg>
+<section class="relative pt-4 pb-16 sm:pb-20 overflow-hidden">
+
+  <!-- Animated aurora glow -->
+  <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+    <div class="aurora-blob w-[28rem] h-[28rem] -top-24 -left-24 bg-rose-300/50 dark:bg-night-magenta/25"></div>
+    <div class="aurora-blob aurora-blob--2 w-[32rem] h-[32rem] top-10 right-[-8rem] bg-orange-200/60 dark:bg-night-cyan/20"></div>
+    <div class="aurora-blob aurora-blob--3 w-[26rem] h-[26rem] bottom-[-6rem] left-1/3 bg-purple-200/50 dark:bg-night-lavender/20"></div>
+    <div class="absolute inset-0 hero-dot-grid"></div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-      
-      <!-- Left Content (Editorial Headline & Intro) -->
-      <div class="lg:col-span-7 space-y-6 text-left">
-        
-        <!-- Role & Location Badge -->
-        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-rose-100/90 dark:bg-night-ocean/90 text-rose-800 dark:text-night-cyan border border-rose-200/80 dark:border-night-cyan/30 shadow-xs transition-colors duration-300">
-          <span class="w-2 h-2 rounded-full bg-rose-500 dark:bg-night-cyan animate-pulse"></span>
-          <span>{profileData.role}</span>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center">
+
+      <!-- Left: headline & intro -->
+      <div class="lg:col-span-7 space-y-7 text-left">
+
+        <div class="hero-in inline-flex flex-wrap items-center gap-x-2 gap-y-1 pl-2 pr-4 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-white/80 dark:bg-night-ocean/80 backdrop-blur text-zinc-700 dark:text-night-muted border border-rose-200/80 dark:border-night-cyan/30 shadow-sm" style="--d:0ms">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+            <span class="relative flex w-2 h-2">
+              <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+              <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald-500"></span>
+            </span>
+            Open to work
+          </span>
+          <span class="text-rose-700 dark:text-night-cyan">{profileData.role}</span>
           <span class="text-rose-300 dark:text-night-electric">•</span>
-          <span class="text-zinc-600 dark:text-night-muted">{profileData.location}</span>
+          <span>{profileData.location}</span>
         </div>
 
-        <!-- Master Headline -->
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-zinc-900 dark:text-night-light leading-[1.08] transition-colors duration-300">
-          Turning Search Visibility Into <span class="text-gradient-vice underline decoration-rose-300/40 dark:decoration-night-cyan/40 decoration-wavy decoration-from-font">Sustainable Growth.</span>
+        <h1 class="hero-in text-4xl sm:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-zinc-900 dark:text-night-light leading-[1.08]" style="--d:120ms">
+          Turning Search Visibility Into{' '}
+          <span class="block mt-1 sm:mt-2 relative h-[1.2em] overflow-hidden">
+            <span class="rotator block">
+              <span class="rotator-item block h-[1.2em] text-gradient-vice animate-gradient-text">{rotatingPhrases[0]}</span>
+              {[...rotatingPhrases.slice(1), rotatingPhrases[0]].map((p) => (
+                <span class="rotator-item rotator-ghost block h-[1.2em] text-gradient-vice animate-gradient-text" data-text={p} aria-hidden="true"></span>
+              ))}
+            </span>
+          </span>
         </h1>
 
-        <!-- Supporting Text -->
-        <p class="text-lg sm:text-xl text-zinc-600 dark:text-night-muted leading-relaxed font-normal max-w-2xl transition-colors duration-300">
+        <p class="hero-in text-lg sm:text-xl text-zinc-600 dark:text-night-muted leading-relaxed max-w-2xl" style="--d:240ms">
           {profileData.subheadline}
         </p>
 
-        <!-- CTAs -->
-        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+        <div class="hero-in pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-4" style="--d:360ms">
           <a
             href={profileData.cta.primaryHref}
-            class="inline-flex items-center justify-center px-8 py-4 rounded-full text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-cyan dark:via-night-magenta dark:to-night-pink hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-cyan dark:hover:to-night-magenta shadow-lg shadow-rose-500/25 dark:shadow-night-magenta/30 hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            class="btn-shine group relative inline-flex items-center justify-center px-8 py-4 rounded-full text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-cyan dark:via-night-magenta dark:to-night-pink bg-[length:200%_100%] hover:bg-right shadow-lg shadow-rose-500/30 dark:shadow-night-magenta/30 hover:shadow-xl hover:shadow-rose-500/40 transition-all duration-500 hover:-translate-y-0.5 overflow-hidden"
           >
-            {profileData.cta.primaryText}
-            <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
+            <span class="relative z-10 inline-flex items-center">
+              {profileData.cta.primaryText}
+              <svg class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </span>
           </a>
 
           <a
             href={profileData.cta.secondaryHref}
-            class="inline-flex items-center justify-center px-7 py-4 rounded-full text-base font-semibold text-zinc-800 dark:text-night-light bg-white/80 hover:bg-white dark:bg-night-ocean/80 dark:hover:bg-night-ocean border border-rose-200/80 dark:border-night-cyan/30 shadow-sm hover:shadow-md hover:border-rose-300 dark:hover:border-night-cyan transition-all"
+            class="group inline-flex items-center justify-center px-7 py-4 rounded-full text-base font-semibold text-zinc-800 dark:text-night-light bg-white/80 hover:bg-white dark:bg-night-ocean/80 dark:hover:bg-night-ocean border border-rose-200/80 dark:border-night-cyan/30 shadow-sm hover:shadow-md hover:border-rose-300 dark:hover:border-night-cyan transition-all"
           >
+            <Handshake class="mr-2 w-5 h-5 text-rose-500 dark:text-night-cyan group-hover:animate-wave origin-[70%_70%]" aria-hidden="true" />
             {profileData.cta.secondaryText}
           </a>
         </div>
 
-        <!-- Proof Pillars Bar -->
-        <div class="pt-8 border-t border-rose-100/80 dark:border-night-cyan/20 grid grid-cols-3 gap-4 max-w-lg transition-colors duration-300">
-          <div>
-            <div class="text-2xl sm:text-3xl font-serif font-extrabold text-zinc-900 dark:text-night-light">4+</div>
-            <div class="text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-0.5">Years SEO Exp.</div>
+        <!-- Count-up stats -->
+        <div class="hero-in pt-8 grid grid-cols-3 gap-3 sm:gap-4 max-w-xl" style="--d:480ms">
+          <div class="stat-tile">
+            <div class="text-2xl sm:text-4xl font-serif font-extrabold text-zinc-900 dark:text-night-light">
+              <span data-count="4">4</span>+
+            </div>
+            <div class="text-[10px] sm:text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-1">Years in SEO</div>
           </div>
-          <div>
-            <div class="text-2xl sm:text-3xl font-serif font-extrabold text-rose-600 dark:text-night-cyan">+200%</div>
-            <div class="text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-0.5">Organic Surge</div>
+          <div class="stat-tile">
+            <div class="text-2xl sm:text-4xl font-serif font-extrabold text-rose-600 dark:text-night-cyan">
+              +<span data-count="200">200</span>%
+            </div>
+            <div class="text-[10px] sm:text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-1">Organic Growth</div>
           </div>
-          <div>
-            <div class="text-2xl sm:text-3xl font-serif font-extrabold text-orange-600 dark:text-night-magenta">4 Team</div>
-            <div class="text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-0.5">Associates Led</div>
+          <div class="stat-tile">
+            <div class="text-2xl sm:text-4xl font-serif font-extrabold text-orange-600 dark:text-night-magenta">
+              <span data-count="4">4</span>
+            </div>
+            <div class="text-[10px] sm:text-xs font-mono text-zinc-500 dark:text-night-muted uppercase tracking-wider mt-1">Associates Led</div>
           </div>
         </div>
-
       </div>
 
-      <!-- Right Column: Editorial Profile Placeholder Portrait -->
+      <!-- Right: SEO snapshot panel (no photo) with animated ring & floating chips -->
       <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
-        
-        <!-- Framing Container -->
-        <div class="relative w-full max-w-md">
-          
-          <!-- Decorative Sunset / Night Aura Behind Card -->
-          <div class="absolute -inset-4 bg-gradient-to-tr from-rose-400 via-pink-300 to-orange-300 dark:from-night-cyan/30 dark:via-night-magenta/20 dark:to-night-amber/20 rounded-[2.5rem] opacity-30 dark:opacity-40 blur-2xl -z-10 transition-all duration-500"></div>
-          
-          <!-- Editorial Portrait Card -->
-          <div class="relative rounded-3xl overflow-hidden bg-white/60 dark:bg-night-ocean/70 border-2 border-rose-200/70 dark:border-night-cyan/30 shadow-2xl shadow-rose-950/10 dark:shadow-night-midnight/80 p-2 sm:p-3 transition-colors duration-300">
-            <img
-              src="/images/profile-placeholder.svg"
-              alt="Sanjeev Thakur - SEO Specialist placeholder portrait"
-              class="w-full h-auto rounded-2xl object-cover transform hover:scale-[1.01] transition-transform duration-500"
-              width="600"
-              height="700"
-              loading="eager"
-            />
-          </div>
+        <div class="hero-in relative w-full max-w-sm sm:max-w-md" style="--d:300ms">
 
-          <!-- Floating Highlight Pill (Lower Left) -->
-          <div class="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-white/95 dark:bg-night-ocean/95 backdrop-blur-md rounded-2xl p-4 border border-rose-200 dark:border-night-cyan/30 shadow-xl shadow-rose-950/5 dark:shadow-night-midnight/50 flex items-center space-x-3.5 max-w-xs transition-colors duration-300">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center flex-shrink-0 font-bold">
-              ✓
+          <div class="absolute -inset-6 bg-gradient-to-tr from-rose-400 via-pink-300 to-orange-300 dark:from-night-cyan/40 dark:via-night-magenta/30 dark:to-night-amber/20 rounded-[3rem] opacity-40 blur-3xl -z-10 animate-pulse-slow"></div>
+
+          <div class="portrait-ring relative rounded-[2rem] p-[3px] shadow-2xl shadow-rose-950/15 dark:shadow-night-midnight/80">
+            <div class="relative rounded-[calc(2rem-3px)] bg-white/90 dark:bg-night-ocean/95 backdrop-blur-md p-5 sm:p-7">
+
+              <!-- Identity row -->
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center font-serif font-bold text-lg shadow-md" aria-hidden="true">ST</div>
+                <div class="min-w-0">
+                  <div class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light leading-tight">{profileData.name}</div>
+                  <div class="text-xs text-zinc-500 dark:text-night-muted inline-flex items-center gap-1.5"><Briefcase class="w-3.5 h-3.5" aria-hidden="true" /> SEO Specialist @ vSplash Techlabs</div>
+                </div>
+              </div>
+
+              <!-- Growth chart -->
+              <div class="mt-6 rounded-2xl p-4 bg-rose-50/70 dark:bg-night-midnight/60 border border-rose-100 dark:border-night-cyan/20">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-mono uppercase tracking-wider font-bold text-zinc-500 dark:text-night-muted">Organic sessions</span>
+                  <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-300 inline-flex items-center gap-1"><TrendingUp class="w-3.5 h-3.5" aria-hidden="true" /> 200%+</span>
+                </div>
+                <svg viewBox="0 0 160 56" class="mt-3 w-full h-20" fill="none" aria-hidden="true" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#F43F5E" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#F43F5E" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="sparkLine" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#FB923C"/>
+                      <stop offset="100%" stop-color="#E11D48"/>
+                    </linearGradient>
+                  </defs>
+                  <path class="spark-area" d="M2 50 L22 46 L42 47 L62 40 L82 36 L102 27 L122 22 L142 12 L158 5 L158 56 L2 56 Z" fill="url(#sparkFill)"/>
+                  <path class="spark-line" d="M2 50 L22 46 L42 47 L62 40 L82 36 L102 27 L122 22 L142 12 L158 5" stroke="url(#sparkLine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" vector-effect="non-scaling-stroke"/>
+                  <circle class="spark-dot" cx="158" cy="5" r="3.5" fill="#E11D48"/>
+                </svg>
+                <div class="mt-1 text-[11px] text-zinc-500 dark:text-night-muted">Construction client · 3-month campaign · South Florida</div>
+              </div>
+
+              <!-- Mini stats -->
+              <div class="mt-4 grid grid-cols-2 gap-3">
+                <div class="rounded-2xl p-3.5 bg-white dark:bg-night-ocean border border-rose-100 dark:border-night-cyan/20">
+                  <div class="font-serif font-extrabold text-2xl text-orange-600 dark:text-night-amber">~3x</div>
+                  <div class="text-[11px] text-zinc-500 dark:text-night-muted leading-snug">GSC impressions in under 2 months</div>
+                </div>
+                <div class="rounded-2xl p-3.5 bg-white dark:bg-night-ocean border border-rose-100 dark:border-night-cyan/20">
+                  <div class="font-serif font-extrabold text-2xl text-purple-600 dark:text-night-lavender">4</div>
+                  <div class="text-[11px] text-zinc-500 dark:text-night-muted leading-snug">SEO associates mentored</div>
+                </div>
+              </div>
+
+              <!-- Focus areas -->
+              <div class="mt-5 flex flex-wrap gap-2">
+                {['Technical SEO', 'On-Page SEO', 'Local SEO', 'AEO · GEO'].map((t) => (
+                  <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-gradient-to-r from-rose-50 to-orange-50 dark:from-night-ocean dark:to-night-electric/30 border border-rose-100 dark:border-night-cyan/20 text-zinc-700 dark:text-night-light">{t}</span>
+                ))}
+              </div>
             </div>
-            <div>
-              <div class="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400 dark:text-night-muted">Current Position</div>
-              <div class="text-sm font-serif font-bold text-zinc-900 dark:text-night-light leading-tight">SEO Specialist @ vSplash</div>
+          </div>
+
+          {floatingChips.map((chip) => (
+            <div class={`absolute ${chip.pos} hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/95 dark:bg-night-ocean/95 backdrop-blur-md border border-rose-200 dark:border-night-cyan/30 shadow-lg shadow-rose-950/10 dark:shadow-night-midnight/60 text-xs font-semibold text-zinc-800 dark:text-night-light animate-float`} style={`animation-delay:${chip.delay}`}>
+              <chip.icon class={`w-3.5 h-3.5 ${chip.color}`} aria-hidden="true" />
+              {chip.label}
             </div>
-          </div>
-
-          <!-- Floating Highlight Pill (Upper Right) -->
-          <div class="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 bg-white/95 dark:bg-night-ocean/95 backdrop-blur-md rounded-2xl px-4 py-2.5 border border-rose-200 dark:border-night-cyan/30 shadow-xl shadow-rose-950/5 dark:shadow-night-midnight/50 hidden sm:flex items-center space-x-2 transition-colors duration-300">
-            <span class="w-2 h-2 rounded-full bg-rose-500 dark:bg-night-cyan animate-ping"></span>
-            <span class="text-xs font-mono font-bold text-rose-700 dark:text-night-cyan">GTA Vice City Aesthetic</span>
-          </div>
-
+          ))}
         </div>
-
       </div>
-
     </div>
-  </div>
 
+    <!-- Scroll cue -->
+    <a href="#intro" class="hidden lg:flex mt-14 mx-auto w-fit flex-col items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 dark:text-night-muted hover:text-rose-500 dark:hover:text-night-cyan transition-colors">
+      Scroll
+      <span class="w-6 h-10 rounded-full border-2 border-current flex justify-center pt-1.5">
+        <span class="w-1 h-2 rounded-full bg-current animate-scroll-cue"></span>
+      </span>
+    </a>
+  </div>
 </section>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  if (!reduce) {
+    counters.forEach((el) => {
+      const target = Number(el.dataset.count);
+      const start = performance.now();
+      const dur = 1600;
+      el.textContent = '0';
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = String(Math.round(target * eased));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      setTimeout(() => requestAnimationFrame(tick), 600);
+    });
+  }
+</script>

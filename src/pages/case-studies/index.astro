@@ -1,4 +1,5 @@
 ---
+import { Lock } from 'lucide-astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
@@ -12,9 +13,10 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title="SEO Case Studies | Measurable Organic Growth"
-  description="Explore detailed SEO case studies by Sanjeev Thakur: Residential & Commercial Construction (+200% Sessions & Clicks) and Electrical Contracting (~3x Impressions) in South Florida."
+  title="SEO Case Studies | Real Client Results"
+  description="SEO case studies by Sanjeev Thakur: a South Florida construction contractor (+200% organic sessions and clicks) and an electrical contractor (~3x impressions)."
   canonicalPath="/case-studies"
+  pageType="collection"
   breadcrumbs={crumbs}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -25,35 +27,36 @@ const crumbs = [
     <div class="max-w-3xl mb-12 sm:mb-16">
       <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-rose-100 dark:bg-night-ocean text-rose-700 dark:text-night-cyan border border-rose-200 dark:border-night-cyan/30 mb-4">
         <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dark:bg-night-cyan"></span>
-        <span>Proven SEO Results</span>
+        <span>Client Results</span>
       </div>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-extrabold text-zinc-900 dark:text-night-light leading-[1.1] mb-6">
-        Real Search Performance, <span class="text-gradient-vice">Documented &amp; Verified.</span>
+        Real Campaigns, <span class="text-gradient-vice">Real Numbers.</span>
       </h1>
       <p class="text-lg sm:text-xl text-zinc-600 dark:text-night-muted leading-relaxed font-normal">
-        A deep look into real client campaigns demonstrating how strategic technical cleanup, localized keyword architecture, and on-page optimization drive measurable organic acceleration.
+        Two client campaigns: what I did and what changed, measured in Google Search Console and GA4.
       </p>
     </div>
 
     <!-- Confidentiality Trust Banner -->
     <div class="mb-12 p-5 sm:p-6 rounded-2xl bg-amber-50/70 dark:bg-night-ocean/80 border border-amber-200/80 dark:border-night-coral/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <div class="flex items-start space-x-3.5">
-        <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-night-ocean text-amber-800 dark:text-night-coral flex items-center justify-center flex-shrink-0 font-bold text-base">
-          🔒
+        <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-night-ocean text-amber-800 dark:text-night-coral flex items-center justify-center flex-shrink-0">
+          <Lock class="w-[18px] h-[18px]" aria-hidden="true" />
         </div>
         <div>
-          <h3 class="text-sm font-bold font-serif text-amber-950 dark:text-night-light">Client Confidentiality Commitment</h3>
+          <p class="text-sm font-bold font-serif text-amber-950 dark:text-night-light">Client Confidentiality</p>
           <p class="text-xs text-amber-900/80 dark:text-night-muted mt-0.5 leading-relaxed max-w-2xl">
-            In strict adherence to non-disclosure agreements and competitive privacy, all client names, live domains, proprietary URLs, and direct identifiers are anonymized. Performance metrics represent verified, unmanipulated GSC and GA4 results.
+            Client names, websites and anything that could identify them are kept private under NDA. The numbers are real GSC and GA4 results, not adjusted.
           </p>
         </div>
       </div>
       <span class="text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-white dark:bg-night-ocean text-amber-900 dark:text-night-coral border border-amber-200 dark:border-night-coral/40 font-semibold self-start sm:self-auto flex-shrink-0">
-        Strict Privacy Preserved
+        Kept Private
       </span>
     </div>
 
     <!-- Case Studies Grid -->
+    <h2 class="sr-only">All case studies</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-20">
       {caseStudies.map((cs) => (
         <CaseStudyCard caseStudy={cs} />
@@ -63,12 +66,12 @@ const crumbs = [
     <!-- Methodological Rigor Breakdown -->
     <div class="bg-glass-card rounded-3xl p-8 sm:p-12 border border-rose-100 dark:border-night-cyan/20 mb-20">
       <div class="max-w-2xl mb-8">
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-600 dark:text-night-cyan">The Framework</span>
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-600 dark:text-night-cyan">My Process</span>
         <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light mt-1">
-          How These Results Are Generated
+          How I Approach Each Campaign
         </h2>
         <p class="text-zinc-600 dark:text-night-muted text-sm sm:text-base mt-2">
-          Every campaign follows a systematic, three-stage optimization blueprint tailored to regional intent and technical realities.
+          Every campaign goes through the same three stages, adjusted for the market and the state of the site.
         </p>
       </div>
 
@@ -77,7 +80,7 @@ const crumbs = [
           <div class="text-xs font-mono font-bold text-rose-500 dark:text-night-cyan uppercase tracking-widest">Stage 1</div>
           <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">Technical Audit &amp; Indexation</h3>
           <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-            Eliminating crawl bloat, 404 dead ends, redirect chains, XML sitemap errors, and oversized media to maximize Google's crawl budget and rendering speed.
+            Fix crawl waste, 404s, redirect chains, sitemap errors and oversized images so Google can crawl and render the site properly.
           </p>
         </div>
 
@@ -85,15 +88,15 @@ const crumbs = [
           <div class="text-xs font-mono font-bold text-orange-500 dark:text-night-coral uppercase tracking-widest">Stage 2</div>
           <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">Intent Mapping &amp; On-Page</h3>
           <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-            Constructing dedicated service pages and localized geo-targets with optimized title tags, semantic headings, and descriptive alt text mapped to real search intent.
+            Build dedicated service and location pages with clear titles, headings and alt text that match what people search for.
           </p>
         </div>
 
         <div class="p-6 rounded-2xl bg-white/80 dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20 space-y-3">
           <div class="text-xs font-mono font-bold text-purple-500 dark:text-night-lavender uppercase tracking-widest">Stage 3</div>
-          <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">Local Authority &amp; Scaling</h3>
+          <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light">Local Signals &amp; Tracking</h3>
           <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-            Aligning Google Business Profile assets, establishing internal linking silos, and tracking performance trajectories with Google Search Console and GA4.
+            Optimize the Google Business Profile, tighten internal linking and track progress in Google Search Console and GA4.
           </p>
         </div>
       </div>

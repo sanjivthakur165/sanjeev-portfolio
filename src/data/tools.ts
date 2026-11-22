@@ -9,56 +9,56 @@ export const toolsData: ToolItem[] = [
   {
     name: "Google Search Console",
     category: "Analytics & Tracking",
-    description: "Search performance monitoring, indexation diagnosis, crawl stat analysis, and CTR optimization."
+    description: "Performance tracking, indexing checks, crawl stats and click-through rate."
   },
   {
     name: "Google Analytics 4",
     category: "Analytics & Tracking",
-    description: "Organic session attribution, conversion pathway tracking, and user engagement measurement."
+    description: "Organic traffic, conversion paths and engagement."
   },
   {
     name: "Ahrefs",
     category: "Competitive Research",
-    description: "Backlink profile auditing, keyword difficulty evaluation, and competitive gap discovery."
+    description: "Backlink audits, keyword difficulty and competitor gaps."
   },
   {
     name: "Semrush",
     category: "Competitive Research",
-    description: "Keyword position tracking, market domain analysis, and on-page optimization ideas."
+    description: "Rank tracking, domain analysis and on-page ideas."
   },
   {
     name: "Moz",
     category: "Competitive Research",
-    description: "Domain authority benchmarking, link exploration, and brand mention tracking."
+    description: "Domain authority, link research and brand mentions."
   },
   {
     name: "Screaming Frog",
     category: "Technical Auditing",
-    description: "Deep crawl auditing, status code mapping, sitemap validation, and duplicate content identification."
+    description: "Site crawls, status codes, sitemap checks and duplicate content."
   },
   {
     name: "Google Keyword Planner",
     category: "Competitive Research",
-    description: "Search volume modeling, commercial intent analysis, and localized keyword ideation."
+    description: "Search volumes, commercial intent and local keyword ideas."
   },
   {
     name: "WordPress",
     category: "CMS & Data",
-    description: "Content management, taxonomy structuring, schema implementation, and on-page publishing."
+    description: "Publishing, categories, schema markup and on-page changes."
   },
   {
     name: "Microsoft Excel",
     category: "CMS & Data",
-    description: "Data modeling, keyword clustering, client reporting dashboards, and large crawl analysis."
+    description: "Keyword clustering, client reports and large crawl exports."
   },
   {
     name: "ChatGPT",
     category: "AI & Efficiency",
-    description: "Ideation workflows, meta tag drafting, schema generation, and semantic topical mapping."
+    description: "Brainstorming, first drafts of meta tags, schema markup and topic maps."
   },
   {
     name: "Claude",
     category: "AI & Efficiency",
-    description: "Analytical content synthesis, prompt-assisted research, and structured outline development."
+    description: "Summarizing research, reviewing content and drafting outlines."
   }
 ];

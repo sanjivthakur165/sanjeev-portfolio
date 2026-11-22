@@ -1,4 +1,5 @@
 ---
+import { CircleCheck } from 'lucide-astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -13,8 +14,10 @@ const crumbs = [
 
 <BaseLayout
   title="About Sanjeev Thakur | SEO Specialist"
-  description="Learn more about Sanjeev Thakur, an SEO Specialist with 4+ years experience. Discover his background in Technical SEO, on-page architecture, team leadership, and interest in AEO & GEO."
+  description="About Sanjeev Thakur, an SEO Specialist in Bengaluru with 4+ years of experience in technical SEO, on-page SEO, team leadership and AI search (AEO & GEO)."
   canonicalPath="/about"
+  pageType="profile"
+  type="profile"
   breadcrumbs={crumbs}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -28,10 +31,10 @@ const crumbs = [
         <span>About Sanjeev Thakur</span>
       </div>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-extrabold text-zinc-900 dark:text-night-light leading-[1.1] mb-6">
-        Bridging Technical Execution &amp; <span class="text-gradient-vice">Organic Search Growth.</span>
+        SEO That Starts With <span class="text-gradient-vice">How Search Engines Read Your Site.</span>
       </h1>
       <p class="text-lg sm:text-xl text-zinc-600 dark:text-night-muted leading-relaxed font-normal">
-        Over 4 years of hands-on experience transforming websites from crawlable obstacles into discoverable, high-converting organic search assets.
+        I've spent more than four years helping websites get crawled, indexed and found by the people searching for them.
       </p>
     </div>
 
@@ -43,89 +46,89 @@ const crumbs = [
         
         <div class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            My SEO Journey &amp; Engineering Foundation
+            How I Got Into SEO
           </h2>
           <p>
-            With an academic background in <strong class="text-zinc-900 dark:text-night-light">Computer Science (B.Tech)</strong>, I have always looked at search engines through the lens of systems, logic, and crawl mechanics. Rather than treating SEO as mere keyword sprinkling or surface-level copywriting, I approach every website as an interconnected digital architecture that search engine bots must parse, render, evaluate, and prioritize.
+            I studied <strong class="text-zinc-900 dark:text-night-light">Computer Science (B.Tech)</strong>, so I tend to see search engines as systems. To me, SEO isn't about sprinkling keywords into copy. A website is a set of connected pages that search engine bots have to find, render, understand and rank.
           </p>
           <p>
-            Over the past four years, that foundational mindset has evolved through rigorous agency and client-facing execution—solving complex crawlability barriers, structuring scalable internal link networks, and aligning high-intent commercial queries with relevant landing page experiences.
+            Four years of agency and client work have built on that. I've fixed tricky crawl problems, set up internal linking that scales, and matched commercial searches to the right landing pages.
           </p>
         </div>
 
         <div class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            Current Leadership: vSplash Techlabs
+            Now: SEO Specialist at vSplash Techlabs
           </h2>
           <p>
-            Since September 2023, I have served as an <strong class="text-zinc-900 dark:text-night-light">SEO Specialist at vSplash Techlabs</strong>. In this role, I am responsible for end-to-end SEO execution across a diverse portfolio of client websites spanning competitive industries and regional markets.
+            Since September 2023, I've worked as an <strong class="text-zinc-900 dark:text-night-light">SEO Specialist at vSplash Techlabs</strong>, handling SEO from start to finish for client websites across different industries and regions.
           </p>
           <p>
-            Beyond direct technical auditing and on-page optimization, I actively <strong class="text-zinc-900 dark:text-night-light">mentor and supervise a team of four SEO associates</strong>. This includes establishing standard operating procedures for site crawls, reviewing metadata and keyword mapping deliverables, troubleshooting crawlability bottlenecks, and liaising directly with cross-functional development teams to guarantee seamless implementation.
+            Alongside audits and on-page work, I <strong class="text-zinc-900 dark:text-night-light">mentor and supervise a team of four SEO associates</strong>. I set up our crawl and audit processes, review metadata and keyword mapping work, help sort out crawl problems, and work with developers to make sure fixes actually go live.
           </p>
           <ul class="space-y-3 pt-2 text-sm sm:text-base text-zinc-700 dark:text-night-muted">
             <li class="flex items-start">
-              <span class="text-rose-500 dark:text-night-cyan font-bold mr-3 mt-1">✓</span>
-              <span><strong class="text-zinc-900 dark:text-night-light">Technical Auditing:</strong> Diagnosing server response codes, crawl bloat, broken links, XML sitemap flaws, and media payloads using Screaming Frog and Google Search Console.</span>
+              <CircleCheck class="w-5 h-5 text-rose-500 dark:text-night-cyan mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
+              <span><strong class="text-zinc-900 dark:text-night-light">Technical Auditing:</strong> Finding server errors, crawl waste, broken links, sitemap problems and heavy images with Screaming Frog and Google Search Console.</span>
             </li>
             <li class="flex items-start">
-              <span class="text-rose-500 dark:text-night-cyan font-bold mr-3 mt-1">✓</span>
-              <span><strong class="text-zinc-900 dark:text-night-light">On-Page Precision:</strong> Crafting semantic keyword architectures, heading hierarchies, title tags, and structured meta assets mapped to clear user intent.</span>
+              <CircleCheck class="w-5 h-5 text-rose-500 dark:text-night-cyan mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
+              <span><strong class="text-zinc-900 dark:text-night-light">On-Page Work:</strong> Keyword mapping, heading structure, title tags and meta descriptions that match what people are searching for.</span>
             </li>
             <li class="flex items-start">
-              <span class="text-rose-500 dark:text-night-cyan font-bold mr-3 mt-1">✓</span>
-              <span><strong class="text-zinc-900 dark:text-night-light">Team Leadership:</strong> Leading 4 associates through daily execution, quality assurance, and technical training.</span>
+              <CircleCheck class="w-5 h-5 text-rose-500 dark:text-night-cyan mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
+              <span><strong class="text-zinc-900 dark:text-night-light">Team Leadership:</strong> Guiding four associates through daily work, quality checks and technical training.</span>
             </li>
           </ul>
         </div>
 
         <div class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            Early Agency Grounding: Baweja Media
+            Where I Started: Baweja Media
           </h2>
           <p>
-            My professional career gained early velocity at <strong class="text-zinc-900 dark:text-night-light">Baweja Media</strong> (December 2022 – May 2023), where I worked as an SEO Intern. There, I gained intensive practical exposure to the foundational levers of off-page authority building, competitive backlink analysis, and on-page structural improvements.
+            I started out as an SEO Intern at <strong class="text-zinc-900 dark:text-night-light">Baweja Media</strong> (December 2022 – May 2023). That's where I learned the basics hands-on: link building, competitor backlink analysis and on-page structure.
           </p>
           <p>
-            Executing over ten distinct off-page campaigns taught me the nuances of organic authority distribution, competitive gap discovery, and the vital role that content relevance plays in securing durable rankings.
+            Working on more than ten off-page campaigns taught me how authority builds up, how to spot the gaps competitors leave, and why relevant content is what keeps rankings stable.
           </p>
         </div>
 
         <div class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            My SEO Approach &amp; Philosophy
+            How I Approach SEO
           </h2>
           <p>
-            I believe that sustainable SEO cannot rely on shortcuts, vanity metrics, or algorithm gaming. True search performance rests upon three core tenets:
+            Good SEO doesn't come from shortcuts, vanity metrics or gaming the algorithm. I work from three principles:
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div class="p-4 rounded-xl bg-white dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
               <div class="font-serif font-bold text-zinc-900 dark:text-night-light mb-1">1. Crawlability First</div>
-              <div class="text-xs text-zinc-600 dark:text-night-muted">If Google cannot seamlessly discover and index your content, on-page optimization is wasted effort.</div>
+              <div class="text-xs text-zinc-600 dark:text-night-muted">If Google can't find and index a page, nothing else you do to it matters.</div>
             </div>
             <div class="p-4 rounded-xl bg-white dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
               <div class="font-serif font-bold text-zinc-900 dark:text-night-light mb-1">2. Search Intent Fit</div>
-              <div class="text-xs text-zinc-600 dark:text-night-muted">Aligning page depth and copy to whether the searcher wants to learn, compare, or buy.</div>
+              <div class="text-xs text-zinc-600 dark:text-night-muted">Match each page to what the searcher wants: to learn, to compare or to buy.</div>
             </div>
             <div class="p-4 rounded-xl bg-white dark:bg-night-ocean/80 border border-rose-100 dark:border-night-cyan/20">
               <div class="font-serif font-bold text-zinc-900 dark:text-night-light mb-1">3. Honest Attribution</div>
-              <div class="text-xs text-zinc-600 dark:text-night-muted">Transparent reporting with GA4 &amp; GSC without inflating early impressions into fake conversions.</div>
+              <div class="text-xs text-zinc-600 dark:text-night-muted">Report GA4 and GSC numbers as they are. Impressions are not conversions.</div>
             </div>
           </div>
         </div>
 
         <div class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-200 dark:border-night-pink/30 space-y-6">
           <div class="flex items-center space-x-2 text-rose-600 dark:text-night-pink font-mono text-xs uppercase font-bold tracking-wider">
-            <span>Research &amp; Future Outlook</span>
+            <span>What I'm Learning Now</span>
           </div>
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            Preparing for AEO &amp; GEO (AI-Powered Search)
+            Getting Ready for AI Search (AEO &amp; GEO)
           </h2>
           <p>
-            The landscape of search is experiencing its most profound evolution since the inception of mobile search. With the advent of Google's AI Overviews, Perplexity, ChatGPT Search, and Claude, traditional keyword rankings are being augmented by citation visibility, entity authority, and conversational answer retrieval.
+            Search is changing more now than at any time since the shift to mobile. With Google's AI Overviews, Perplexity, ChatGPT Search and Claude, ranking well is no longer the whole story. Getting cited in AI answers matters too.
           </p>
           <p>
-            I am actively researching <strong class="text-zinc-900 dark:text-night-light">Answer Engine Optimization (AEO)</strong> and <strong class="text-zinc-900 dark:text-night-light">Generative Engine Optimization (GEO)</strong>—investigating how structured data, comprehensive semantic entity definitions, and authoritative answer passages influence inclusion in LLM-synthesized search answers.
+            I'm researching <strong class="text-zinc-900 dark:text-night-light">Answer Engine Optimization (AEO)</strong> and <strong class="text-zinc-900 dark:text-night-light">Generative Engine Optimization (GEO)</strong>: how structured data, clear entity information and well-written answers affect whether AI tools include a site in their answers.
           </p>
         </div>
 
@@ -136,15 +139,7 @@ const crumbs = [
         
         <!-- Profile Card -->
         <div class="bg-glass-card rounded-3xl p-6 sm:p-8 border border-rose-100 dark:border-night-cyan/20 text-center">
-          <div class="w-32 h-36 mx-auto rounded-2xl overflow-hidden bg-rose-50 dark:bg-night-ocean border-2 border-rose-200 dark:border-night-cyan/30 mb-4 p-1">
-            <img
-              src="/images/profile-placeholder.svg"
-              alt="Sanjeev Thakur portrait placeholder"
-              class="w-full h-full object-cover rounded-xl"
-              width="128"
-              height="144"
-            />
-          </div>
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center font-serif font-bold text-2xl shadow-lg shadow-rose-500/20 mb-4" aria-hidden="true">ST</div>
           <h3 class="font-serif text-2xl font-bold text-zinc-900 dark:text-night-light">{profileData.name}</h3>
           <p class="text-sm font-mono text-rose-600 dark:text-night-cyan font-semibold uppercase tracking-wider mt-1">{profileData.role}</p>
           <p class="text-xs text-zinc-500 dark:text-night-muted mt-2">{profileData.location}</p>
@@ -200,8 +195,8 @@ const crumbs = [
     <div class="mb-24">
       <SectionHeading
         badge="TIMELINE"
-        title="Experience &amp; Academic Background"
-        subtitle="Full chronological overview of my professional roles and computer science degree."
+        title="Experience & Academic Background"
+        subtitle="My roles so far, plus my computer science degree."
       />
       <ExperienceTimeline />
     </div>

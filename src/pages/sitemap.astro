@@ -1,0 +1,101 @@
+---
+import { House, User, FolderOpen, Mail, Map, FileText, FileCode, Bot, ArrowUpRight, ChartLine, Hammer } from 'lucide-astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { sitePages } from '../data/site-pages';
+
+const crumbs = [{ name: 'Sitemap', url: '/sitemap' }];
+
+const iconFor: Record<string, any> = {
+  '/': House,
+  '/about': User,
+  '/case-studies': FolderOpen,
+  '/contact': Mail,
+  '/sitemap': Map,
+  '/projects': Hammer,
+  '/projects/this-website': Hammer,
+};
+
+const groups = [
+  { title: 'Main Pages', pages: sitePages.filter((p) => p.section === 'Main') },
+  { title: 'Client Case Studies', pages: sitePages.filter((p) => p.section === 'Case Studies') },
+  { title: 'Projects', pages: sitePages.filter((p) => p.section === 'Projects') },
+];
+
+const machineFiles = [
+  { href: '/sitemap.xml', title: 'XML Sitemap', desc: 'Machine-readable sitemap submitted to search engines.', icon: FileCode },
+  { href: '/llms.txt', title: 'llms.txt', desc: 'Plain-text site summary for AI assistants and answer engines.', icon: Bot },
+  { href: '/robots.txt', title: 'robots.txt', desc: 'Crawler access rules for this website.', icon: FileText },
+];
+---
+
+<BaseLayout
+  title="HTML Sitemap"
+  description="A complete, human-readable index of every page on Sanjeev Thakur's SEO portfolio website."
+  canonicalPath="/sitemap"
+  pageType="sitemap"
+  breadcrumbs={[{ name: 'Home', url: '/' }, ...crumbs]}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <SectionHeading
+      badge="SITE INDEX"
+      title="Sitemap"
+      as="h1"
+      subtitle="Every page on this website in one place, for visitors and for search engines."
+      align="left"
+    />
+
+    <div class="space-y-14">
+      {groups.map((group) => (
+        <section>
+          <h2 class="font-serif text-2xl font-bold text-zinc-900 dark:text-night-light mb-5 flex items-center gap-3">
+            {group.title}
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-night-ocean text-rose-700 dark:text-night-cyan">{group.pages.length}</span>
+          </h2>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {group.pages.map((page) => {
+              const Icon = iconFor[page.url] ?? ChartLine;
+              return (
+                <li>
+                  <a href={page.url} class="vibe-card bg-glass-card group flex items-start gap-4 p-5 rounded-2xl h-full transition-transform duration-300">
+                    <span class="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500 to-orange-400 dark:from-night-cyan dark:to-night-magenta text-white flex items-center justify-center flex-shrink-0 shadow-md transition-transform group-hover:scale-110">
+                      <Icon class="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <span class="flex-1 min-w-0">
+                      <span class="flex items-center justify-between gap-2">
+                        <span class="font-serif font-bold text-lg text-zinc-900 dark:text-night-light group-hover:text-rose-600 dark:group-hover:text-night-cyan transition-colors">{page.title}</span>
+                        <ArrowUpRight class="w-4 h-4 flex-shrink-0 text-zinc-400 group-hover:text-rose-500 dark:group-hover:text-night-cyan transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                      </span>
+                      <span class="block text-sm text-zinc-600 dark:text-night-muted mt-1 leading-relaxed">{page.description}</span>
+                      <span class="block mt-2 text-xs font-mono text-rose-500/80 dark:text-night-cyan/70">{page.url}</span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))}
+
+      <section>
+        <h2 class="font-serif text-2xl font-bold text-zinc-900 dark:text-night-light mb-5">Machine-Readable Files</h2>
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {machineFiles.map((f) => (
+            <li>
+              <a href={f.href} class="vibe-card bg-glass-card group flex flex-col gap-3 p-5 rounded-2xl h-full transition-transform duration-300">
+                <span class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-night-ocean text-rose-600 dark:text-night-cyan border border-rose-100 dark:border-night-cyan/30 flex items-center justify-center">
+                  <f.icon class="w-5 h-5" aria-hidden="true" />
+                </span>
+                <span class="font-mono font-semibold text-zinc-900 dark:text-night-light group-hover:text-rose-600 dark:group-hover:text-night-cyan transition-colors">{f.title}</span>
+                <span class="text-sm text-zinc-600 dark:text-night-muted leading-relaxed">{f.desc}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

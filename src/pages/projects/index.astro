@@ -1,0 +1,58 @@
+---
+import { ArrowUpRight, Hammer } from 'lucide-astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { thisWebsite } from '../../data/this-website';
+
+const crumbs = [{ name: 'Projects', url: '/projects' }];
+
+const projects = [
+  {
+    href: '/projects/this-website',
+    eyebrow: 'Case study · This website',
+    title: thisWebsite.title,
+    summary: thisWebsite.summary,
+    image: '/images/projects/this-website-desktop.png',
+    tags: thisWebsite.stack,
+  },
+];
+---
+
+<BaseLayout
+  title="Projects | Personal SEO Builds"
+  description="Personal projects by Sanjeev Thakur, starting with this website: a portfolio engineered for search engines and AI assistants."
+  canonicalPath="/projects"
+  pageType="sitemap"
+  breadcrumbs={crumbs}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <Breadcrumbs crumbs={crumbs} />
+    <SectionHeading
+      badge="SIDE PROJECTS"
+      title="Projects"
+      as="h1"
+      subtitle="Things I build to test SEO ideas in public, outside of client work."
+      align="left"
+    />
+
+    <div class="grid grid-cols-1 gap-6">
+      {projects.map((p) => (
+        <a href={p.href} class="vibe-card bg-glass-card group grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden transition-transform duration-300">
+          <div class="overflow-hidden border-b md:border-b-0 md:border-r border-rose-100 dark:border-night-cyan/20">
+            <img src={p.image} alt="" width="1440" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" />
+          </div>
+          <div class="p-7 sm:p-9 flex flex-col">
+            <span class="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-rose-600 dark:text-night-cyan"><Hammer class="w-3.5 h-3.5" aria-hidden="true" />{p.eyebrow}</span>
+            <h2 class="mt-3 text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light group-hover:text-rose-600 dark:group-hover:text-night-cyan transition-colors">{p.title}</h2>
+            <p class="mt-3 text-sm sm:text-base text-zinc-600 dark:text-night-muted leading-relaxed">{p.summary}</p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              {p.tags.map((t) => <span class="text-xs px-2.5 py-1 rounded-md bg-rose-50 dark:bg-night-ocean/60 border border-rose-100 dark:border-night-cyan/20 text-zinc-700 dark:text-night-light">{t}</span>)}
+            </div>
+            <span class="mt-auto pt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-rose-600 dark:text-night-cyan">Read the case study <ArrowUpRight class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" /></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

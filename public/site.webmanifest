@@ -1,0 +1,12 @@
+{
+  "name": "Sanjeev Thakur | SEO Specialist",
+  "short_name": "Sanjeev SEO",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "theme_color": "#F43F5E",
+  "background_color": "#FDFBF7",
+  "display": "browser",
+  "start_url": "/"
+}

@@ -1,4 +1,5 @@
 ---
+import { Sparkle } from 'lucide-astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -7,41 +8,75 @@ import CaseStudyCard from '../components/CaseStudyCard.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import ToolsGrid from '../components/ToolsGrid.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import AiVisibility from '../components/AiVisibility.astro';
 import { caseStudies } from '../data/case-studies';
 import { profileData } from '../data/profile';
+
+const ribbonItems = [
+  'Technical SEO', 'On-Page Optimization', 'Local SEO', 'Keyword Research',
+  'Google Search Console', 'GA4 Analytics', 'Site Audits', 'Content Strategy',
+  'Google Business Profile', 'AEO & GEO',
+];
+
+const pillars = [
+  { n: '01', title: 'Technical depth', grad: 'from-rose-500 to-pink-500', icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+    text: 'My computer science background helps with the harder problems: crawling, rendering, status codes, XML sitemaps and internal links.' },
+  { n: '02', title: 'Pages built around intent', grad: 'from-orange-400 to-amber-500', icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7',
+    text: 'I match keywords to the right service and location pages, so each page answers what the searcher actually wants.' },
+  { n: '03', title: 'Team Leadership', grad: 'from-purple-500 to-fuchsia-500', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+    text: 'I mentor four SEO associates at vSplash Techlabs and set up our quality checks, task planning and workflows.' },
+  { n: '04', title: 'Learning AI search', grad: 'from-pink-500 to-rose-400', icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+    text: 'I study how answer engines (AEO) and generative search (GEO) choose their sources, so the sites I work on hold up as search changes.' },
+];
 ---
 
 <BaseLayout
-  title="SEO Specialist | Technical, On-Page & Local SEO"
-  description="Personal portfolio of Sanjeev Thakur, an SEO Specialist with 4+ years experience driving sustainable organic search growth through Technical SEO, On-Page Optimization, and Local SEO."
+  description="Portfolio of Sanjeev Thakur, an SEO Specialist in Bengaluru with 4+ years of experience in technical SEO, on-page optimization and local SEO."
   canonicalPath="/"
+  pageType="home"
+  type="profile"
 >
   <!-- 1. Hero Section -->
   <Hero />
 
+  <!-- Skills ribbon (clipped wrapper so the tilt never causes sideways scroll) -->
+  <div class="overflow-hidden py-4">
+  <div class="relative py-6 -rotate-1 scale-[1.02] bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-electric dark:via-night-magenta dark:to-night-cyan shadow-lg shadow-rose-500/20 dark:shadow-night-magenta/20" aria-label="Core skills">
+    <div class="marquee overflow-hidden">
+      <div class="marquee-track flex w-max gap-10 text-white font-serif text-xl sm:text-2xl font-bold whitespace-nowrap">
+        {[...ribbonItems, ...ribbonItems].map((item, i) => (
+          <span class="inline-flex items-center gap-10" aria-hidden={i >= ribbonItems.length ? 'true' : undefined}>
+            {item}<Sparkle class="w-4 h-4 text-white/70" aria-hidden="true" />
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+  </div>
+
   <!-- 2. Professional Introduction -->
-  <section class="py-16 sm:py-24 border-t border-rose-100/70 dark:border-night-cyan/15 bg-white/40 dark:bg-night-ocean/20 transition-colors">
+  <section id="intro" class="scroll-mt-24 py-20 sm:py-28 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
-        <div class="lg:col-span-5 space-y-4">
+        <div class="reveal lg:col-span-5 space-y-4">
           <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-rose-100 dark:bg-night-ocean text-rose-700 dark:text-night-cyan border border-rose-200 dark:border-night-cyan/30">
             <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dark:bg-night-cyan"></span>
-            <span>Professional Positioning</span>
+            <span>How I Work</span>
           </div>
           <h2 class="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-night-light leading-tight">
-            Engineering Search Equity Beyond Quick Fixes.
+            SEO That Lasts, <span class="text-gradient-vice">Not Quick Fixes.</span>
           </h2>
           <p class="text-zinc-600 dark:text-night-muted text-base leading-relaxed">
-            Search engines reward clean architecture, clear intent matching, and undeniable technical health. My approach is built on measurable execution—diagnosing crawl barriers, structuring content hubs, and scaling regional authority.
+            Search engines reward sites that are well built, technically healthy and clearly match what people search for. That's where I put my effort: fixing crawl problems, organizing content and building local visibility.
           </p>
           <div class="pt-2">
             <a
               href="/about"
               class="inline-flex items-center text-sm font-semibold text-rose-600 dark:text-night-cyan hover:text-rose-700 dark:hover:text-night-pink group transition-colors"
             >
-              Read My Full Career Background
+              Read my full background
               <svg class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
               </svg>
@@ -49,46 +84,21 @@ import { profileData } from '../data/profile';
           </div>
         </div>
 
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-glass-card p-6 rounded-2xl">
-            <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-night-ocean text-rose-600 dark:text-night-cyan border border-transparent dark:border-night-cyan/30 flex items-center justify-center font-bold text-lg mb-4">
-              01
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:pb-8">
+          {pillars.map((p, i) => (
+            <div class={`reveal ${i % 2 === 1 ? 'sm:mt-8' : ''}`} style={`--d:${i * 110}ms`}>
+              <div class="vibe-card bg-glass-card h-full p-6 rounded-2xl transition-transform duration-300 group">
+                <div class="flex items-center justify-between mb-5">
+                  <div class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${p.grad} text-white flex items-center justify-center shadow-lg shadow-rose-500/20 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110`}>
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={p.icon}/></svg>
+                  </div>
+                  <span class="font-mono text-3xl font-bold text-rose-100 dark:text-night-cyan/20 group-hover:text-rose-200 dark:group-hover:text-night-cyan/40 transition-colors">{p.n}</span>
+                </div>
+                <h3 class="font-serif text-lg font-bold text-zinc-900 dark:text-night-light mb-2">{p.title}</h3>
+                <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">{p.text}</p>
+              </div>
             </div>
-            <h3 class="font-serif text-lg font-bold text-zinc-900 dark:text-night-light mb-2">Technical Rigor</h3>
-            <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-              Leveraging a computer science foundation to resolve deep crawling, rendering, status code, XML sitemap, and internal link barriers.
-            </p>
-          </div>
-
-          <div class="bg-glass-card p-6 rounded-2xl">
-            <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-night-ocean text-orange-600 dark:text-night-coral border border-transparent dark:border-night-coral/30 flex items-center justify-center font-bold text-lg mb-4">
-              02
-            </div>
-            <h3 class="font-serif text-lg font-bold text-zinc-900 dark:text-night-light mb-2">Intent-Driven Architecture</h3>
-            <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-              Mapping keyword universes to high-converting service offerings and geo-targeted landing pages that satisfy commercial intent.
-            </p>
-          </div>
-
-          <div class="bg-glass-card p-6 rounded-2xl">
-            <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-night-ocean text-purple-600 dark:text-night-lavender border border-transparent dark:border-night-lavender/30 flex items-center justify-center font-bold text-lg mb-4">
-              03
-            </div>
-            <h3 class="font-serif text-lg font-bold text-zinc-900 dark:text-night-light mb-2">Team Leadership</h3>
-            <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-              Guiding and mentoring four SEO associates at vSplash Techlabs, standardizing QA audits, task delegation, and execution workflows.
-            </p>
-          </div>
-
-          <div class="bg-glass-card p-6 rounded-2xl">
-            <div class="w-10 h-10 rounded-xl bg-pink-100 dark:bg-night-ocean text-pink-600 dark:text-night-pink border border-transparent dark:border-night-pink/30 flex items-center justify-center font-bold text-lg mb-4">
-              04
-            </div>
-            <h3 class="font-serif text-lg font-bold text-zinc-900 dark:text-night-light mb-2">Future-Ready Research</h3>
-            <p class="text-xs sm:text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-              Continuously investigating generative search mechanics (GEO) and answer engines (AEO) to insulate websites against algorithmic disruption.
-            </p>
-          </div>
+          ))}
         </div>
 
       </div>
@@ -99,27 +109,27 @@ import { profileData } from '../data/profile';
   <!-- 3. SEO Expertise Section -->
   <section class="py-16 sm:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <SectionHeading
+      <div class="reveal"><SectionHeading
         badge="CAPABILITIES"
-        title="Comprehensive SEO Expertise"
-        subtitle="Organized across core disciplines—from technical server-level crawl audits to localized map dominance and generative search awareness."
-      />
-      <SkillsGrid />
+        title="What I Do"
+        subtitle="From technical crawl audits to local map rankings and AI search."
+      /></div>
+      <div class="reveal" style="--d:120ms"><SkillsGrid /></div>
     </div>
   </section>
 
   <!-- 4. Featured Case Studies -->
   <section class="py-16 sm:py-24 border-t border-rose-100/70 dark:border-night-cyan/15 bg-gradient-to-b from-rose-50/20 via-white/50 to-orange-50/20 dark:from-night-midnight/40 dark:via-night-ocean/20 dark:to-night-midnight/40 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <SectionHeading
-        badge="MEASURABLE IMPACT"
-        title="Featured Client Case Studies"
-        subtitle="Documented search performance milestones across competitive South Florida markets. Client names and proprietary data remain strictly confidential."
-      />
+      <div class="reveal"><SectionHeading
+        badge="RESULTS"
+        title="Client Case Studies"
+        subtitle="Results from two campaigns in competitive South Florida markets. Client names and data stay confidential."
+      /></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        {caseStudies.map((cs) => (
-          <CaseStudyCard caseStudy={cs} />
+        {caseStudies.map((cs, i) => (
+          <div class="reveal" style={`--d:${i * 150}ms`}><CaseStudyCard caseStudy={cs} /></div>
         ))}
       </div>
 
@@ -128,7 +138,7 @@ import { profileData } from '../data/profile';
           href="/case-studies"
           class="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold text-zinc-800 dark:text-night-light bg-white dark:bg-night-ocean hover:bg-rose-50 dark:hover:bg-night-ocean/70 border border-rose-200 dark:border-night-cyan/30 shadow-sm transition-all hover:border-rose-300 dark:hover:border-night-cyan"
         >
-          Explore All Case Study Breakdowns &amp; Strategies
+          See all case studies
           <svg class="ml-2 w-4 h-4 text-rose-500 dark:text-night-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
           </svg>
@@ -137,34 +147,56 @@ import { profileData } from '../data/profile';
     </div>
   </section>
 
+  <!-- 4b. AI Visibility (GEO) -->
+  <section class="py-16 sm:py-24 border-t border-rose-100/70 dark:border-night-cyan/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="reveal"><AiVisibility /></div>
+    </div>
+  </section>
+
   <!-- 5. Professional Experience -->
   <section class="py-16 sm:py-24 border-t border-rose-100/70 dark:border-night-cyan/15">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <SectionHeading
-        badge="CAREER PATHWAY"
+      <div class="reveal"><SectionHeading
+        badge="CAREER"
         title="Professional Experience"
-        subtitle="A proven track record spanning hands-on agency optimization, team supervision, and cross-functional technical collaboration."
-      />
-      <ExperienceTimeline />
+        subtitle="Agency SEO work, team leadership and a lot of time working alongside developers."
+      /></div>
+      <div class="reveal" style="--d:120ms"><ExperienceTimeline /></div>
     </div>
   </section>
 
   <!-- 6. Tools and Technologies -->
   <section class="py-16 sm:py-24 border-t border-rose-100/70 dark:border-night-cyan/15 bg-white/40 dark:bg-night-ocean/20 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <SectionHeading
+      <div class="reveal"><SectionHeading
         badge="TECH STACK"
-        title="Tools &amp; Technologies"
-        subtitle="Industry-standard platforms utilized for crawl diagnostics, competitive intelligence, keyword research, and analytics attribution."
-      />
-      <ToolsGrid />
+        title="Tools & Technologies"
+        subtitle="The tools I use day to day for crawling, competitor research, keywords and analytics."
+      /></div>
+      <div class="reveal" style="--d:120ms"><ToolsGrid /></div>
     </div>
   </section>
 
   <!-- 7. Contact CTA -->
   <section class="py-16 sm:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <ContactCTA />
+      <div class="reveal"><ContactCTA /></div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  document.documentElement.classList.add('js-reveal');
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach((el) => io.observe(el));
+  }
+</script>

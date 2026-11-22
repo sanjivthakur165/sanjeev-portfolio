@@ -1,4 +1,5 @@
 ---
+import { TriangleAlert, CircleX, ArrowLeft } from 'lucide-astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import MetricCard from '../../components/MetricCard.astro';
@@ -14,9 +15,12 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`${caseStudy.title} | Case Study`}
+  title="Electrical SEO Case Study: ~3x Impressions"
   description="How a South Florida electrical contracting business generated ~3x growth in Google Search Console impressions in under 2 months during an ongoing SEO campaign."
   canonicalPath="/case-studies/electrical"
+  pageType="case-study"
+  caseStudySlug="electrical"
+  type="article"
   breadcrumbs={crumbs}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -51,6 +55,7 @@ const crumbs = [
     </div>
 
     <!-- Metric Callout Cards (Large Visual Display) -->
+    <h2 class="sr-only">Key results</h2>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
       {caseStudy.metrics.map((m, idx) => (
         <MetricCard
@@ -65,9 +70,9 @@ const crumbs = [
 
     <!-- Strict Metric Distinction Notice -->
     <div class="p-5 rounded-2xl bg-orange-50/80 dark:bg-night-ocean/80 border border-orange-200 dark:border-night-coral/30 mb-16 flex items-start space-x-3.5 shadow-xs">
-      <div class="text-orange-600 dark:text-night-coral text-lg mt-0.5">⚠️</div>
+      <TriangleAlert class="w-5 h-5 text-orange-600 dark:text-night-coral mt-0.5 flex-shrink-0" aria-hidden="true" />
       <div class="text-xs sm:text-sm text-zinc-700 dark:text-night-muted leading-relaxed">
-        <strong class="text-zinc-900 dark:text-night-light">Important Metric Qualification:</strong> The documented <strong>~3x growth refers strictly to Google Search Console impressions</strong>. This represents early search indexing footprint and SERP visibility expansion. It is explicitly not presented as a 3x increase in organic clicks, site sessions, leads, or revenue. The campaign remains active with ongoing conversion optimization scheduled.
+        <strong class="text-zinc-900 dark:text-night-light">What the 3x means:</strong> The <strong>~3x growth is in Google Search Console impressions only</strong>, meaning the site is showing up in more searches. It is not 3x more clicks, visits, leads or revenue. The campaign is still running, and improving clicks is the next step.
       </div>
     </div>
 
@@ -80,7 +85,7 @@ const crumbs = [
         <!-- Section: Overview & Objective -->
         <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            Project Overview &amp; Early Objectives
+            Project Overview
           </h2>
           <p class="text-zinc-700 dark:text-night-muted leading-relaxed text-base sm:text-lg">
             {caseStudy.objective}
@@ -100,15 +105,15 @@ const crumbs = [
         <!-- Section: Initial Challenges -->
         <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            Initial Challenges &amp; Regional Landscape
+            Where Things Stood
           </h2>
           <p class="text-zinc-700 dark:text-night-muted leading-relaxed">
-            Prior to launching the ongoing campaign, the business was largely invisible for specialized electrical queries across South Florida:
+            Before the campaign, the business barely showed up for specialist electrical searches in South Florida:
           </p>
           <ul class="space-y-3 pt-1">
             {caseStudy.challenges.map((challenge) => (
               <li class="flex items-start text-sm sm:text-base text-zinc-700 dark:text-night-muted">
-                <span class="text-orange-500 dark:text-night-coral font-bold mr-3 mt-1 flex-shrink-0">✕</span>
+                <CircleX class="w-5 h-5 text-orange-500 dark:text-night-coral mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <span>{challenge}</span>
               </li>
             ))}
@@ -119,7 +124,7 @@ const crumbs = [
         <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-8">
           <div>
             <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-              SEO Strategy &amp; Execution Framework
+              What I Did
             </h2>
             <p class="text-zinc-700 dark:text-night-muted leading-relaxed mt-2">
               {caseStudy.strategyOverview}
@@ -154,7 +159,7 @@ const crumbs = [
             <div>
               <span class="text-xs font-mono font-bold text-orange-600 dark:text-night-coral uppercase tracking-wider">Search Console Evidence</span>
               <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light mt-1">
-                GSC Search Impressions Trajectory
+                GSC Impressions Over Time
               </h2>
             </div>
             <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-50 dark:bg-night-ocean text-amber-800 dark:text-night-coral border border-amber-200 dark:border-night-coral/30">
@@ -163,7 +168,7 @@ const crumbs = [
           </div>
 
           <p class="text-sm text-zinc-600 dark:text-night-muted leading-relaxed">
-            Search impressions in Google Search Console scaled approximately threefold (~3x) as newly mapped electrical service queries indexed and began securing page-one positions.
+            Impressions in Google Search Console grew about 3x as Google indexed the new service pages and some began reaching page one.
           </p>
 
           <!-- Evidence Container with SVG Graph -->
@@ -179,7 +184,7 @@ const crumbs = [
           </div>
 
           <div class="p-4 rounded-xl bg-orange-50/60 dark:bg-night-ocean/60 border border-orange-100 dark:border-night-cyan/20 text-xs font-mono text-zinc-500 dark:text-night-muted flex items-center justify-between">
-            <span>Evidence File: Electrical GSC.png / Impressions Velocity</span>
+            <span>Evidence: Electrical GSC impressions</span>
             <span class="text-orange-700 dark:text-night-coral font-semibold">Client Anonymized • Live Campaign</span>
           </div>
         </section>
@@ -187,7 +192,7 @@ const crumbs = [
         <!-- Section: Documented Results & Ongoing Strategy -->
         <section class="bg-glass-card rounded-3xl p-8 sm:p-10 border border-rose-100/80 dark:border-night-cyan/20 space-y-6">
           <h2 class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-night-light">
-            Results to Date &amp; Active Next Steps
+            Results So Far
           </h2>
           <p class="text-zinc-700 dark:text-night-muted leading-relaxed text-base sm:text-lg">
             {caseStudy.resultsSummary}
@@ -196,7 +201,7 @@ const crumbs = [
             <div class="text-3xl font-serif font-extrabold text-orange-600 dark:text-night-coral">~3x Increase</div>
             <div class="font-bold text-sm text-zinc-900 dark:text-night-light mt-1">Google Search Console Impressions</div>
             <div class="text-xs text-zinc-600 dark:text-night-muted mt-1 leading-relaxed">
-              Rapid early indicator confirming crawlability improvements and keyword footprint expansion. Subsequent campaign phases will focus on click-through rate optimization and localized map conversion.
+              An early sign that the crawl fixes and new keyword targeting are working. The next phases focus on click-through rate and local map results.
             </div>
           </div>
         </section>
@@ -230,7 +235,7 @@ const crumbs = [
           </div>
 
           <div class="pt-4 border-t border-rose-100 dark:border-night-cyan/20">
-            <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400 dark:text-night-muted/70 mb-3">All Activities Conducted</h4>
+            <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400 dark:text-night-muted/70 mb-3">Everything I Worked On</h4>
             <ul class="space-y-2 text-xs text-zinc-700 dark:text-night-muted">
               {caseStudy.activities.map((act) => (
                 <li class="flex items-center">
@@ -253,7 +258,7 @@ const crumbs = [
               Construction — South Florida
             </div>
             <div class="text-xs text-rose-600 dark:text-night-cyan font-semibold mt-1 flex items-center">
-              ← 200%+ GA4 Sessions &amp; Clicks in 3 Mo
+              <ArrowLeft class="mr-1 w-3.5 h-3.5" aria-hidden="true" /> 200%+ GA4 Sessions &amp; Clicks in 3 Mo
             </div>
           </a>
         </div>

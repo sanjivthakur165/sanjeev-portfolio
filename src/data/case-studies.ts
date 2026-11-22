@@ -45,65 +45,65 @@ export const caseStudies: CaseStudy[] = [
     clientType: "Residential & Commercial Construction Contractor",
     industry: "Construction & General Contracting",
     location: "Palm Beach County / Miami, Florida",
-    engagementType: "SEO Strategy & Full-Scale Implementation",
+    engagementType: "SEO strategy and implementation",
     timeline: "3 Months",
     isOngoing: false,
-    statusBadge: "3-Month Campaign Result",
+    statusBadge: "3-month campaign",
     headlineMetric: "+200%",
-    headlineMetricLabel: "Organic Sessions & Clicks Growth",
-    heroSummary: "Achieved over 200% growth in both GA4 organic sessions and Google Search Console organic clicks within a 3-month strategic SEO campaign.",
+    headlineMetricLabel: "growth in organic sessions & clicks",
+    heroSummary: "Organic sessions in GA4 and organic clicks in Google Search Console both grew by more than 200% over a 3-month SEO campaign.",
     metrics: [
       {
         value: "200%+",
         label: "GA4 Organic Sessions",
-        detail: "Exceeded 200% growth in qualified organic user sessions tracked in Google Analytics 4.",
-        context: "3-Month Measurement Period"
+        detail: "Organic sessions in Google Analytics 4 grew by more than 200%.",
+        context: "3-month measurement period"
       },
       {
         value: "200%+",
         label: "GSC Organic Clicks",
-        detail: "Generated more than a 200% surge in organic search clicks recorded via Google Search Console.",
-        context: "Search Engine Results Pages"
+        detail: "Organic clicks in Google Search Console grew by more than 200%.",
+        context: "Google Search Console"
       },
       {
         value: "3 Months",
         label: "Measurement Window",
-        detail: "Rapid organic turnaround achieved through synchronized technical, local, and on-page optimizations.",
-        context: "Campaign Duration"
+        detail: "Technical, local and on-page work ran side by side, so results came quickly.",
+        context: "Campaign length"
       }
     ],
-    objective: "Establish prominent organic search visibility for high-intent residential and commercial construction services across competitive South Florida markets (Palm Beach County and Miami).",
+    objective: "Get a residential and commercial construction contractor found for high-intent searches in Palm Beach County and Miami.",
     challenges: [
-      "Intense regional competition from established general contractors across the Miami and Palm Beach County metro areas.",
-      "Service and regional location offerings lacked dedicated, search-optimized landing architecture.",
-      "Technical indexation hurdles and sub-optimal internal link hierarchy diluting search engine crawl priority.",
-      "Google Business Profile assets were under-optimized for high-intent local map pack queries."
+      "Plenty of established general contractors already competing for the same searches in Miami and Palm Beach County.",
+      "No dedicated pages for individual services or locations.",
+      "Indexing problems and weak internal linking were holding important pages back.",
+      "The Google Business Profile wasn't set up to show for local map searches."
     ],
-    strategyOverview: "Developed a comprehensive three-pillar SEO strategy combining localized service architecture, rigorous technical crawlability optimization, and multi-location Google Business Profile optimization to capture high-value commercial and residential contracting search intent.",
+    strategyOverview: "The plan had three parts: build out service and location pages, fix the technical problems stopping Google from crawling the site properly, and optimize the Google Business Profile for local searches.",
     implementationPhases: [
       {
-        phaseTitle: "Research & Architectural Foundation",
+        phaseTitle: "Research and site structure",
         items: [
-          "In-depth regional keyword research targeting commercial build-outs, luxury residential construction, and localized contracting terms.",
-          "Keyword mapping aligning search intent to high-converting service and localized landing pages.",
-          "Website architecture refactoring to establish clear hierarchical parent-child relationships."
+          "Regional keyword research covering commercial build-outs, luxury homes and local contracting terms.",
+          "Mapping each group of keywords to the right service or location page.",
+          "Reorganizing the site into a clear parent-and-child page structure."
         ]
       },
       {
-        phaseTitle: "On-Page & Local Dominance",
+        phaseTitle: "On-page and local SEO",
         items: [
-          "Comprehensive service page optimization: title tags, meta descriptions, semantic headings, and body copy.",
-          "Dedicated location page creation targeting key South Florida service territories (Miami & Palm Beach County).",
-          "Google Business Profile optimization including category refinement, localized attributes, and service cataloging.",
-          "Image optimization, including compression, responsive resizing, and descriptive keyword-mapped alt text."
+          "Rewrote the service pages: title tags, meta descriptions, headings and body copy.",
+          "Created location pages for Miami and Palm Beach County.",
+          "Optimized the Google Business Profile: categories, attributes and services.",
+          "Compressed and resized images and wrote descriptive alt text."
         ]
       },
       {
-        phaseTitle: "Technical Refinement & Authority",
+        phaseTitle: "Technical fixes and authority",
         items: [
-          "Technical SEO enhancements addressing crawl errors, broken links, and XML sitemap indexation priority.",
-          "Strategic internal linking architecture connecting high-authority pages directly to localized service targets.",
-          "Digital PR submissions and tracking to establish credible regional industry footprint."
+          "Fixed crawl errors and broken links and cleaned up the XML sitemap.",
+          "Added internal links from the strongest pages to the local service pages.",
+          "Submitted and tracked digital PR placements to build regional credibility."
         ]
       }
     ],
@@ -119,20 +119,20 @@ export const caseStudies: CaseStudy[] = [
       "Image optimization",
       "PR submissions and tracking"
     ],
-    resultsSummary: "Over the 3-month evaluation period, the synchronized implementation drove a documented 200%+ increase in GA4 organic sessions and a parallel 200%+ increase in Google Search Console organic clicks. High-intent localized queries achieved dominant page-one placements across South Florida target regions.",
+    resultsSummary: "Over the 3 months, organic sessions in GA4 and organic clicks in Google Search Console both grew by more than 200%. Several high-intent local searches reached page one in the target areas.",
     evidencePlaceholder: [
       {
         title: "Google Search Console Organic Clicks Performance",
-        description: "Anonymized Search Console performance report documenting 200%+ organic click trajectory over the 3-month period.",
+        description: "Anonymized Search Console report showing organic clicks over the 3 months.",
         type: "GSC"
       },
       {
         title: "Google Analytics 4 Organic Sessions Report",
-        description: "Anonymized GA4 traffic acquisition overview showing qualified organic session acceleration across the 3-month window.",
+        description: "Anonymized GA4 traffic report showing organic sessions over the 3 months.",
         type: "GA4"
       }
     ],
-    confidentialityNote: "To preserve client business privacy, this project is anonymized as 'Residential & Commercial Construction — South Florida'. Specific domain names, proprietary URLs, and identifying trademarks have been withheld in adherence to non-disclosure commitments."
+    confidentialityNote: "The client's name, website and branding are private under a non-disclosure agreement, so this project is shown as 'Residential & Commercial Construction — South Florida'."
   },
   {
     id: "electrical",
@@ -141,65 +141,65 @@ export const caseStudies: CaseStudy[] = [
     clientType: "Commercial & Residential Electrical Contractor",
     industry: "Electrical Contracting",
     location: "South Florida",
-    engagementType: "Ongoing Strategic SEO Campaign",
+    engagementType: "Ongoing SEO campaign",
     timeline: "Under 2 Months (Active)",
     isOngoing: true,
-    statusBadge: "Active Campaign — Under 2 Months",
+    statusBadge: "Active campaign, under 2 months",
     headlineMetric: "~3x",
-    headlineMetricLabel: "GSC Impressions Growth",
-    heroSummary: "Generated approximately 3x growth in Google Search Console organic impressions in under 2 months during the initial phase of an active ongoing campaign.",
+    headlineMetricLabel: "growth in GSC impressions",
+    heroSummary: "Organic impressions in Google Search Console grew about 3x in under two months, in the first phase of a campaign that is still running.",
     metrics: [
       {
         value: "~3x",
         label: "GSC Impressions",
-        detail: "Search impressions nearly tripled across relevant commercial and residential electrical search queries.",
+        detail: "Impressions for residential and commercial electrical searches nearly tripled.",
         context: "Google Search Console"
       },
       {
         value: "< 2 Mo",
         label: "Time to Milestone",
-        detail: "Early-stage organic expansion achieved in less than two months from initial execution.",
-        context: "Rapid Keyword Indexing"
+        detail: "Reached in less than two months from the start of work.",
+        context: "Early results"
       },
       {
         value: "Active",
         label: "Campaign Status",
-        detail: "Ongoing campaign with continuous technical refinement and service page expansion in progress.",
+        detail: "Still running, with technical fixes and new service pages in progress.",
         context: "Phase 1 Complete"
       }
     ],
-    objective: "Expand search visibility for a regional electrical contractor in South Florida by capturing early keyword footprint and scaling search impressions across specialized residential and commercial electrical services.",
+    objective: "Help a South Florida electrical contractor start showing up for residential and commercial electrical searches.",
     challenges: [
-      "Limited initial search presence with minimal keyword rankings in the South Florida service area.",
-      "Under-optimized service catalog lacking semantic coverage for specialized emergency and commercial electrical terms.",
-      "Inconsistent local citations and unoptimized Google Business Profile listing.",
-      "Technical friction points affecting crawler discovery and internal link equity."
+      "Hardly any rankings or search visibility in South Florida at the start.",
+      "Service pages didn't cover specialist searches such as emergency and commercial electrical work.",
+      "Inconsistent local citations and a Google Business Profile that hadn't been optimized.",
+      "Technical issues making it harder for Google to find pages and pass internal link value."
     ],
-    strategyOverview: "Implemented an agile foundation focused on high-volume commercial and residential electrical keyword research, strategic service page restructuring, Google Business Profile enhancement, and technical crawlability fixes to rapidly seed Google's index with relevant entity signals.",
+    strategyOverview: "We started with the basics: keyword research for residential and commercial electrical services, a cleaner service page structure, an optimized Google Business Profile and crawl fixes, so Google could understand what the business does and where.",
     implementationPhases: [
       {
-        phaseTitle: "Initial Discovery & Keyword Seeding",
+        phaseTitle: "Research and keyword targeting",
         items: [
-          "Targeted keyword research across emergency electrical, panel upgrades, and commercial contracting queries.",
-          "Restructuring service hierarchies to align with high-intent customer search patterns in South Florida.",
-          "Auditing and streamlining internal link pathways to accelerate search engine discovery."
+          "Keyword research covering emergency electrical work, panel upgrades and commercial contracting.",
+          "Reorganizing the service pages around how local customers actually search.",
+          "Auditing and simplifying internal links so Google finds pages faster."
         ]
       },
       {
-        phaseTitle: "On-Page Optimization & Local Signals",
+        phaseTitle: "On-page and local signals",
         items: [
-          "On-page optimization across core service pages, refining title tags, meta descriptions, and semantic headings.",
-          "Location-based optimization strengthening localized topical relevance across target service corridors.",
-          "Google Business Profile optimization to enhance local pack visibility and search discovery.",
-          "Image optimization, reducing payload weights and embedding descriptive, keyword-targeted alt tags."
+          "Improved title tags, meta descriptions and headings on the main service pages.",
+          "Location-based optimization for the target service areas.",
+          "Optimized the Google Business Profile to show up more in the local pack.",
+          "Compressed images and added descriptive alt text."
         ]
       },
       {
-        phaseTitle: "Technical Cleanup & Ongoing Expansion",
+        phaseTitle: "Technical cleanup and next steps",
         items: [
-          "Technical SEO improvements resolving crawling bottlenecks, broken links, and header tag structures.",
-          "Foundational off-page signals to support early topical authority.",
-          "Ongoing campaign monitoring and strategic preparation for secondary expansion phases."
+          "Fixed crawl issues, broken links and heading structure.",
+          "Started basic off-page work to build early authority.",
+          "Monitoring results and planning the next phase."
         ]
       }
     ],
@@ -214,14 +214,14 @@ export const caseStudies: CaseStudy[] = [
       "Image optimization",
       "On-page and off-page SEO activities"
     ],
-    resultsSummary: "In under two months of active campaign execution, Google Search Console search impressions surged approximately three-fold (~3x). This early indicator of rapid organic indexation validates the foundational targeting, with click conversion and commercial service expansion scheduled for subsequent phases.",
+    resultsSummary: "In under two months, impressions in Google Search Console grew about 3x. It's an early sign that Google is indexing and showing the new pages. The next phases focus on turning impressions into clicks and adding more service pages.",
     evidencePlaceholder: [
       {
         title: "Google Search Console Impression Growth Report",
-        description: "Anonymized Search Console trajectory chart highlighting ~3x impression scaling under 2 months.",
+        description: "Anonymized Search Console chart showing about 3x impression growth in under two months.",
         type: "GSC"
       }
     ],
-    confidentialityNote: "To preserve client business privacy, this project is anonymized as 'Electrical Contracting Business — South Florida'. Results refer strictly to Google Search Console impressions during this active early-stage campaign."
+    confidentialityNote: "The client's name and website are private, so this project is shown as 'Electrical Contracting Business — South Florida'. The results refer only to Google Search Console impressions in the early stage of an active campaign."
   }
 ];

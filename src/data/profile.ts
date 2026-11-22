@@ -21,16 +21,16 @@ export const profileData: ProfileData = {
   name: "Sanjeev Thakur",
   role: "SEO Specialist",
   headline: "Turning Search Visibility Into Sustainable Growth.",
-  subheadline: "I'm Sanjeev Thakur, an SEO Specialist focused on Technical SEO, On-Page Optimization, Local SEO, and improving organic search visibility.",
+  subheadline: "I'm Sanjeev Thakur, an SEO Specialist. I work on technical SEO, on-page optimization and local SEO to help websites get found in search.",
   email: "sanjivthakur165@gmail.com",
   phone: "+91 9110142413",
   location: "Bengaluru, India",
   linkedIn: "https://www.linkedin.com/in/sanjeev165/",
   yearsOfExperience: "4+ Years",
   summary: [
-    "SEO Specialist with over four years of hands-on experience optimizing websites for search engines and real users. My work spans deep technical SEO audits, strategic on-page optimization, keyword architecture, and local search visibility.",
-    "Currently leading SEO workflows at vSplash Techlabs, where I guide and mentor a team of four SEO associates, perform comprehensive website audits, resolve indexation bottlenecks, and collaborate across departments to implement measurable organic growth strategies.",
-    "Driven by data and search intent, I continuously explore evolving search dynamics—including Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO)—to build search presences that remain resilient as search engines evolve."
+    "I've spent more than four years doing SEO for real websites and real users. Most of my work is technical audits, on-page fixes, keyword research and local search.",
+    "At vSplash Techlabs I lead SEO work for client websites and mentor a team of four SEO associates. Day to day, that means running audits, fixing indexing problems and working with developers and writers to get changes live.",
+    "Search is changing quickly, so I'm also learning how AI assistants choose their sources. Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) are where I spend my research time."
   ],
   cta: {
     primaryText: "Explore My Work",
