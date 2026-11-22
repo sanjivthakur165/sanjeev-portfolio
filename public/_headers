@@ -1,5 +1,9 @@
 # Cloudflare Pages response headers (https://developers.cloudflare.com/pages/configuration/headers/)
 
+# Tell browsers to always use HTTPS for this site (6 months).
+/*
+  Strict-Transport-Security: max-age=15552000
+
 # Keep the Cloudflare preview address out of search results.
 # The site's only indexable domain is https://sanjeev.site
 https://:project.pages.dev/*

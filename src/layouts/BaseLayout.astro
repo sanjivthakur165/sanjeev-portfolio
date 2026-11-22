@@ -37,9 +37,12 @@ const {
   noindex = false
 } = Astro.props;
 
-const pageTitle = title
-  ? `${title} | ${siteConfig.siteName}`
-  : siteConfig.defaultTitle;
+// Add the "| Sanjeev Thakur" suffix only when the title doesn't already name him.
+const pageTitle = !title
+  ? siteConfig.defaultTitle
+  : title.includes(siteConfig.siteName)
+    ? title
+    : `${title} | ${siteConfig.siteName}`;
 
 const path = pagePath(canonicalPath || '/');
 const canonicalUrl = pageUrl(path);
