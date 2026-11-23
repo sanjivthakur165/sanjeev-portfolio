@@ -1,7 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { Info, CircleCheck, CircleAlert } from 'lucide-astro';
 import { profileData } from '../data/profile';
+import { contactForm } from '../data/contact-form';
+
+const formReady = Boolean(contactForm.web3formsKey);
 
 const crumbs = [
   { name: 'Contact', url: '/contact/' }
@@ -48,15 +52,36 @@ const crumbs = [
           </p>
         </div>
 
-        <!-- Local Development Backend Notice -->
-        <div class="p-4 rounded-xl bg-rose-50 dark:bg-night-ocean/80 border border-rose-200 dark:border-night-coral/30 mb-8 flex items-start space-x-3 text-xs text-rose-900 dark:text-night-light">
-          <span class="text-base flex-shrink-0">ℹ️</span>
-          <p class="leading-relaxed">
-            <strong>Heads up:</strong> this form isn't connected yet. It will be once the site is live. Until then, please email me at <a href={`mailto:${profileData.email}`} class="font-bold underline text-rose-700 dark:text-night-coral">{profileData.email}</a>.
-          </p>
+        <div class="p-4 rounded-xl bg-rose-50 dark:bg-night-ocean/80 border border-rose-200 dark:border-night-coral/30 mb-8 flex items-start gap-3 text-xs text-rose-900 dark:text-night-light">
+          <Info class="w-4 h-4 mt-0.5 flex-shrink-0 text-rose-500 dark:text-night-coral" aria-hidden="true" />
+          {formReady ? (
+            <p class="leading-relaxed">
+              Your message goes straight to my inbox and I'll reply by email. You can also write to me directly at <a href={`mailto:${profileData.email}`} class="font-bold underline text-rose-700 dark:text-night-coral">{profileData.email}</a>.
+            </p>
+          ) : (
+            <p class="leading-relaxed">
+              <strong>Heads up:</strong> I'm still connecting this form. Until it's ready, please email me at <a href={`mailto:${profileData.email}`} class="font-bold underline text-rose-700 dark:text-night-coral">{profileData.email}</a>.
+            </p>
+          )}
         </div>
 
-        <form id="contact-form" class="space-y-6">
+        <form
+          id="contact-form"
+          class="space-y-6"
+          method="POST"
+          action={formReady ? contactForm.endpoint : undefined}
+          data-ready={formReady ? 'true' : 'false'}
+          data-endpoint={contactForm.endpoint}
+        >
+          {formReady && (
+            <>
+              <input type="hidden" name="access_key" value={contactForm.web3formsKey} />
+              <input type="hidden" name="from_name" value={contactForm.fromName} />
+              <input type="hidden" name="redirect" value={contactForm.redirectAfterSend} />
+              <!-- Spam trap: people never see or tick this box. -->
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            </>
+          )}
           <div>
             <label for="name" class="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-night-muted mb-2">
               Full Name <span class="text-rose-500 dark:text-night-pink">*</span>
@@ -116,18 +141,26 @@ const crumbs = [
           <div class="pt-2">
             <button
               type="submit"
-              class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-magenta dark:via-night-pink dark:to-night-cyan hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-magenta dark:hover:to-night-pink shadow-lg shadow-rose-500/25 dark:shadow-night-magenta/30 transition-all transform hover:-translate-y-0.5"
+              id="contact-submit"
+              class="disabled:opacity-60 disabled:cursor-wait w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-orange-400 dark:from-night-magenta dark:via-night-pink dark:to-night-cyan hover:from-rose-600 hover:to-orange-500 dark:hover:from-night-magenta dark:hover:to-night-pink shadow-lg shadow-rose-500/25 dark:shadow-night-magenta/30 transition-all transform hover:-translate-y-0.5"
             >
-              Send Message
+              <span id="contact-submit-label">Send Message</span>
               <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
               </svg>
             </button>
           </div>
 
-          <!-- Interactive Client Notification Box (Triggered via JS) -->
-          <div id="form-feedback" class="hidden p-4 rounded-xl bg-emerald-50 dark:bg-night-ocean/90 border border-emerald-200 dark:border-night-cyan/40 text-xs text-emerald-800 dark:text-night-light">
-            <strong>Thanks!</strong> The form is still a demo, so please also email me at <a href={`mailto:${profileData.email}`} class="underline font-bold text-emerald-900 dark:text-night-cyan">{profileData.email}</a> so I don't miss it.
+          <!-- Result messages (shown by the script below) -->
+          <div role="status" aria-live="polite">
+            <div id="form-success" class="hidden p-4 rounded-xl bg-emerald-50 dark:bg-night-ocean/90 border border-emerald-200 dark:border-night-cyan/40 text-sm text-emerald-800 dark:text-night-light items-start gap-3">
+              <CircleCheck class="w-5 h-5 flex-shrink-0 text-emerald-600 dark:text-night-cyan" aria-hidden="true" />
+              <p><strong>Thanks, your message is on its way.</strong> I'll reply to the email address you gave.</p>
+            </div>
+            <div id="form-error" class="hidden p-4 rounded-xl bg-rose-50 dark:bg-night-ocean/90 border border-rose-200 dark:border-night-coral/40 text-sm text-rose-900 dark:text-night-light items-start gap-3">
+              <CircleAlert class="w-5 h-5 flex-shrink-0 text-rose-600 dark:text-night-coral" aria-hidden="true" />
+              <p><strong>Sorry, that didn't send.</strong> <span id="form-error-detail"></span> Please email me at <a href={`mailto:${profileData.email}`} class="underline font-bold">{profileData.email}</a> instead.</p>
+            </div>
           </div>
         </form>
 
@@ -248,14 +281,53 @@ const crumbs = [
 </BaseLayout>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const feedback = document.getElementById('form-feedback');
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('form-success');
+  const error = document.getElementById('form-error');
+  const errorDetail = document.getElementById('form-error-detail');
+  const button = document.getElementById('contact-submit') as HTMLButtonElement | null;
+  const label = document.getElementById('contact-submit-label');
 
-  if (form && feedback) {
-    form.addEventListener('submit', (e) => {
+  const show = (el: HTMLElement | null) => {
+    [success, error].forEach((x) => { x?.classList.add('hidden'); x?.classList.remove('flex'); });
+    el?.classList.remove('hidden');
+    el?.classList.add('flex');
+  };
+
+  // Visitors without JavaScript are redirected back here with ?sent=1.
+  if (new URLSearchParams(location.search).get('sent') === '1') show(success);
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      feedback.classList.remove('hidden');
-      form.reset();
+      if (form.dataset.ready !== 'true') {
+        if (errorDetail) errorDetail.textContent = "The form isn't connected yet.";
+        show(error);
+        return;
+      }
+      if (button) button.disabled = true;
+      if (label) label.textContent = 'Sending...';
+      try {
+        const res = await fetch(form.dataset.endpoint!, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success !== false) {
+          form.reset();
+          show(success);
+        } else {
+          if (errorDetail) errorDetail.textContent = data.message ? `(${data.message})` : '';
+          show(error);
+        }
+      } catch {
+        if (errorDetail) errorDetail.textContent = 'Check your connection and try again.';
+        show(error);
+      } finally {
+        if (button) button.disabled = false;
+        if (label) label.textContent = 'Send Message';
+      }
     });
   }
 </script>
