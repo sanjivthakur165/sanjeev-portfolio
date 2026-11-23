@@ -19,8 +19,8 @@ export const thisWebsite = {
   summary:
     'I rebuilt my portfolio as an SEO project in its own right: a fast static site with a connected knowledge graph, dual sitemaps, an llms.txt file and open doors for AI crawlers, so search engines and AI assistants can recognize and cite me.',
   builtOn: 'November 2026',
-  status: 'Pre-launch · running locally' as string,
-  liveUrl: null as string | null, // set once the custom domain is live
+  status: 'Live' as string,
+  liveUrl: 'https://sanjeev.site' as string | null,
   stack: ['Astro', 'Tailwind CSS', 'TypeScript', 'Lucide icons', 'Schema.org JSON-LD'],
 
   /** Mobile Lighthouse scores (0–100). Fill in from a run against the LIVE site. */
@@ -46,8 +46,9 @@ export const thisWebsite = {
     { date: 'Nov 2026', title: 'Open to AI crawlers', detail: 'robots.txt explicitly welcoming 40+ AI and search crawlers, plus content signals.', done: true },
     { date: 'Nov 2026', title: 'Connected knowledge graph', detail: 'One linked JSON-LD @graph per page: Person, roles, credential, occupation, pages, articles.', done: true },
     { date: 'Nov 2026', title: 'Brand assets', detail: 'Favicon set, Apple touch icon, web manifest and a 1200×630 share image.', done: true },
-    { date: 'Next', title: 'Launch on custom domain', detail: 'Deploy, then submit sitemaps to Google Search Console and Bing Webmaster Tools.', done: false },
-    { date: 'Next', title: 'First Lighthouse + AI baseline', detail: 'Record real scores and the first round of AI assistant checks on this page.', done: false },
+    { date: 'Nov 2026', title: 'Launch on custom domain', detail: 'Live on sanjeev.site via Cloudflare Pages, with sitemaps submitted to Google Search Console and Bing Webmaster Tools.', done: true },
+    { date: 'Nov 2026', title: 'First AI baseline', detail: 'Asked five AI assistants who I am and logged what they said and which sources they cited.', done: true },
+    { date: 'Next', title: 'First Lighthouse scores and rankings', detail: 'Record real Lighthouse scores and the first branded-search positions from Search Console.', done: false },
     { date: 'Next', title: 'First AI citation', detail: 'Track when assistants start naming and citing this site for my name.', done: false },
   ],
 
