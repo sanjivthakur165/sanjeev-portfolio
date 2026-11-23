@@ -38,7 +38,24 @@ export interface GeoCheck {
 const QUESTION = 'Who is Sanjeev Thakur, the SEO Specialist from Bengaluru, India?';
 
 export const geoChecks: GeoCheck[] = [
-  { id: 'chatgpt', assistant: 'ChatGPT', logo: '/images/ai-logos/openai.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
+  {
+    id: 'chatgpt',
+    assistant: 'ChatGPT',
+    logo: '/images/ai-logos/openai.svg',
+    status: 'Shows up',
+    query: QUESTION,
+    checkedOn: '23 Nov 2026',
+    setting: 'Web search on',
+    summary:
+      'Described me as an SEO specialist at vSplash Techlabs in the Greater Bengaluru Area, and listed my on-page, technical, off-page and local SEO work, my interest in AEO and GEO, and my engineering degree from B.A. College of Engineering, Jamshedpur. It also said that other people named Sanjeev Thakur in Bengaluru (at TCS and Wells Fargo) are different people.',
+    sources: ['LinkedIn'],
+    mentionsMe: true,
+    clearIdentity: true,
+    citesLinkedIn: true,
+    citesSite: false,
+    takeaway:
+      'My LinkedIn profile was its main source, and it named my company correctly. It did not find this website yet.',
+  },
   { id: 'claude', assistant: 'Claude', logo: '/images/ai-logos/claude.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
   { id: 'gemini', assistant: 'Gemini', logo: '/images/ai-logos/gemini.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
   { id: 'copilot', assistant: 'Copilot', logo: '/images/ai-logos/copilot.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
