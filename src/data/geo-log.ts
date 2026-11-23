@@ -56,11 +56,78 @@ export const geoChecks: GeoCheck[] = [
     takeaway:
       'My LinkedIn profile was its main source, and it named my company correctly. It did not find this website yet.',
   },
-  { id: 'claude', assistant: 'Claude', logo: '/images/ai-logos/claude.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
-  { id: 'gemini', assistant: 'Gemini', logo: '/images/ai-logos/gemini.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
+  {
+    id: 'claude',
+    assistant: 'Claude',
+    logo: '/images/ai-logos/claude.svg',
+    status: 'Not found',
+    query: QUESTION,
+    checkedOn: '23 Nov 2026',
+    setting: 'Web search on · signed in, memory on',
+    summary:
+      'Said it searched twice and found no LinkedIn page, portfolio or article for an SEO specialist named Sanjeev Thakur in Bengaluru. It listed other people instead (SEO freelancers on Fiverr and Twine, and an SEO trainer) and said none matched the name, role and city.',
+    sources: [],
+    mentionsMe: false,
+    clearIdentity: false,
+    citesLinkedIn: false,
+    citesSite: false,
+    takeaway:
+      'Its web search did not reach my LinkedIn profile. It was signed in to my own account, so the answer is not fully neutral.',
+  },
+  {
+    id: 'gemini',
+    assistant: 'Gemini',
+    logo: '/images/ai-logos/gemini.svg',
+    status: 'Not found',
+    query: QUESTION,
+    checkedOn: '23 Nov 2026',
+    setting: 'Signed in',
+    summary:
+      'Said there is no widely documented public profile for an SEO specialist named Sanjeev Thakur in Bengaluru. It mentioned other people named Sanjeev Thakur in other fields, and two similarly named Bengaluru SEO providers, as different people.',
+    sources: [],
+    mentionsMe: false,
+    clearIdentity: false,
+    citesLinkedIn: false,
+    citesSite: false,
+    takeaway: 'Gemini does not know me yet and cited no sources.',
+  },
   { id: 'copilot', assistant: 'Copilot', logo: '/images/ai-logos/copilot.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
-  { id: 'ai-overviews', assistant: 'Google AI Overviews', logo: '/images/ai-logos/google.svg', status: 'Not checked yet', query: 'Sanjeev Thakur SEO Specialist', sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
-  { id: 'perplexity', assistant: 'Perplexity', logo: '/images/ai-logos/perplexity.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
+  {
+    id: 'ai-overviews',
+    assistant: 'Google AI Overviews',
+    logo: '/images/ai-logos/google.svg',
+    status: 'Partly',
+    query: QUESTION,
+    checkedOn: '23 Nov 2026',
+    setting: 'Google Search · signed in',
+    summary:
+      'Said no single person clearly matches, then listed my LinkedIn profile first: Greater Bengaluru Area, SEO since August 2020, vSplash Techlabs, and a B.Tech in Computer Science from B.A. College of Engineering, Jamshedpur. It also listed a Bangalore SEO agency and other SEO professionals named Sanjeev Thakur in Noida and Delhi.',
+    sources: ['LinkedIn'],
+    mentionsMe: true,
+    clearIdentity: false,
+    citesLinkedIn: true,
+    citesSite: false,
+    takeaway:
+      'It found and cited my LinkedIn, but put me next to other people with similar names. In the normal results my LinkedIn ranked second, behind a different Sanjeev Thakur.',
+  },
+  {
+    id: 'perplexity',
+    assistant: 'Perplexity',
+    logo: '/images/ai-logos/perplexity.svg',
+    status: 'Shows up',
+    query: QUESTION,
+    checkedOn: '23 Nov 2026',
+    setting: 'Web search on · signed out',
+    summary:
+      'Named linkedin.com/in/sanjeev165 as the best match and described my roles at vSplash Techlabs (since September 2023) and Baweja Media, my B.Tech in Computer Science, my Semrush certification, my on-page, technical and off-page work, and the team of four I mentor. It kept me apart from SEO namesakes in Mumbai, Thane and Chandigarh.',
+    sources: ['LinkedIn'],
+    mentionsMe: true,
+    clearIdentity: true,
+    citesLinkedIn: true,
+    citesSite: false,
+    takeaway:
+      'The most complete answer so far, built almost entirely from LinkedIn. It said it found no personal website, so this site is not indexed there yet.',
+  },
 ];
 
 /** Optional one-line note about movement since the previous check (shown under the sources chart). */
