@@ -101,7 +101,7 @@ export const geoChecks: GeoCheck[] = [
     setting: 'Web search on · signed in',
     summary:
       'Described me as an SEO specialist at vSplash Techlabs in the Greater Bengaluru Area, working in SEO since August 2020. It listed my keyword research, title and meta work, technical fixes for broken links and indexing, and the team I mentor, plus my Computer Science studies at B.A. College of Engineering, Jamshedpur. It also found a "Sanjeev Business Solutions" website and said it could not confirm that site was mine.',
-    sources: ['LinkedIn', 'Sanjeev Business Solutions'],
+    sources: ['LinkedIn'],
     mentionsMe: true,
     clearIdentity: true,
     citesLinkedIn: true,
