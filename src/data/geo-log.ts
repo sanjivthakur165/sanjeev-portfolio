@@ -148,4 +148,5 @@ export const geoChecks: GeoCheck[] = [
 ];
 
 /** Optional one-line note about movement since the previous check (shown under the sources chart). */
-export const geoTrendNote: string | null = null;
+export const geoTrendNote: string | null =
+  'Baseline (23–26 Nov 2026): four of six assistants found me, and all four used LinkedIn. None cited this website yet, so LinkedIn is the row to watch for now.';
