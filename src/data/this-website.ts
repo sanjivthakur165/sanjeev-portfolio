@@ -47,7 +47,7 @@ export const thisWebsite = {
     { date: 'Nov 2026', title: 'Connected knowledge graph', detail: 'One linked JSON-LD @graph per page: Person, roles, credential, occupation, pages, articles.', done: true },
     { date: 'Nov 2026', title: 'Brand assets', detail: 'Favicon set, Apple touch icon, web manifest and a 1200×630 share image.', done: true },
     { date: 'Nov 2026', title: 'Launch on custom domain', detail: 'Live on sanjeev.site via Cloudflare Pages, with sitemaps submitted to Google Search Console and Bing Webmaster Tools.', done: true },
-    { date: 'Nov 2026', title: 'First AI baseline', detail: 'Asked five AI assistants who I am and logged what they said and which sources they cited.', done: true },
+    { date: 'Nov 2026', title: 'First AI baseline', detail: 'Asked six AI assistants who I am and logged what they said and which sources they cited.', done: true },
     { date: 'Next', title: 'First Lighthouse scores and rankings', detail: 'Record real Lighthouse scores and the first branded-search positions from Search Console.', done: false },
     { date: 'Next', title: 'First AI citation', detail: 'Track when assistants start naming and citing this site for my name.', done: false },
   ],

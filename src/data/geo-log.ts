@@ -91,7 +91,24 @@ export const geoChecks: GeoCheck[] = [
     citesSite: false,
     takeaway: 'Gemini does not know me yet and cited no sources.',
   },
-  { id: 'copilot', assistant: 'Copilot', logo: '/images/ai-logos/copilot.svg', status: 'Not checked yet', query: QUESTION, sources: [], mentionsMe: null, clearIdentity: null, citesLinkedIn: null, citesSite: null },
+  {
+    id: 'copilot',
+    assistant: 'Copilot',
+    logo: '/images/ai-logos/copilot.svg',
+    status: 'Shows up',
+    query: QUESTION,
+    checkedOn: '26 Nov 2026',
+    setting: 'Web search on · signed in',
+    summary:
+      'Described me as an SEO specialist at vSplash Techlabs in the Greater Bengaluru Area, working in SEO since August 2020. It listed my keyword research, title and meta work, technical fixes for broken links and indexing, and the team I mentor, plus my Computer Science studies at B.A. College of Engineering, Jamshedpur. It also found a "Sanjeev Business Solutions" website and said it could not confirm that site was mine.',
+    sources: ['LinkedIn', 'Sanjeev Business Solutions'],
+    mentionsMe: true,
+    clearIdentity: true,
+    citesLinkedIn: true,
+    citesSite: false,
+    takeaway:
+      'Every fact about me came from my LinkedIn profile. It did not find this website, and it did not merge me with the unrelated business site.',
+  },
   {
     id: 'ai-overviews',
     assistant: 'Google AI Overviews',
